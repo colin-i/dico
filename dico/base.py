@@ -9,6 +9,7 @@ def write(win):
 	dim=win.get_default_size()
 	d['width']=dim.width
 	d['height']=dim.height
+	d['max']=win.is_maximized()
 	with open(get_root_file(), "w") as write_file:
 		json.dump(d, write_file)
 
@@ -17,5 +18,7 @@ def read(win):
 		with open(get_root_file()) as f:
 			d=json.load(f)
 			win.set_default_size(d['width'],d['height'])
+			if(d['max']):
+				win.maximize()
 	except Exception:
 		pass
