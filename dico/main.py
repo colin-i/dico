@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import gi
-import subprocess
-
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk,GLib
+import subprocess
 
 import base
 import limit
+import layout 
 
 def quit(widget, mainloop):
 	base.write(widget)
@@ -26,6 +26,7 @@ def main():
 	win.connect('close-request', quit, mainloop)
 	global daem
 	daem=subprocess.Popen('eiskaltdcpp-daemon')#,'-Dv']
+	layout.show(win)
 	win.show()
 	mainloop.run()
 
