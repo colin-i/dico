@@ -1,5 +1,5 @@
 import gi
-from gi.repository import GLib
+from gi.repository import GLib,Gtk
 
 import reqs
 
@@ -26,3 +26,24 @@ def callba(win):
 		win.close()
 		return False
 	return True
+
+def sets():
+	f=Gtk.Frame()
+	f.set_label("Close program when upload is greater than Value in bytes")
+	g=Gtk.Grid()
+	lb=Gtk.Label()
+	lb.set_halign(Gtk.Align.START)
+	lb.set_text("Interval time to verify in minutes (0=disable)")
+	g.attach(lb,0,0,1,1)
+	en=Gtk.Entry()
+	en.set_hexpand(True)
+	g.attach(en,1,0,1,1)
+	lb=Gtk.Label()
+	lb.set_halign(Gtk.Align.START)
+	lb.set_text("Value")
+	g.attach(lb,0,1,1,1)
+	en=Gtk.Entry()
+	en.set_hexpand(True)
+	g.attach(en,1,1,1,1)
+	f.set_child(g)
+	return f
