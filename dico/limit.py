@@ -3,14 +3,17 @@ from gi.repository import GLib,Gtk
 
 import reqs
 
-time=1
-#limit=1
+time=Gtk.EntryBuffer(text="0")
+limit=Gtk.EntryBuffer(text='1000000000')
 timer=0
+def timer_get():
+	return int(time.get_text())
 
 def open(win):
-	if time>0:
+	t=timer_get()
+	if t>0:
 		global timer
-		timer=GLib.timeout_add_seconds(time*60,callba,win)
+		timer=GLib.timeout_add_seconds(t*60,callba,win)
 
 def close():
 	global timer
@@ -20,7 +23,7 @@ def close():
 
 def callba(win):
 	res=reqs.req("show.ratio")
-	if int(res['up_bytes'])>(10):
+	if int(res['up_bytes'])>(int(limit.get_text())):
 		global timer
 		timer=0
 		win.close()
@@ -35,15 +38,26 @@ def sets():
 	lb.set_halign(Gtk.Align.START)
 	lb.set_text("Interval time to verify in minutes (0=disable)")
 	g.attach(lb,0,0,1,1)
-	en=Gtk.Entry()
+	en=Gtk.Entry.new_with_buffer(time)
 	en.set_hexpand(True)
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label()
 	lb.set_halign(Gtk.Align.START)
 	lb.set_text("Value")
 	g.attach(lb,0,1,1,1)
-	en=Gtk.Entry()
+	en=Gtk.Entry.new_with_buffer(limit)
 	en.set_hexpand(True)
 	g.attach(en,1,1,1,1)
 	f.set_child(g)
 	return f
+def verifs(w):
+	close()
+	open(w)
+
+def store(d):
+	d['upload_time']=int(time.get_text())
+	d['upload_limit']=int(limit.get_text())
+
+def restore(d):
+	time.set_text(str(d['upload_time']))
+	limit.set_text(str(d['upload_limit']))
