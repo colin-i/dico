@@ -3,6 +3,7 @@ from gi.repository import GLib,Gtk
 
 import reqs
 
+start=0
 time=Gtk.EntryBuffer(text="0")
 limit=Gtk.EntryBuffer(text='1000000000')
 timer=0
@@ -23,7 +24,7 @@ def close():
 
 def callba(win):
 	res=reqs.req("show.ratio")
-	if int(res['up_bytes'])>(int(limit.get_text())):
+	if int(res['up_bytes'])>(start+int(limit.get_text())):
 		global timer
 		timer=0
 		win.close()
