@@ -2,6 +2,7 @@ import gi
 from gi.repository import GLib,Gtk
 
 import reqs
+import log
 
 start=0
 time=Gtk.EntryBuffer(text="0")
@@ -24,7 +25,10 @@ def close():
 
 def callba(win):
 	res=reqs.req("show.ratio")
-	if int(res['up_bytes'])>(start+int(limit.get_text())):
+	upB=int(res['up_bytes'])-start
+	log.add(upB)
+	if upB>int(limit.get_text()):
+		print("Upload limit. Window close.")
 		global timer
 		timer=0
 		win.close()
@@ -60,5 +64,5 @@ def store(d):
 	d['upload_limit']=int(limit.get_text())
 
 def restore(d):
-	time.set_text(str(d['upload_time']))
-	limit.set_text(str(d['upload_limit']))
+	time.set_text(str(d['upload_time']),-1)
+	limit.set_text(str(d['upload_limit']),-1)
