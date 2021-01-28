@@ -17,9 +17,7 @@ def sets():
 	return bx
 
 def store(d):
-	d['log_file']=file.get_text()
-	if f:
-		f.close()
+	d['log_file']=finish()
 def restore(d):
 	log=d['log_file']
 	if len(log)>0:
@@ -31,3 +29,16 @@ def add(obj):
 	if f:
 		f.write(obj.__str__()+"\n")
 		f.flush()
+
+def finish():
+	global f
+	if f:
+		f.close()
+		f=None
+	return file.get_text()
+
+def reset():
+	d=finish()
+	if len(d)>0:
+		global f
+		f=open(d,"a")

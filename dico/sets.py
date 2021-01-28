@@ -4,10 +4,13 @@ from gi.repository import Gtk
 
 import limit
 import log
+import stor2
 
 def ini(b,win):
 	d=Gtk.Dialog(title="Settings",transient_for=win)
 	d.set_modal(True)
+	d.add_button("_OK",Gtk.ResponseType.NONE)
+	d.connect("response",verifs,win)
 	if win.is_maximized():
 		d.maximize()
 	else:
@@ -17,7 +20,10 @@ def ini(b,win):
 	bx.set_orientation(Gtk.Orientation.VERTICAL)
 	bx.append(limit.sets())
 	bx.append(log.sets())
-	d.connect('close-request', verifs, win)
+	bx.append(stor2.sets())
 	d.show()
-def verifs(d,w):
+def verifs(d,r,w):
 	limit.verifs(w)
+	log.reset()
+	stor2.ini()
+	d.close()
