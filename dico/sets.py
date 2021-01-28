@@ -5,6 +5,7 @@ from gi.repository import Gtk
 import limit
 import log
 import stor2
+import hubs
 
 def ini(b,win):
 	d=Gtk.Dialog(title="Settings",transient_for=win)
@@ -21,6 +22,7 @@ def ini(b,win):
 	bx.append(limit.sets())
 	bx.append(log.sets())
 	bx.append(stor2.sets())
+	bx.append(hubs.sets())
 	d.show()
 def verifs(d,r,w):
 	limit.verifs(w)
