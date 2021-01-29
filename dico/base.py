@@ -4,9 +4,12 @@ import json
 import limit
 import log
 import stor2
+import hubs
 
-def get_root_file():
-	return os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.json')
+def get_root_conf():
+	return get_root_file('config.json')
+def get_root_file(f):
+	return os.path.join(os.path.dirname(os.path.realpath(__file__)),f)
 
 def write(win):
 	d={}
@@ -17,12 +20,13 @@ def write(win):
 	limit.store(d)
 	log.store(d)
 	stor2.store(d)
-	with open(get_root_file(), "w") as write_file:
+	hubs.store(d)
+	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
 
 def read(win):
 	try:
-		with open(get_root_file()) as f:
+		with open(get_root_conf()) as f:
 			d=json.load(f)
 			win.set_default_size(d['width'],d['height'])
 			if(d['max']):
@@ -30,5 +34,6 @@ def read(win):
 			limit.restore(d)
 			log.restore(d)
 			stor2.restore(d)
+			hubs.restore(d)
 	except Exception:
 		pass

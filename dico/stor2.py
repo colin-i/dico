@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 import os.path
 
 import limit
+import sets
 
 file=Gtk.EntryBuffer(text='${HOME}/.config/eiskaltdc++/DCPlusPlus.xml')
 
@@ -14,16 +15,8 @@ def ini():
 	root = tree.getroot()
 	limit.start=int(root.find('Settings').find('TotalUpload').text)
 
-def sets():
-	bx=Gtk.Box()
-	lb=Gtk.Label()
-	lb.set_halign(Gtk.Align.START)
-	lb.set_text("External data file location")
-	bx.append(lb)
-	en=Gtk.Entry.new_with_buffer(file)
-	en.set_hexpand(True)
-	bx.append(en)
-	return bx
+def show():
+	return sets.entry("External data file location",file)
 def store(d):
 	d['ext_file']=file.get_text()
 def restore(d):

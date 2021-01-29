@@ -6,9 +6,11 @@ from gi.repository import Gtk,GLib
 import subprocess
 
 import base
-import limit
 import layout 
+import limit
+import log
 import stor2
+import hubs
 
 def quit(widget, mainloop):
 	base.write(widget)
@@ -24,7 +26,9 @@ def main():
 	win.set_title('Direct Connect')
 	base.read(win)
 	limit.open(win)
+	log.ini()
 	stor2.ini()
+	hubs.ini()
 	win.connect('close-request', quit, mainloop)
 	global daem
 	daem=subprocess.Popen('eiskaltdcpp-daemon')#,'-Dv']

@@ -35,7 +35,7 @@ def callba(win):
 		return False
 	return True
 
-def sets():
+def show():
 	f=Gtk.Frame()
 	f.set_label("Close program when upload is greater than Value in bytes")
 	g=Gtk.Grid()
