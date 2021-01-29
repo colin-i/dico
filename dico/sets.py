@@ -29,7 +29,7 @@ def verifs(d,r,w):
 	log.reset()
 	stor2.ini()
 	hubs.ini()
-	d.close()
+	d.destroy()#close is calling here twice
 
 def entry(txt,buf):
 	bx=Gtk.Box()

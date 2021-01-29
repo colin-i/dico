@@ -7,6 +7,7 @@ import urllib.request
 import os.path
 
 import sets
+import base
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
@@ -28,11 +29,10 @@ def ini():
 	try:
 		tree = ET.ElementTree(file=urllib.request.urlopen(addr.get_text()))
 	except Exception:
-		t=file.get_text()
+		t=os.path.expandvars(file.get_text())
 		d=os.path.dirname(t)
 		if d=="":
-			f=base.get_root_file(t)
+			tree = ET.parse(base.get_root_file(t))
 		else:
-			f=os.path.expandvars(t)
-		tree = ET.parse(f)
+			tree = ET.parse(t)
 	root = tree.getroot()
