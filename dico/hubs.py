@@ -69,6 +69,6 @@ def ini():
 			tree = ET.parse(t)
 	root = tree.getroot()
 	hbs=root.find("Hubs").findall("Hub")
-	max=int(lim.get_text())
-	for i in range(max):
+	mx=min(int(lim.get_text()),len(hbs))
+	for i in range(mx):
 		list.append([hbs[i].attrib['Address']])
