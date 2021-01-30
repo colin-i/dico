@@ -15,7 +15,7 @@ def ini():
 	root = tree.getroot()
 	limit.start=int(root.find('Settings').find('TotalUpload').text)
 
-def show():
+def confs():
 	return sets.entry("External data file location",file)
 def store(d):
 	d['ext_file']=file.get_text()

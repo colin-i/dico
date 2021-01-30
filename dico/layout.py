@@ -3,6 +3,7 @@ import gi
 from gi.repository import Gtk
 
 import sets
+import hubs
 
 def show(w):
 	bx=Gtk.Box()
@@ -11,6 +12,6 @@ def show(w):
 	b.connect('clicked', sets.ini, w)
 	bx.append(b)
 	pags=Gtk.Notebook()
-	pags.append_page(Gtk.TreeView(),Gtk.Label(label="HubList"))
+	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
 	bx.append(pags)
 	w.set_child(bx)

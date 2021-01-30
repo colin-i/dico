@@ -25,6 +25,7 @@ def main():
 	win = Gtk.Window()
 	win.set_title('Direct Connect')
 	base.read(win)
+	layout.show(win)
 	limit.open(win)
 	log.ini()
 	stor2.ini()
@@ -32,7 +33,6 @@ def main():
 	win.connect('close-request', quit, mainloop)
 	global daem
 	daem=subprocess.Popen('eiskaltdcpp-daemon')#,'-Dv']
-	layout.show(win)
 	win.show()
 	mainloop.run()
 

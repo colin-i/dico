@@ -19,16 +19,16 @@ def ini(b,win):
 		d.set_default_size(dim.width,dim.height)
 	bx=d.get_content_area()
 	bx.set_orientation(Gtk.Orientation.VERTICAL)
-	bx.append(limit.show())
-	bx.append(log.show())
-	bx.append(stor2.show())
-	bx.append(hubs.show())
+	bx.append(limit.confs())
+	bx.append(log.confs())
+	bx.append(stor2.confs())
+	bx.append(hubs.confs())
 	d.show()
 def verifs(d,r,w):
 	limit.verifs(w)
 	log.reset()
 	stor2.ini()
-	hubs.ini()
+	hubs.reini()
 	d.destroy()#close is calling here twice
 
 def entry(txt,buf):

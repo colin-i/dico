@@ -7,7 +7,7 @@ f=None
 
 import sets
 
-def show():
+def confs():
 	return sets.entry("Log file location",file)
 def store(d):
 	d['log_file']=finish()
