@@ -1,6 +1,6 @@
 
 import gi
-from gi.repository import Gtk,GObject
+from gi.repository import Gtk
 
 import xml.etree.ElementTree as ET
 import urllib.request
@@ -12,7 +12,7 @@ addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
 lim=Gtk.EntryBuffer(text='200')
 
-list=Gtk.ListStore(GObject.TYPE_STRING)
+list=Gtk.ListStore(str,int,str)
 
 def confs():
 	f=Gtk.Frame(label="Hub List")
@@ -44,16 +44,20 @@ def reini():
 	list.clear()
 	ini()
 
+def col(tr,tx,ix):
+	renderer = Gtk.CellRendererText()
+	column = Gtk.TreeViewColumn()
+	column.set_title(tx)
+	column.pack_start(renderer,True)
+	column.add_attribute(renderer, "text", ix)
+	tr.append_column(column)
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
 	tree=Gtk.TreeView.new_with_model(list)
-	renderer = Gtk.CellRendererText()
-	column = Gtk.TreeViewColumn()
-	column.set_title('Address')
-	column.pack_start(renderer,True)
-	column.add_attribute(renderer, "text", 0)
-	tree.append_column(column)
+	col(tree,'Address',0)
+	col(tree,'Users',1)
+	col(tree,'Country',2)
 	wn.set_child(tree)
 	return wn
 
@@ -71,4 +75,5 @@ def ini():
 	hbs=root.find("Hubs").findall("Hub")
 	mx=min(int(lim.get_text()),len(hbs))
 	for i in range(mx):
-		list.append([hbs[i].attrib['Address']])
+		attrs=hbs[i].attrib
+		list.append([attrs['Address'],int(attrs['Users']),attrs['Country']])
