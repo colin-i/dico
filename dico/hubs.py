@@ -13,6 +13,8 @@ file=Gtk.EntryBuffer(text='hublist.xml')
 lim=Gtk.EntryBuffer(text='200')
 
 list=Gtk.ListStore(str,int,str)
+sort=Gtk.TreeModelSort.new_with_model(list)
+tree=Gtk.TreeView.new_with_model(sort)
 
 def confs():
 	f=Gtk.Frame(label="Hub List")
@@ -44,17 +46,24 @@ def reini():
 	list.clear()
 	ini()
 
+def clk(b,ix):
+	n=sort.get_sort_column_id()
+	if n[1]!=Gtk.SortType.ASCENDING:
+		sort.set_sort_column_id(ix,Gtk.SortType.ASCENDING)
+	else:
+		sort.set_sort_column_id(ix,Gtk.SortType.DESCENDING)
 def col(tr,tx,ix):
 	renderer = Gtk.CellRendererText()
 	column = Gtk.TreeViewColumn()
 	column.set_title(tx)
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", ix)
+	b=column.get_button()
+	b.connect('clicked', clk, ix)
 	tr.append_column(column)
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	tree=Gtk.TreeView.new_with_model(list)
 	col(tree,'Address',0)
 	col(tree,'Users',1)
 	col(tree,'Country',2)
