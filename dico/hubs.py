@@ -14,7 +14,6 @@ lim=Gtk.EntryBuffer(text='200')
 
 list=Gtk.ListStore(str,int,str)
 sort=Gtk.TreeModelSort.new_with_model(list)
-tree=Gtk.TreeView.new_with_model(sort)
 
 def confs():
 	f=Gtk.Frame(label="Hub List")
@@ -64,6 +63,7 @@ def col(tr,tx,ix):
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
+	tree=Gtk.TreeView.new_with_model(sort)
 	col(tree,'Address',0)
 	col(tree,'Users',1)
 	col(tree,'Country',2)
