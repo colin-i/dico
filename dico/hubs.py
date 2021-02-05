@@ -16,6 +16,12 @@ lim=Gtk.EntryBuffer(text='200')
 list=Gtk.ListStore(str,int,str)
 sort=Gtk.TreeModelSort.new_with_model(list)
 
+from enum import IntEnum
+class COLUMNS(IntEnum):
+	ADDRESS=0
+	USERS=1
+	COUNTRY=2
+
 def confs():
 	f=Gtk.Frame(label="Hub List")
 	g=Gtk.Grid()
@@ -65,9 +71,9 @@ def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
 	tree=Gtk.TreeView.new_with_model(sort)
-	col(tree,'Address',0)
-	col(tree,'Users',1)
-	col(tree,'Country',2)
+	col(tree,'Address',COLUMNS.ADDRESS)
+	col(tree,'Users',COLUMNS.USERS)
+	col(tree,'Country',COLUMNS.COUNTRY)
 	tree.connect("row-activated",hubscon.add,sort)
 	tree.set_activate_on_single_click(True)
 	wn.set_child(tree)
