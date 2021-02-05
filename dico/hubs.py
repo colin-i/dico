@@ -7,6 +7,7 @@ import urllib.request
 import os.path
 
 import base
+import hubscon
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
@@ -67,6 +68,8 @@ def show():
 	col(tree,'Address',0)
 	col(tree,'Users',1)
 	col(tree,'Country',2)
+	tree.connect("row-activated",hubscon.add,sort)
+	tree.set_activate_on_single_click(True)
 	wn.set_child(tree)
 	return wn
 
