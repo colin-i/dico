@@ -30,7 +30,6 @@ def verifs(d,r,w):
 	limit.verifs(w)
 	log.reset()
 	stor2.ini()
-	nick.reset()
 	hubs.reini()
 	d.destroy()#close is calling here twice
 

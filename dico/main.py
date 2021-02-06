@@ -13,11 +13,11 @@ import stor2
 import hubs
 
 def quit(widget, mainloop):
-	base.write(widget)
-	mainloop.quit()
-	limit.close()
 	daem.terminate()
 	daem.wait()
+	base.write(widget)
+	limit.close()
+	mainloop.quit()
 	return True
 
 def main():
@@ -32,7 +32,8 @@ def main():
 	hubs.ini()
 	win.connect('close-request', quit, mainloop)
 	global daem
-	daem=subprocess.Popen('eiskaltdcpp-daemon')#,'-Dv']
+	dastr='eiskaltdcpp-daemon'#,'-Dv']
+	daem=subprocess.Popen(dastr)
 	win.show()
 	mainloop.run()
 
