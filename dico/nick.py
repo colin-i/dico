@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 import sets
 import stor2
 
-name=Gtk.EntryBuffer(text='')
+name=Gtk.EntryBuffer(text='dico')
 
 def confs():
 	return sets.entry("Nick Name",name)
