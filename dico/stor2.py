@@ -9,12 +9,17 @@ import limit
 import sets
 
 file=Gtk.EntryBuffer(text='${HOME}/.config/eiskaltdc++/DCPlusPlus.xml')
+set='Settings'
+
+def get_file():
+	return os.path.expandvars(file.get_text())
 
 def ini():
-	tree = ET.parse(os.path.expandvars(file.get_text()))
-	root = tree.getroot()
-	limit.start=int(root.find('Settings').find('TotalUpload').text)
-
+	f = get_file()
+	t = ET.parse(f)
+	root = t.getroot()
+	s = root.find(set)
+	limit.start=int(s.find('TotalUpload').text)
 def confs():
 	return sets.entry("External data file location",file)
 def store(d):

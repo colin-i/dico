@@ -1,13 +1,23 @@
 import requests
 import random
 
+url = "http://localhost:3121"
+jsonrpcversion="2.0"
 def req(a):
-	url = "http://localhost:3121"
 	payload = {
 		"id" : random.randint(0,(2**16)-1),
-		"jsonrpc" : "2.0",
+		"jsonrpc" : jsonrpcversion,
 		"method" : a,
-		"version" : "2.0"
+		"version" : jsonrpcversion
 	}
 	response = requests.post(url, json=payload).json()
 	return response['result']
+def requ(a,para):
+	payload = {
+		"id" : random.randint(0,(2**16)-1),
+		"jsonrpc" : jsonrpcversion,
+		"method" : a,
+		"version" : jsonrpcversion,
+		"params" : para
+	}
+	requests.post(url, json=payload).json()

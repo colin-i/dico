@@ -5,6 +5,7 @@ from gi.repository import Gtk
 import limit
 import log
 import stor2
+import nick
 import hubs
 
 def ini(b,win):
@@ -22,12 +23,14 @@ def ini(b,win):
 	bx.append(limit.confs())
 	bx.append(log.confs())
 	bx.append(stor2.confs())
+	bx.append(nick.confs())
 	bx.append(hubs.confs())
 	d.show()
 def verifs(d,r,w):
 	limit.verifs(w)
 	log.reset()
 	stor2.ini()
+	nick.reset()
 	hubs.reini()
 	d.destroy()#close is calling here twice
 

@@ -4,6 +4,7 @@ import json
 import limit
 import log
 import stor2
+import nick
 import hubs
 
 def get_root_conf():
@@ -20,6 +21,7 @@ def write(win):
 	limit.store(d)
 	log.store(d)
 	stor2.store(d)
+	nick.store(d)
 	hubs.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
@@ -34,6 +36,7 @@ def read(win):
 			limit.restore(d)
 			log.restore(d)
 			stor2.restore(d)
+			nick.restore(d)
 			hubs.restore(d)
 	except Exception:
 		pass
