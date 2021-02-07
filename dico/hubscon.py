@@ -9,11 +9,6 @@ import reqs
 
 cons=[]
 recons=[]
-def con(a):
-	for x in recons:
-		if x==a:
-			return
-	acon(a)
 def acon(a):
 	try:
 		reqs.requ("hub.add",{"enc" : "", "huburl" : a})
@@ -28,9 +23,15 @@ def bcon(a):
 def add(tree,path,column,model):
 	it=model.get_iter(path)
 	adr=model.get_value(it,hubs.COLUMNS.ADDRESS)
-	con(adr)
+	for x in cons:
+		if x==adr:
+			return
 	cons.append(adr)
+	acon(adr)
 
 def recon():
 	for x in cons:
-		con(x)
+		for y in recons:
+			if x==y:
+				return
+		acon(x)
