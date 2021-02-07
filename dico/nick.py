@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 import sets
 import stor2
 import main
+import hubscon
 
 name=Gtk.EntryBuffer(text='dico')
 
@@ -36,3 +37,4 @@ def verifs(reset):
 		t.write(f)
 		if reset:
 			main.dopen()
+			hubscon.recon()
