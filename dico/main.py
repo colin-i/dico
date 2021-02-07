@@ -10,11 +10,17 @@ import layout
 import limit
 import log
 import stor2
+import nick
 import hubs
 
+def dopen():
+	dastr='eiskaltdcpp-daemon'#,'-Dv']
+	nick.daem=subprocess.Popen(dastr)#otherwise, cannot make it works
+def dclose():
+	nick.daem.terminate()
+	nick.daem.wait()
 def quit(widget, mainloop):
-	daem.terminate()
-	daem.wait()
+	dclose()
 	base.write(widget)
 	limit.close()
 	mainloop.quit()
@@ -29,11 +35,10 @@ def main():
 	limit.open(win)
 	log.ini()
 	stor2.ini()
+	nick.verifs(False)
 	hubs.ini()
 	win.connect('close-request', quit, mainloop)
-	global daem
-	dastr='eiskaltdcpp-daemon'#,'-Dv']
-	daem=subprocess.Popen(dastr)
+	dopen()
 	win.show()
 	mainloop.run()
 
