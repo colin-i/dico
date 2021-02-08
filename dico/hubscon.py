@@ -10,7 +10,7 @@ import reqs
 cons=[]
 recons=[]
 class reconnect():
-	def __init__(adr):
+	def __init__(self,adr):
 		self.adr=adr
 
 def acon(a):
