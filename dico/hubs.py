@@ -13,7 +13,8 @@ addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
 lim=Gtk.EntryBuffer(text='200')
 
-list=Gtk.ListStore(str,int,str)
+listdef=lambda:Gtk.ListStore(str,int,str)
+list=listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)
 
 from enum import IntEnum
@@ -21,6 +22,12 @@ class COLUMNS(IntEnum):
 	ADDRESS=0
 	USERS=1
 	COUNTRY=2
+def treedef(lst):
+	tree=Gtk.TreeView.new_with_model(lst)
+	col(tree,'Address',COLUMNS.ADDRESS)
+	col(tree,'Users',COLUMNS.USERS)
+	col(tree,'Country',COLUMNS.COUNTRY)
+	return tree
 
 def confs():
 	f=Gtk.Frame(label="Hub List")
@@ -70,10 +77,7 @@ def col(tr,tx,ix):
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	tree=Gtk.TreeView.new_with_model(sort)
-	col(tree,'Address',COLUMNS.ADDRESS)
-	col(tree,'Users',COLUMNS.USERS)
-	col(tree,'Country',COLUMNS.COUNTRY)
+	tree=treedef(sort)
 	tree.connect("row-activated",hubscon.add,sort)
 	tree.set_activate_on_single_click(True)
 	wn.set_child(tree)

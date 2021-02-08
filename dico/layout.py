@@ -4,6 +4,7 @@ from gi.repository import Gtk
 
 import sets
 import hubs
+import hubson
 
 def show(w):
 	bx=Gtk.Box()
@@ -13,5 +14,6 @@ def show(w):
 	bx.append(b)
 	pags=Gtk.Notebook()
 	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
+	pags.append_page(hubson.show(),Gtk.Label(label="Hubs"))
 	bx.append(pags)
 	w.set_child(bx)
