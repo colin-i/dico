@@ -12,6 +12,7 @@ import log
 import stor2
 import nick
 import hubs
+import hubscon
 
 def dopen():
 	dastr='eiskaltdcpp-daemon'#,'-Dv']
@@ -23,6 +24,7 @@ def quit(widget, mainloop):
 	dclose()
 	base.write(widget)
 	limit.close()
+	hubscon.close()
 	mainloop.quit()
 	return True
 

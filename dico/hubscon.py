@@ -9,15 +9,20 @@ import reqs
 
 cons=[]
 recons=[]
+class reconnect():
+	def __init__(adr):
+		self.adr=adr
+
 def acon(a):
 	try:
 		reqs.requ("hub.add",{"enc" : "", "huburl" : a})
 	except Exception:
-		recons.append(a)
-		GLib.timeout_add_seconds(5,bcon,a)
-def bcon(a):
-	recons.remove(a)
-	acon(a)
+		r=reconnect(a)
+		r.id=GLib.timeout_add_seconds(3,bcon,r)
+		recons.append(r)
+def bcon(r):
+	acon(r.adr)
+	recons.remove(r)
 	return False
 
 def add(tree,path,column,model):
@@ -31,7 +36,11 @@ def add(tree,path,column,model):
 
 def recon():
 	for x in cons:
-		for y in recons:
-			if x==y:
+		for a in recons:
+			if x==a.adr:
 				return
 		acon(x)
+
+def close():
+	for x in recons:
+		GLib.source_remove(x.id)
