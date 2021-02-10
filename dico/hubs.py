@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 import urllib.request
 import os.path
 
+listdef=lambda:Gtk.ListStore(str,int,str)
+
 import base
 import hubscon
 
@@ -13,7 +15,6 @@ addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
 lim=Gtk.EntryBuffer(text='200')
 
-listdef=lambda:Gtk.ListStore(str,int,str)
 list=listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)
 
@@ -22,11 +23,11 @@ class COLUMNS(IntEnum):
 	ADDRESS=0
 	USERS=1
 	COUNTRY=2
-def treedef(lst):
+def treedef(lst,act):
 	tree=Gtk.TreeView.new_with_model(lst)
-	col(tree,'Address',COLUMNS.ADDRESS)
-	col(tree,'Users',COLUMNS.USERS)
-	col(tree,'Country',COLUMNS.COUNTRY)
+	col(tree,'Address',COLUMNS.ADDRESS,act)
+	col(tree,'Users',COLUMNS.USERS,act)
+	col(tree,'Country',COLUMNS.COUNTRY,act)
 	return tree
 
 def confs():
@@ -59,25 +60,27 @@ def reini():
 	list.clear()
 	ini()
 
-def clk(b,ix):
+def clk_univ(lst,ix):
 	n=sort.get_sort_column_id()
 	if n[1]!=Gtk.SortType.ASCENDING:
-		sort.set_sort_column_id(ix,Gtk.SortType.ASCENDING)
+		lst.set_sort_column_id(ix,Gtk.SortType.ASCENDING)
 	else:
-		sort.set_sort_column_id(ix,Gtk.SortType.DESCENDING)
-def col(tr,tx,ix):
+		lst.set_sort_column_id(ix,Gtk.SortType.DESCENDING)
+def clk(b,ix):
+	clk_univ(sort,ix)
+def col(tr,tx,ix,act):
 	renderer = Gtk.CellRendererText()
 	column = Gtk.TreeViewColumn()
 	column.set_title(tx)
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", ix)
 	b=column.get_button()
-	b.connect('clicked', clk, ix)
+	b.connect('clicked', act, ix)
 	tr.append_column(column)
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	tree=treedef(sort)
+	tree=treedef(sort,clk)
 	tree.connect("row-activated",hubscon.add,sort)
 	tree.set_activate_on_single_click(True)
 	wn.set_child(tree)

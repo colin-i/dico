@@ -6,6 +6,7 @@ import time
 
 import hubs
 import reqs
+import hubson
 
 cons=[]
 recons=[]
@@ -31,6 +32,10 @@ def add(tree,path,column,model):
 	for x in cons:
 		if x==adr:
 			return
+	d=[]
+	for i in hubs.COLUMNS:
+		d.append(model.get_value(it,i))
+	hubson.list.append(d)
 	cons.append(adr)
 	acon(adr)
 
