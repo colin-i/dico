@@ -49,3 +49,8 @@ def recon():
 def close():
 	for x in recons:
 		GLib.source_remove(x.id)
+def hclose(a):
+	for x in recons:
+		if x.adr==a:
+			GLib.source_remove(x.id)
+			return
