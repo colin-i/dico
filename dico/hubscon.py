@@ -27,7 +27,7 @@ def bcon(r):
 	return False
 
 def add(tree,path,column,model):
-	it=model.get_iter(path)
+	it=model.get_iter(path)#iter free is in the bindings
 	adr=model.get_value(it,hubs.COLUMNS.ADDRESS)
 	for x in cons:
 		if x==adr:

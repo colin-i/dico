@@ -12,7 +12,7 @@ def clk(b,ix):
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	t=hubs.treedef(sort,clk)
+	t=hubs.treedef(sort,clk,rowclk)
 	wn.set_child(t)
 	bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 	bx.append(wn)
@@ -27,3 +27,6 @@ def rem(b,t):
 	adr=d[0].get_value(d[1],hubs.COLUMNS.ADDRESS)
 	hubscon.hclose(adr)
 	list.remove(d[0].convert_iter_to_child_iter(d[1]))
+
+def rowclk(tree,path,column,model):
+	pass
