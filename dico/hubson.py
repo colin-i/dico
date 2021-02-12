@@ -23,7 +23,7 @@ def show():
 
 def rem(b,t):
 	s=t.get_selection()
-	d=s.get_selected()
+	d=s.get_selected()#iter free is in the bindings
 	adr=d[0].get_value(d[1],hubs.COLUMNS.ADDRESS)
 	hubscon.hclose(adr)
 	list.remove(d[0].convert_iter_to_child_iter(d[1]))
