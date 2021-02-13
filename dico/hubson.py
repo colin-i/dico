@@ -21,12 +21,26 @@ def show():
 	bx.append(b)
 	return bx
 
+def add(a):
+	list.append(a)
 def rem(b,t):
 	s=t.get_selection()
 	d=s.get_selected()#iter free is in the bindings
-	adr=d[0].get_value(d[1],hubs.COLUMNS.ADDRESS)
-	hubscon.hclose(adr)
+	hubscon.remcon(d[0].get_value(d[1],hubs.COLUMNS.ADDRESS))
 	list.remove(d[0].convert_iter_to_child_iter(d[1]))
 
 def rowclk(tree,path,column,model):
 	pass
+
+def store(d):
+	l=[]
+	for r in list:
+		v=[]
+		for i in hubs.COLUMNS:
+			v.append(list.get_value(r.iter,i))
+		l.append(v)
+	d['hubs']=l
+def restore(d):
+	l=d['hubs']
+	for r in l:
+		hubscon.addcon(list,r)

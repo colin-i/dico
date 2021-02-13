@@ -28,16 +28,22 @@ def bcon(r):
 
 def add(tree,path,column,model):
 	it=model.get_iter(path)#iter free is in the bindings
-	adr=model.get_value(it,hubs.COLUMNS.ADDRESS)
-	for x in cons:
-		if x==adr:
-			return
 	d=[]
 	for i in hubs.COLUMNS:
 		d.append(model.get_value(it,i))
-	hubson.list.append(d)
+	addcon(model,d)
+def addcon(model,rowlst):
+	adr=rowlst[hubs.COLUMNS.ADDRESS]
+	for x in cons:
+		if x==adr:
+			return
 	cons.append(adr)
 	acon(adr)
+	hubson.add(rowlst)
+def remcon(a):
+	cons.remove(a)
+	reqs.requ("hub.del",{"huburl" : a})
+	hclose(a)
 
 def recon():
 	for x in cons:

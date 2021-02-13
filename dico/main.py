@@ -32,7 +32,7 @@ def main():
 	mainloop = GLib.MainLoop()
 	win = Gtk.Window()
 	win.set_title('Direct Connect')
-	base.read(win)
+	d=base.read(win)
 	layout.show(win)
 	limit.open(win)
 	log.ini()
@@ -41,6 +41,7 @@ def main():
 	hubs.ini()
 	win.connect('close-request', quit, mainloop)
 	dopen()
+	base.read2(d)#after daemon start
 	win.show()
 	mainloop.run()
 

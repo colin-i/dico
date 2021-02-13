@@ -6,6 +6,7 @@ import log
 import stor2
 import nick
 import hubs
+import hubson
 
 def get_root_conf():
 	return get_root_file('config.json')
@@ -23,6 +24,7 @@ def write(win):
 	stor2.store(d)
 	nick.store(d)
 	hubs.store(d)
+	hubson.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
 
@@ -38,5 +40,9 @@ def read(win):
 			stor2.restore(d)
 			nick.restore(d)
 			hubs.restore(d)
+			return d
 	except Exception:
-		pass
+		return None
+def read2(d):
+	if d:
+		hubson.restore(d)
