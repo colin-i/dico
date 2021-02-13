@@ -8,7 +8,6 @@ import hubs
 import reqs
 import hubson
 
-cons=[]
 recons=[]
 class reconnect():
 	def __init__(self,adr):
@@ -34,19 +33,21 @@ def add(tree,path,column,model):
 	addcon(model,d)
 def addcon(model,rowlst):
 	adr=rowlst[hubs.COLUMNS.ADDRESS]
-	for x in cons:
+	lst=hubson.list
+	for z in lst:
+		x=lst.get_value(z.iter,hubs.COLUMNS.ADDRESS)
 		if x==adr:
 			return
-	cons.append(adr)
 	acon(adr)
 	hubson.add(rowlst)
 def remcon(a):
-	cons.remove(a)
 	reqs.requ("hub.del",{"huburl" : a})
 	hclose(a)
 
 def recon():
-	for x in cons:
+	lst=hubson.list
+	for z in lst:
+		x=lst.get_value(z.iter,hubs.COLUMNS.ADDRESS)
 		for a in recons:
 			if x==a.adr:
 				return
