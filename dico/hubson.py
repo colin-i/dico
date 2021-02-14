@@ -3,16 +3,18 @@ from gi.repository import Gtk
 
 import hubs
 import hubscon
+import users
+import reqs
 
 list=hubs.listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)
 
 def clk(b,ix):
 	hubs.clk_univ(sort,ix)
-def show():
+def show(nb):
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	t=hubs.treedef(sort,clk,rowclk)
+	t=hubs.treedef(sort,clk,rowclk,nb)
 	wn.set_child(t)
 	bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 	bx.append(wn)
@@ -29,8 +31,12 @@ def rem(b,t):
 	hubscon.remcon(d[0].get_value(d[1],hubs.COLUMNS.ADDRESS))
 	list.remove(d[0].convert_iter_to_child_iter(d[1]))
 
-def rowclk(tree,path,column,model):
-	pass
+def rowclk(tree,path,column,nb):
+	model=tree.get_model()
+	it=model.get_iter(path)
+	adr=model.get_value(it,hubs.COLUMNS.ADDRESS)
+	resp=reqs.reque("hub.getusers",{"huburl" : adr})
+	users.set(nb,adr,resp.split(';'))
 
 def store(d):
 	l=[]

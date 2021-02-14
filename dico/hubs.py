@@ -23,12 +23,12 @@ class COLUMNS(IntEnum):
 	ADDRESS=0
 	USERS=1
 	COUNTRY=2
-def treedef(lst,act,clkrow):
+def treedef(lst,act,clkrow,data):
 	tree=Gtk.TreeView.new_with_model(lst)
 	col(tree,'Address',COLUMNS.ADDRESS,act)
 	col(tree,'Users',COLUMNS.USERS,act)
 	col(tree,'Country',COLUMNS.COUNTRY,act)
-	tree.connect("row-activated",clkrow,sort)
+	tree.connect("row-activated",clkrow,data)
 	tree.set_activate_on_single_click(True)
 	return tree
 
@@ -63,7 +63,7 @@ def reini():
 	ini()
 
 def clk_univ(lst,ix):
-	n=sort.get_sort_column_id()
+	n=lst.get_sort_column_id()
 	if n[1]!=Gtk.SortType.ASCENDING:
 		lst.set_sort_column_id(ix,Gtk.SortType.ASCENDING)
 	else:
@@ -82,7 +82,7 @@ def col(tr,tx,ix,act):
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	tree=treedef(sort,clk,hubscon.add)
+	tree=treedef(sort,clk,hubscon.add,sort)
 	wn.set_child(tree)
 	return wn
 

@@ -21,3 +21,12 @@ def requ(a,para):
 		"params" : para
 	}
 	requests.post(url, json=payload).json()
+def reque(a,para):
+	payload = {
+		"id" : random.randint(0,(2**16)-1),
+		"jsonrpc" : jsonrpcversion,
+		"method" : a,
+		"version" : jsonrpcversion,
+		"params" : para
+	}
+	return requests.post(url, json=payload).json()['result']
