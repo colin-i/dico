@@ -6,6 +6,7 @@ import sets
 import hubs
 import hubson
 import users
+import usersloc
 import flist
 import search
  
@@ -18,8 +19,15 @@ def show(w):
 	pags=Gtk.Notebook()
 	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
 	pags.append_page(hubson.show(pags),Gtk.Label(label="Hubs"))
-	pags.append_page(users.show(pags),Gtk.Label(label="Users"))
+	pags.append_page(users.show(pags),Gtk.Label(label="UserList"))
+	locale=usersloc.show()
+	pags.append_page(locale,Gtk.Label(label="Users"))
 	pags.append_page(flist.show(),Gtk.Label(label="FileList"))
 	pags.append_page(search.show(),Gtk.Label(label="Search"))
+	pags.connect("switch-page",sw,locale)
 	bx.append(pags)
 	w.set_child(bx)
+
+def sw(notebook,page,page_num,data):
+	if page==data:
+		usersloc.set()
