@@ -8,6 +8,7 @@ listdef=lambda:Gtk.ListStore(str)
 
 list=listdef()
 scroll=Gtk.ScrolledWindow()
+intro="UserList"
 
 def show(nb):
 	sort=Gtk.TreeModelSort.new_with_model(list)
@@ -35,8 +36,10 @@ def clkrow(t,p,c,b):
 	adr=b.get_tab_label_text(scroll)
 	reqs.requ("list.download",{"huburl" : adr, "nick" : user})
 
-def set(nb,adr,lst):
+def clear(nb,adr):
 	list.clear()
 	nb.set_tab_label_text(scroll,adr)
+def set(nb,adr,lst):
+	clear(nb,adr)
 	for x in lst:
 		list.append([x])

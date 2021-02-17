@@ -19,16 +19,16 @@ def show(nb):
 	bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 	bx.append(wn)
 	b=Gtk.Button.new_with_label("-")
-	b.connect('clicked', rem, t)
+	b.connect('clicked', rem, [t,nb])
 	bx.append(b)
 	return bx
 
 def add(a):
 	list.append(a)
-def rem(b,t):
-	s=t.get_selection()
+def rem(b,gr):
+	s=gr[0].get_selection()
 	d=s.get_selected()#iter free is in the bindings
-	hubscon.remcon(d[0].get_value(d[1],hubs.COLUMNS.ADDRESS))
+	hubscon.remcon(gr[1],d[0].get_value(d[1],hubs.COLUMNS.ADDRESS))
 	list.remove(d[0].convert_iter_to_child_iter(d[1]))
 
 def rowclk(tree,path,column,nb):

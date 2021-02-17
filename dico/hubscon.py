@@ -7,6 +7,7 @@ import time
 import hubs
 import reqs
 import hubson
+import users
 
 recons=[]
 class reconnect():
@@ -40,9 +41,10 @@ def addcon(model,rowlst):
 			return
 	acon(adr)
 	hubson.add(rowlst)
-def remcon(a):
+def remcon(nb,a):
 	reqs.requ("hub.del",{"huburl" : a})
 	hclose(a)
+	users.clear(nb,users.intro)
 
 def recon():
 	lst=hubson.list
