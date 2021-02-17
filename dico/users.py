@@ -4,27 +4,31 @@ from gi.repository import Gtk
 import hubs
 import reqs
 
-list=Gtk.ListStore(str)
-sort=Gtk.TreeModelSort.new_with_model(list)
+listdef=lambda:Gtk.ListStore(str)
+
+list=listdef()
 scroll=Gtk.ScrolledWindow()
 
 def show(nb):
-	scroll.set_vexpand(True)
-	t=Gtk.TreeView.new_with_model(sort)
+	sort=Gtk.TreeModelSort.new_with_model(list)
+	return show_univ(nb,scroll,sort,clkrow)
+def show_univ(nb,sc,srt,cl_rw):
+	sc.set_vexpand(True)
+	t=Gtk.TreeView.new_with_model(srt)
 	renderer = Gtk.CellRendererText()
 	column = Gtk.TreeViewColumn()
 	column.set_title("Name")
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", 0)
 	b=column.get_button()
-	b.connect('clicked', clk, None)
+	b.connect('clicked', clk, srt)
 	t.append_column(column)
-	t.connect("row-activated",clkrow,nb)
+	t.connect("row-activated",cl_rw,nb)
 	t.set_activate_on_single_click(True)
-	scroll.set_child(t)
-	return scroll
+	sc.set_child(t)
+	return sc
 def clk(b,d):
-	hubs.clk_univ(sort,0)
+	hubs.clk_univ(d,0)
 def clkrow(t,p,c,b):
 	m=t.get_model()
 	user=m.get_value(m.get_iter(p),0)

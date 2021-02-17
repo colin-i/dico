@@ -20,7 +20,7 @@ def show(w):
 	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
 	pags.append_page(hubson.show(pags),Gtk.Label(label="Hubs"))
 	pags.append_page(users.show(pags),Gtk.Label(label="UserList"))
-	locale=usersloc.show()
+	locale=usersloc.show(pags)
 	pags.append_page(locale,Gtk.Label(label="Users"))
 	pags.append_page(flist.show(),Gtk.Label(label="FileList"))
 	pags.append_page(search.show(),Gtk.Label(label="Search"))
