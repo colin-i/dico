@@ -55,7 +55,7 @@ def confs():
 	g.attach(en,1,1,1,1)
 	f.set_child(g)
 	return f
-def verifs(w):
+def reset(w):
 	close()
 	open(w)
 

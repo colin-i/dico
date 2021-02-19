@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 import sets
 import stor2
 import main
-import hubscon
+import daem
 
 name=Gtk.EntryBuffer(text='dico')
 
@@ -16,8 +16,7 @@ def store(d):
 	d['nick_name']=name.get_text()
 def restore(d):
 	name.set_text(d['nick_name'],-1)
-
-def verifs(reset):
+def ini(restart):
 	f=stor2.get_file()
 	t = ET.parse(f)
 	root = t.getroot()
@@ -31,10 +30,9 @@ def verifs(reset):
 	else:
 		a=name.get_text()!=s.text
 	if a:
-		if reset:
+		if restart:
 			main.dclose()
 		s.text=name.get_text()
 		t.write(f)
-		if reset:
-			main.dopen()
-			hubscon.recon()
+		if restart:
+			daem.restart()

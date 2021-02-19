@@ -13,10 +13,11 @@ import stor2
 import nick
 import hubs
 import hubscon
+import daem
 
 def dopen():
-	dastr='eiskaltdcpp-daemon'#,'-Dv']
-	nick.daem=subprocess.Popen(dastr)#otherwise, cannot make it works
+	args=['eiskaltdcpp-daemon',daem.data.get_text()]
+	nick.daem=subprocess.Popen(args)#otherwise, cannot make it works
 def dclose():
 	nick.daem.terminate()
 	nick.daem.wait()
@@ -37,7 +38,7 @@ def main():
 	limit.open(win)
 	log.ini()
 	stor2.ini()
-	nick.verifs(False)
+	nick.ini(False)
 	hubs.ini()
 	win.connect('close-request', quit, mainloop)
 	dopen()

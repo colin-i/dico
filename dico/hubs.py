@@ -58,7 +58,7 @@ def restore(d):
 	file.set_text(d['hub_file_fallback'],-1)
 	lim.set_text(d['hub_limit'],-1)
 
-def reini():
+def reset():
 	list.clear()
 	ini()
 

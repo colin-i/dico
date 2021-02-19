@@ -7,12 +7,13 @@ import log
 import stor2
 import nick
 import hubs
+import daem
 
 def ini(b,win):
 	d=Gtk.Dialog(title="Settings",transient_for=win)
 	d.set_modal(True)
 	d.add_button("_OK",Gtk.ResponseType.NONE)
-	d.connect("response",verifs,win)
+	d.connect("response",reset,win)
 	if win.is_maximized():
 		d.maximize()
 	else:
@@ -25,13 +26,15 @@ def ini(b,win):
 	bx.append(stor2.confs())
 	bx.append(nick.confs())
 	bx.append(hubs.confs())
+	bx.append(daem.confs())
 	d.show()
-def verifs(d,r,w):
-	limit.verifs(w)
+def reset(d,r,w):
+	limit.reset(w)
 	log.reset()
 	stor2.ini()
-	nick.verifs(True)
-	hubs.reini()
+	nick.ini(True)
+	hubs.reset()
+	daem.reset()
 	d.destroy()#close is calling here twice
 
 def entry(txt,buf):

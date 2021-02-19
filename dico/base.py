@@ -7,6 +7,7 @@ import stor2
 import nick
 import hubs
 import hubson
+import daem
 
 def get_root_conf():
 	return get_root_file('config.json')
@@ -25,6 +26,7 @@ def write(win):
 	nick.store(d)
 	hubs.store(d)
 	hubson.store(d)
+	daem.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
 
@@ -40,6 +42,7 @@ def read(win):
 			stor2.restore(d)
 			nick.restore(d)
 			hubs.restore(d)
+			daem.restore(d)
 			return d
 	except Exception:
 		return None
