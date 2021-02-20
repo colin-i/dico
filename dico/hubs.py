@@ -31,6 +31,15 @@ def treedef(lst,act,clkrow,data):
 	tree.connect("row-activated",clkrow,data)
 	tree.set_activate_on_single_click(True)
 	return tree
+def col(tr,tx,ix,act):
+	renderer = Gtk.CellRendererText()
+	column = Gtk.TreeViewColumn()
+	column.set_title(tx)
+	column.pack_start(renderer,True)
+	column.add_attribute(renderer, "text", ix)
+	b=column.get_button()
+	b.connect('clicked', act, ix)
+	tr.append_column(column)
 
 def confs():
 	f=Gtk.Frame(label="Hub List")
@@ -70,15 +79,6 @@ def clk_univ(lst,ix):
 		lst.set_sort_column_id(ix,Gtk.SortType.DESCENDING)
 def clk(b,ix):
 	clk_univ(sort,ix)
-def col(tr,tx,ix,act):
-	renderer = Gtk.CellRendererText()
-	column = Gtk.TreeViewColumn()
-	column.set_title(tx)
-	column.pack_start(renderer,True)
-	column.add_attribute(renderer, "text", ix)
-	b=column.get_button()
-	b.connect('clicked', act, ix)
-	tr.append_column(column)
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
