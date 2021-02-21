@@ -12,16 +12,19 @@ class COLUMNS(IntEnum):
 name=Gtk.Label()
 folder=Gtk.Label()
 bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-list=Gtk.ListStore(str,str)
+listcols="str,str"
+list=eval("Gtk.ListStore("+listcols+")")
 sort=Gtk.TreeModelSort.new_with_model(list)
 sep="\\"
 
+def cols(tree,act):
+	hubs.col(tree,'Name',COLUMNS.NAME,act)
+	hubs.col(tree,'TTH',COLUMNS.TTH,act)
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
 	tree=Gtk.TreeView.new_with_model(sort)
-	hubs.col(tree,'Name',COLUMNS.NAME,clk)
-	hubs.col(tree,'TTH',COLUMNS.TTH,clk)
+	cols(tree,clk)
 	tree.connect("row-activated",clkrow,sort)
 	tree.set_activate_on_single_click(True)
 	scroll.set_child(tree)

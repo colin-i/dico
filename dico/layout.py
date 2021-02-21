@@ -15,7 +15,13 @@ def show(w):
 	bx.set_orientation(Gtk.Orientation.VERTICAL)
 	b=Gtk.Button.new_with_label(chr(0x2699))
 	b.connect('clicked', sets.ini, w)
-	bx.append(b)
+	box=Gtk.Box()
+	box.append(b)
+	e=Gtk.Entry(hexpand=True)
+	e.set_placeholder_text('Search...')
+	e.connect('activate',search.send,None)
+	box.append(e)
+	bx.append(box)
 	pags=Gtk.Notebook()
 	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
 	pags.append_page(hubson.show(pags),Gtk.Label(label="Hubs"))
@@ -31,3 +37,5 @@ def show(w):
 def sw(notebook,page,page_num,data):
 	if page==data:
 		usersloc.set()
+	elif page==search.page:
+		search.getresults()

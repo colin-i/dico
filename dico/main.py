@@ -14,6 +14,7 @@ import nick
 import hubs
 import hubscon
 import daem
+import search
 
 def dopen():
 	args=['eiskaltdcpp-daemon',daem.data.get_text()]
@@ -26,6 +27,7 @@ def quit(widget, mainloop):
 	base.write(widget)
 	limit.close()
 	hubscon.close()
+	search.close()
 	mainloop.quit()
 	return True
 
