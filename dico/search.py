@@ -6,7 +6,7 @@ import reqs
 import hubs
 
 from enum import IntEnum
-class COLUMNS(IntEnum):
+class COLUMNS(flist.COLUMNS,IntEnum):
 	USERS=len(flist.COLUMNS)
 
 list=eval("Gtk.ListStore("+flist.listcols+",int)")
@@ -37,12 +37,18 @@ def close():
 	if timer:
 		GLib.source_remove(timer)
 
+def append(r):
+	for d in list:
+		if d[COLUMNS.TTH]==r["TTH"]:
+			list.set_value(d.iter,COLUMNS.USERS,d[COLUMNS.USERS]+1)
+			return
+	list.append([r["Filename"],r["TTH"],1])
 def getresults():
 	list.clear()
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
 	if result:
 		for r in result:
-			list.append([r["Filename"],r["TTH"],1])
+			append(r)
 def get(d):
 	getresults()
 	info.set_text('')
