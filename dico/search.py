@@ -1,5 +1,5 @@
 import gi
-from gi.repository import Gtk,GLib
+from gi.repository import Gtk,GLib,GObject
 
 import flist
 import reqs
@@ -8,12 +8,15 @@ import hubs
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
 	USERS=len(flist.COLUMNS)
+lastcolumn=len(flist.COLUMNS)+len(COLUMNS)
 
-list=eval("Gtk.ListStore("+flist.listcols+",int)")
-sort=Gtk.TreeModelSort.new_with_model(list)
+list=eval("Gtk.ListStore("+flist.listcols+",int,GObject.TYPE_BOOLEAN)")
+filter=list.filter_new()
+sort=Gtk.TreeModelSort.new_with_model(filter)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 info=Gtk.Label()
 timer=0
+limit=20
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -21,6 +24,8 @@ def show():
 	tree=Gtk.TreeView.new_with_model(sort)
 	flist.cols(tree,clk)
 	hubs.col(tree,'Users',COLUMNS.USERS,clk)
+	filter.set_visible_column(lastcolumn)
+	sort.set_sort_column_id(COLUMNS.USERS,Gtk.SortType.DESCENDING)
 	scroll.set_child(tree)
 	page.append(info)
 	page.append(scroll)
@@ -42,13 +47,20 @@ def append(r):
 		if d[COLUMNS.TTH]==r["TTH"]:
 			list.set_value(d.iter,COLUMNS.USERS,d[COLUMNS.USERS]+1)
 			return
-	list.append([r["Filename"],r["TTH"],1])
+	list.append([r["Filename"],r["TTH"],1,True])#need to be visible at sort for limit
 def getresults():
 	list.clear()
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
 	if result:
 		for r in result:
 			append(r)
+		n=sort.iter_n_children(None)
+		i1=sort.iter_nth_child(None,n-1)
+		for i in range(limit,n):
+			i2=sort.convert_iter_to_child_iter(i1)
+			i3=filter.convert_iter_to_child_iter(i2)
+			i1=sort.iter_previous(i1)#not after,critical
+			list.set_value(i3,lastcolumn,False)
 def get(d):
 	getresults()
 	info.set_text('')
