@@ -4,6 +4,7 @@ from gi.repository import Gtk,GLib,GObject
 import flist
 import reqs
 import hubs
+import sets
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
@@ -16,7 +17,7 @@ sort=Gtk.TreeModelSort.new_with_model(filter)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 info=Gtk.Label()
 timer=0
-limit=20
+limit=Gtk.EntryBuffer(text="20")
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -31,7 +32,10 @@ def show():
 	page.append(scroll)
 	return page
 def clk(b,ix):
+	for x in list:
+		list.set_value(x.iter,lastcolumn,True)#to be in filter,then in sort
 	hubs.clk_univ(sort,ix)
+	limiting()
 
 def send(e,d):
 	t=e.get_text()
@@ -54,15 +58,25 @@ def getresults():
 	if result:
 		for r in result:
 			append(r)
-		n=sort.iter_n_children(None)
-		i1=sort.iter_nth_child(None,n-1)
-		for i in range(limit,n):
-			i2=sort.convert_iter_to_child_iter(i1)
-			i3=filter.convert_iter_to_child_iter(i2)
-			i1=sort.iter_previous(i1)#not after,critical
-			list.set_value(i3,lastcolumn,False)
+		limiting()
 def get(d):
 	getresults()
 	info.set_text('')
 	timer=0
 	return False
+def limiting():
+	n=sort.iter_n_children(None)
+	i1=sort.iter_nth_child(None,n-1)
+	m=int(limit.get_text())
+	for i in range(m,n):
+		i2=sort.convert_iter_to_child_iter(i1)
+		i3=filter.convert_iter_to_child_iter(i2)
+		i1=sort.iter_previous(i1)#not after,critical
+		list.set_value(i3,lastcolumn,False)
+
+def store(d):
+	d['search_limit']=int(limit.get_text())
+def restore(d):
+	limit.set_text(str(d['search_limit']),-1)
+def confs():
+	return sets.entry("Search rows limit",limit)

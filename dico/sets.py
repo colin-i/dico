@@ -8,6 +8,7 @@ import stor2
 import nick
 import hubs
 import daem
+import search
 
 def ini(b,win):
 	d=Gtk.Dialog(title="Settings",transient_for=win)
@@ -27,6 +28,7 @@ def ini(b,win):
 	bx.append(nick.confs())
 	bx.append(hubs.confs())
 	bx.append(daem.confs())
+	bx.append(search.confs())
 	d.show()
 def reset(d,r,w):
 	limit.reset(w)

@@ -8,6 +8,7 @@ import nick
 import hubs
 import hubson
 import daem
+import search
 
 def get_root_conf():
 	return get_root_file('config.json')
@@ -27,6 +28,7 @@ def write(win):
 	hubs.store(d)
 	hubson.store(d)
 	daem.store(d)
+	search.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
 
@@ -43,6 +45,7 @@ def read(win):
 			nick.restore(d)
 			hubs.restore(d)
 			daem.restore(d)
+			search.restore(d)
 			return d
 	except Exception:
 		return None
