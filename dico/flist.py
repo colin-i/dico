@@ -7,18 +7,20 @@ import hubs
 from enum import IntEnum
 class COLUMNS(IntEnum):
 	NAME=0
-	TTH=1
+	SIZE=1
+	TTH=2
 
 name=Gtk.Label()
 folder=Gtk.Label()
 bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-listcols="str,str"
+listcols="str,int,str"
 list=eval("Gtk.ListStore("+listcols+")")
 sort=Gtk.TreeModelSort.new_with_model(list)
 sep="\\"
 
 def cols(tree,act):
 	hubs.col(tree,'Name',COLUMNS.NAME,act)
+	hubs.col(tree,'Size',COLUMNS.SIZE,act)
 	hubs.col(tree,'TTH',COLUMNS.TTH,act)
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -64,7 +66,9 @@ def fshow(flist,s):
 	folder.set_text(s)
 	list.clear()
 	for x in k:
-		if "TTH" in a[x]:
-			list.append([x,a[x]['TTH']])
+		e=a[x]
+		if "TTH" in e:
+			t=e['TTH']
 		else:
-			list.append([x,''])
+			t=''
+		list.append([x,int(e['Size']),t])

@@ -51,7 +51,7 @@ def append(r):
 		if d[COLUMNS.TTH]==r["TTH"]:
 			list.set_value(d.iter,COLUMNS.USERS,d[COLUMNS.USERS]+1)
 			return
-	list.append([r["Filename"],r["TTH"],1,True])#need to be visible at sort for limit
+	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,True])#need to be visible at sort for limit
 def getresults():
 	list.clear()
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
