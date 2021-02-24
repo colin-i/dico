@@ -32,11 +32,13 @@ def show():
 	page.append(scroll)
 	return page
 def clk(b,ix):
+	hubs.clk_univ(sort,ix)
+	reset()
+
+def reset():
 	for x in list:
 		list.set_value(x.iter,lastcolumn,True)#to be in filter,then in sort
-	hubs.clk_univ(sort,ix)
 	limiting()
-
 def send(e,d):
 	t=e.get_text()
 	reqs.requ("search.send",{"searchstring":t})

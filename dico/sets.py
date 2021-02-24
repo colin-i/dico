@@ -37,6 +37,7 @@ def reset(d,r,w):
 	nick.ini(True)
 	hubs.reset()
 	daem.reset()
+	search.reset()
 	d.destroy()#close is calling here twice
 
 def entry(txt,buf):
