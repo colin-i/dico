@@ -3,6 +3,7 @@ from gi.repository import Gtk
 
 import reqs
 import hubs
+import dload
 
 from enum import IntEnum
 class COLUMNS(IntEnum):
@@ -43,6 +44,8 @@ def clkrow(tree,path,column,model):
 	it=model.get_iter(path)
 	if not model.get_value(it,COLUMNS.TTH):
 		fshow(name.get_text(),folder.get_text()+model.get_value(it,COLUMNS.NAME)+sep)
+	else:
+		dload.add(model,it)
 
 def set(nb,nm):
 	name.set_text(nm)

@@ -5,6 +5,7 @@ import flist
 import reqs
 import hubs
 import sets
+import dload
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
@@ -27,6 +28,8 @@ def show():
 	hubs.col(tree,'Users',COLUMNS.USERS,clk)
 	filter.set_visible_column(lastcolumn)
 	sort.set_sort_column_id(COLUMNS.USERS,Gtk.SortType.DESCENDING)
+	tree.connect("row-activated",clkrow,sort)
+	tree.set_activate_on_single_click(True)
 	scroll.set_child(tree)
 	page.append(info)
 	page.append(scroll)
@@ -34,6 +37,8 @@ def show():
 def clk(b,ix):
 	hubs.clk_univ(sort,ix)
 	reset()
+def clkrow(tree,path,column,model):
+	dload.add(model,model.get_iter(path))
 
 def reset():
 	for x in list:
