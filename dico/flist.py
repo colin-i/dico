@@ -1,20 +1,20 @@
 import gi
 from gi.repository import Gtk
 
-import reqs
-import hubs
-import dload
-
 from enum import IntEnum
 class COLUMNS(IntEnum):
 	NAME=0
 	SIZE=1
 	TTH=2
+listcols="str,int,str"
+
+import reqs
+import hubs
+import dload
 
 name=Gtk.Label()
 folder=Gtk.Label()
 bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-listcols="str,int,str"
 list=eval("Gtk.ListStore("+listcols+")")
 sort=Gtk.TreeModelSort.new_with_model(list)
 sep="\\"

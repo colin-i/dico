@@ -40,4 +40,6 @@ def sw(notebook,page,page_num,data):
 	if page==data:
 		usersloc.set()
 	elif page==search.page:
-		search.getresults()
+		search.set()
+	elif page==dload.page:
+		dload.set()

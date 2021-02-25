@@ -44,9 +44,11 @@ def reset():
 	for x in list:
 		list.set_value(x.iter,lastcolumn,True)#to be in filter,then in sort
 	limiting()
+def start(t):
+	reqs.requ("search.send",{"searchstring":t})
 def send(e,d):
 	t=e.get_text()
-	reqs.requ("search.send",{"searchstring":t})
+	start(t)
 	info.set_text(t)
 	timer=GLib.timeout_add_seconds(10,get,None)
 def close():
@@ -59,7 +61,7 @@ def append(r):
 			list.set_value(d.iter,COLUMNS.USERS,d[COLUMNS.USERS]+1)
 			return
 	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,True])#need to be visible at sort for limit
-def getresults():
+def set():
 	list.clear()
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
 	if result:
@@ -67,7 +69,7 @@ def getresults():
 			append(r)
 		limiting()
 def get(d):
-	getresults()
+	set()
 	info.set_text('')
 	timer=0
 	return False

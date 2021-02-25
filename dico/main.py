@@ -15,6 +15,7 @@ import hubs
 import hubscon
 import daem
 import search
+import dload
 
 def dopen():
 	args=['eiskaltdcpp-daemon',daem.data.get_text()]
@@ -28,6 +29,7 @@ def quit(widget, mainloop):
 	limit.close()
 	hubscon.close()
 	search.close()
+	dload.close()
 	mainloop.quit()
 	return True
 
