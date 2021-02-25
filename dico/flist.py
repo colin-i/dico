@@ -51,6 +51,7 @@ def set(nb,nm):
 	name.set_text(nm)
 	z=nm.split(".")
 	nb.set_tab_label_text(bx,z[0])
+	reqs.req("list.closeall")
 	reqs.requ("list.open",{"filelist" : nm})
 	fshow(nm,'')
 
@@ -65,10 +66,9 @@ def backing(b,d):
 		fshow(name.get_text(),'')
 def fshow(flist,s):
 	a=reqs.reque("list.lsdir",{"directory" : s,"filelist" : flist})
-	k=a.keys()
 	folder.set_text(s)
 	list.clear()
-	for x in k:
+	for x in a:
 		e=a[x]
 		if "TTH" in e:
 			t=e['TTH']
