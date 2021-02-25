@@ -10,9 +10,10 @@ import dload
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
 	USERS=len(flist.COLUMNS)
+	FUSERS=USERS+1
 lastcolumn=len(flist.COLUMNS)+len(COLUMNS)
 
-list=eval("Gtk.ListStore("+flist.listcols+",int,GObject.TYPE_BOOLEAN)")
+list=eval("Gtk.ListStore("+flist.listcols+",int,int,GObject.TYPE_BOOLEAN)")
 filter=list.filter_new()
 sort=Gtk.TreeModelSort.new_with_model(filter)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -26,6 +27,7 @@ def show():
 	tree=Gtk.TreeView.new_with_model(sort)
 	flist.cols(tree,clk)
 	hubs.col(tree,'Users',COLUMNS.USERS,clk)
+	hubs.col(tree,'Users with Free Slots',COLUMNS.FUSERS,clk)
 	filter.set_visible_column(lastcolumn)
 	sort.set_sort_column_id(COLUMNS.USERS,Gtk.SortType.DESCENDING)
 	tree.connect("row-activated",clkrow,sort)
@@ -59,8 +61,10 @@ def append(r):
 	for d in list:
 		if d[COLUMNS.TTH]==r["TTH"]:
 			list.set_value(d.iter,COLUMNS.USERS,d[COLUMNS.USERS]+1)
+			if r["Free Slots"]!="0":
+				list.set_value(d.iter,COLUMNS.FUSERS,d[COLUMNS.FUSERS]+1)
 			return
-	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,True])#need to be visible at sort for limit
+	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,0 if r["Free Slots"]=="0" else 1,True])#need to be visible at sort for limit
 def set():
 	list.clear()
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
