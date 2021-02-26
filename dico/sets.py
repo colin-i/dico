@@ -33,9 +33,10 @@ def reset(d,r,w):
 	limit.reset(w)
 	log.reset()
 	stor2.ini()
-	nick.ini(True)
+	wasreset=nick.ini(True)
 	hubs.reset()
-	daem.reset()
+	if not wasreset:
+		daem.reset()
 	search.reset()
 	d.destroy()#close is calling here twice
 

@@ -22,12 +22,14 @@ def ini(restart):
 	se = root.find(stor2.set)
 	r=see(se,'Nick','string',name)
 	#Slots not working r|=see(se,'Slots','int',slots)
-	if r==1:
+	b=r==1
+	if b:
 		if restart:
 			main.dclose()
 		t.write(f)
 		if restart:
 			daem.restart()
+	return b
 
 def see(se,n,t,b):
 	txt=b.get_text()
