@@ -23,10 +23,10 @@ def dopen():
 	args=['eiskaltdcpp-daemon']
 	for s in seq:
 		args.append(s)
-	nick.daem=subprocess.Popen(args)#otherwise, cannot make it works
+	nick.daeminst=subprocess.Popen(args)#otherwise, cannot make it works
 def dclose():
-	nick.daem.terminate()
-	nick.daem.wait()
+	nick.daeminst.terminate()
+	nick.daeminst.wait()
 def quit(widget, mainloop):
 	base.write(widget)
 	dclose()#in base.write is log, can require daemon open

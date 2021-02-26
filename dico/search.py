@@ -43,9 +43,10 @@ def clkrow(tree,path,column,model):
 	dload.add(model,model.get_iter(path))
 
 def reset():
-	for x in list:
-		list.set_value(x.iter,lastcolumn,True)#to be in filter,then in sort
-	limiting()
+	if len(list)>0:
+		for x in list:
+			list.set_value(x.iter,lastcolumn,True)#to be in filter,then in sort
+		limiting()
 def start(t):
 	reqs.requ("search.send",{"searchstring":t})
 def send(e,d):

@@ -3,7 +3,6 @@ from gi.repository import Gtk
 
 import xml.etree.ElementTree as ET
 
-import sets
 import stor2
 import main
 import daem
@@ -21,18 +20,24 @@ def ini(restart):
 	t = ET.parse(f)
 	root = t.getroot()
 	se = root.find(stor2.set)
-	nk='Nick'
-	s = se.find(nk)
-	a=s==None
-	if a:
-		s=ET.SubElement(se,nk)
-		s.set('type','string')
-	else:
-		a=name.get_text()!=s.text
-	if a:
+	r=see(se,'Nick','string',name)
+	#Slots not working r|=see(se,'Slots','int',slots)
+	if r==1:
 		if restart:
 			main.dclose()
-		s.text=name.get_text()
 		t.write(f)
 		if restart:
 			daem.restart()
+
+def see(se,n,t,b):
+	txt=b.get_text()
+	s = se.find(n)
+	if s==None:
+		s=ET.SubElement(se,n)
+		s.set('type',t)
+		s.text=txt
+		return 1
+	elif txt!=s.text:
+		s.text=txt
+		return 1
+	return 0
