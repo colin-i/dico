@@ -52,6 +52,7 @@ def send(e,d):
 	t=e.get_text()
 	start(t)
 	info.set_text(t)
+	close()
 	timer=GLib.timeout_add_seconds(10,get,None)
 def close():
 	if timer:
