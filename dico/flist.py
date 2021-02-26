@@ -10,7 +10,6 @@ listcols="str,int,str"
 
 import reqs
 import hubs
-import dload
 
 name=Gtk.Label()
 folder=Gtk.Label()
@@ -42,10 +41,11 @@ def clk(b,ix):
 	hubs.clk_univ(sort,ix)
 def clkrow(tree,path,column,model):
 	it=model.get_iter(path)
+	fpath=folder.get_text()+model.get_value(it,COLUMNS.NAME)
 	if not model.get_value(it,COLUMNS.TTH):
-		fshow(name.get_text(),folder.get_text()+model.get_value(it,COLUMNS.NAME)+sep)
+		fshow(name.get_text(),fpath+sep)
 	else:
-		dload.add(model,it)
+		reqs.requ("list.downloadfile",{"downloadto" : "","filelist" : name.get_text(),"target" : fpath})
 
 def set(nb,nm):
 	name.set_text(nm)
