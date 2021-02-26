@@ -18,7 +18,10 @@ import search
 import dload
 
 def dopen():
-	args=['eiskaltdcpp-daemon',daem.data.get_text()]
+	seq=daem.data.get_text().split()
+	args=['eiskaltdcpp-daemon']
+	for s in seq:
+		args.append(s)
 	nick.daem=subprocess.Popen(args)#otherwise, cannot make it works
 def dclose():
 	nick.daem.terminate()
