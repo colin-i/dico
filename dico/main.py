@@ -4,6 +4,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk,GLib
 import subprocess
+import shlex
 
 import base
 import layout 
@@ -18,7 +19,7 @@ import search
 import dload
 
 def dopen():
-	seq=daem.data.get_text().split()
+	seq=shlex.split(daem.data.get_text())
 	args=['eiskaltdcpp-daemon']
 	for s in seq:
 		args.append(s)
