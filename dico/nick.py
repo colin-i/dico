@@ -11,7 +11,7 @@ import daem
 name=Gtk.EntryBuffer(text='dico')
 
 def confs():
-	return sets.entry("Nick Name",name)
+	return name
 def store(d):
 	d['nick_name']=name.get_text()
 def restore(d):

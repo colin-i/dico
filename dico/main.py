@@ -28,8 +28,8 @@ def dclose():
 	nick.daem.terminate()
 	nick.daem.wait()
 def quit(widget, mainloop):
-	dclose()
 	base.write(widget)
+	dclose()#in base.write is log, can require daemon open
 	limit.close()
 	hubscon.close()
 	search.close()

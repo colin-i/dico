@@ -25,7 +25,6 @@ def ini(b,win):
 	bx.append(limit.confs())
 	bx.append(log.confs())
 	bx.append(stor2.confs())
-	bx.append(nick.confs())
 	bx.append(hubs.confs())
 	bx.append(daem.confs())
 	bx.append(search.confs())
