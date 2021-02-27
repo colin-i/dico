@@ -17,6 +17,7 @@ from . import hubscon
 from . import daem
 from . import search
 from . import dload
+from . import com
 
 def dopen():
 	seq=shlex.split(daem.data.get_text())
@@ -34,6 +35,7 @@ def quit(widget, mainloop):
 	hubscon.close()
 	search.close()
 	dload.close()
+	com.close()
 	mainloop.quit()
 	return True
 
