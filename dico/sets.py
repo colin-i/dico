@@ -2,13 +2,14 @@
 import gi
 from gi.repository import Gtk
 
-import limit
-import log
-import stor2
-import nick
-import hubs
-import daem
-import search
+from . import limit
+from . import log
+from . import stor2
+from . import nick
+from . import hubs
+from . import daem
+from . import search
+from . import dload
 
 def ini(b,win):
 	d=Gtk.Dialog(title="Settings",transient_for=win)
@@ -28,11 +29,13 @@ def ini(b,win):
 	bx.append(hubs.confs())
 	bx.append(daem.confs())
 	bx.append(search.confs())
+	bx.append(dload.confs())
 	d.show()
 def reset(d,r,w):
 	limit.reset(w)
 	log.reset()
 	stor2.ini()
+	dload.reset()#when daemon running
 	wasreset=nick.ini(True)
 	hubs.reset()
 	if not wasreset:

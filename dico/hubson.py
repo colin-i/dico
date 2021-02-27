@@ -1,10 +1,10 @@
 import gi
 from gi.repository import Gtk
 
-import hubs
-import hubscon
-import users
-import reqs
+from . import hubs
+from . import hubscon
+from . import users
+from . import reqs
 
 list=hubs.listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)

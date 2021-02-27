@@ -5,8 +5,8 @@ from gi.repository import Gtk
 import xml.etree.ElementTree as ET
 import os.path
 
-import limit
-import nick
+from . import limit
+from . import nick
 
 file=Gtk.EntryBuffer(text='${HOME}/.config/eiskaltdc++/DCPlusPlus.xml')
 set='Settings'
@@ -27,7 +27,7 @@ def confs():
 	g.attach(lb,0,0,1,1)
 	en=Gtk.Entry(buffer=file,hexpand=True)
 	g.attach(en,1,0,1,1)
-	lb=Gtk.Label(halign=Gtk.Align.START,label="Nick Name")
+	lb=Gtk.Label(halign=Gtk.Align.START,label="Nick name")
 	g.attach(lb,0,1,1,1)
 	en=Gtk.Entry(buffer=nick.confs(),hexpand=True)
 	g.attach(en,1,1,1,1)

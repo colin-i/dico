@@ -1,11 +1,11 @@
 import gi
 from gi.repository import Gtk,GLib,GObject
 
-import flist
-import reqs
-import hubs
-import sets
-import dload
+from . import flist
+from . import reqs
+from . import hubs
+from . import sets
+from . import dload
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):

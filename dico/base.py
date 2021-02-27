@@ -1,14 +1,15 @@
 import os.path
 import json
 
-import limit
-import log
-import stor2
-import nick
-import hubs
-import hubson
-import daem
-import search
+from . import limit
+from . import log
+from . import stor2
+from . import nick
+from . import hubs
+from . import hubson
+from . import daem
+from . import search
+from . import dload
 
 def get_root_conf():
 	return get_root_file('config.json')
@@ -29,6 +30,7 @@ def write(win):
 	hubson.store(d)
 	daem.store(d)
 	search.store(d)
+	dload.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
 
@@ -46,6 +48,7 @@ def read(win):
 			hubs.restore(d)
 			daem.restore(d)
 			search.restore(d)
+			dload.restore(d)
 			return d
 	except Exception:
 		return None

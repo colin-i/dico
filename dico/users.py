@@ -1,8 +1,8 @@
 import gi
 from gi.repository import Gtk
 
-import hubs
-import reqs
+from . import hubs
+from . import reqs
 
 listdef=lambda:Gtk.ListStore(str)
 

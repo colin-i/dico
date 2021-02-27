@@ -1,10 +1,11 @@
 import gi
 from gi.repository import Gtk,GLib
 
-import reqs
-import flist
-import hubs
-import search
+from . import reqs
+from . import flist
+from . import hubs
+from . import search
+from . import sets
 
 from enum import IntEnum
 class COLUMNS(IntEnum):
@@ -19,6 +20,8 @@ list=Gtk.ListStore(str,str,str,int,str,str)
 sort=Gtk.TreeModelSort.new_with_model(list)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 timer=0
+
+folder=Gtk.EntryBuffer(text='')
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -52,9 +55,9 @@ def add(m,it):
 	reqs.requ("magnet.add",{"directory" : "","magnet" : m})
 
 def set():
-	if reset(None):
-		timer=GLib.timeout_add_seconds(10,reset,None)
-def reset(d):
+	if fresh(None):
+		timer=GLib.timeout_add_seconds(10,fresh,None)
+def fresh(d):
 	rows=reqs.req("queue.list")
 	for x in list:
 		if inspect(x.iter,rows):
@@ -95,3 +98,17 @@ def rem(b,t):
 	tg=target(d[0],d[1])
 	reqs.requ("queue.remove",{"target":tg})
 	list.remove(d[0].convert_iter_to_child_iter(d[1]))
+
+def confs():
+	return sets.entry("Share folder",folder)
+def store(d):
+	d['share_folder']=folder.get_text()
+def restore(d):
+	folder.set_text(d['share_folder'],-1)
+def reset():
+	virt="share"
+	d=folder.get_text()
+	if d:
+		reqs.reque("share.add",{"directory" : d,"virtname" : virt})
+	else:
+		reqs.reque("share.del",{"directory" : virt})

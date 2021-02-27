@@ -8,8 +8,8 @@ import os.path
 
 listdef=lambda:Gtk.ListStore(str,int,str)
 
-import base
-import hubscon
+from . import base
+from . import hubscon
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')

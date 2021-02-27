@@ -8,8 +8,8 @@ class COLUMNS(IntEnum):
 	TTH=2
 listcols="str,int,str"
 
-import reqs
-import hubs
+from . import reqs
+from . import hubs
 
 name=Gtk.Label()
 folder=Gtk.Label()

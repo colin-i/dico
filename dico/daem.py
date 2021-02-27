@@ -4,9 +4,9 @@ from gi.repository import Gtk
 
 data=Gtk.EntryBuffer(text='')
 
-import sets
-import hubscon
-import main
+from . import sets
+from . import hubscon
+from . import main
 
 def confs():
 	return sets.entry("Daemon parameters",data)

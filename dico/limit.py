@@ -1,8 +1,8 @@
 import gi
 from gi.repository import GLib,Gtk
 
-import reqs
-import log
+from . import reqs
+from . import log
 
 start=0
 time=Gtk.EntryBuffer(text="0")

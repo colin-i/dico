@@ -3,9 +3,9 @@ from gi.repository import Gtk
 
 import xml.etree.ElementTree as ET
 
-import stor2
-import main
-import daem
+from . import stor2
+from . import main
+from . import daem
 
 name=Gtk.EntryBuffer(text='dico')
 

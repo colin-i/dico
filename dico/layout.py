@@ -2,14 +2,14 @@
 import gi
 from gi.repository import Gtk
 
-import sets
-import hubs
-import hubson
-import users
-import usersloc
-import flist
-import search
-import dload
+from . import sets
+from . import hubs
+from . import hubson
+from . import users
+from . import usersloc
+from . import flist
+from . import search
+from . import dload
 
 def show(w):
 	bx=Gtk.Box()

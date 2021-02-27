@@ -6,17 +6,17 @@ from gi.repository import Gtk,GLib
 import subprocess
 import shlex
 
-import base
-import layout 
-import limit
-import log
-import stor2
-import nick
-import hubs
-import hubscon
-import daem
-import search
-import dload
+from . import base
+from . import layout 
+from . import limit
+from . import log
+from . import stor2
+from . import nick
+from . import hubs
+from . import hubscon
+from . import daem
+from . import search
+from . import dload
 
 def dopen():
 	seq=shlex.split(daem.data.get_text())

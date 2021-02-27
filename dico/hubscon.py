@@ -4,10 +4,10 @@ from gi.repository import GLib
 
 import time
 
-import hubs
-import reqs
-import hubson
-import users
+from . import hubs
+from . import reqs
+from . import hubson
+from . import users
 
 recons=[]
 class reconnect():

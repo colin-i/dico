@@ -1,9 +1,9 @@
 import gi
 from gi.repository import Gtk
 
-import reqs
-import users
-import flist
+from . import reqs
+from . import users
+from . import flist
 
 list=users.listdef()
 
