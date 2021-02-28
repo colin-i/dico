@@ -20,6 +20,7 @@ page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 info=Gtk.Label()
 timer=0
 limit=Gtk.EntryBuffer(text="20")
+flag=False
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -49,10 +50,15 @@ def reset():
 		limiting()
 def start(t):
 	reqs.requ("search.send",{"searchstring":t})
-def send(e,d):
+def send(e,nb):
 	t=e.get_text()
 	start(t)
 	info.set_text(t)
+	nr=nb.page_num(page)
+	if nb.get_current_page()!=nr:
+		global flag
+		flag=True
+		nb.set_current_page(nr)
 	close()
 	timer=GLib.timeout_add_seconds(10,get,None)
 def close():
@@ -68,6 +74,12 @@ def append(r):
 			return
 	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,0 if r["Free Slots"]=="0" else 1,True])#need to be visible at sort for limit
 def set():
+	global flag
+	if flag:
+		flag=False
+	else:
+		setcomplex()
+def setcomplex():
 	list.clear()
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
 	if result:
@@ -75,7 +87,7 @@ def set():
 			append(r)
 		limiting()
 def get(d):
-	set()
+	setcomplex()
 	info.set_text('')
 	timer=0
 	return False
