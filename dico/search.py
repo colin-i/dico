@@ -84,8 +84,10 @@ def setcomplex():
 	result=reqs.reque("search.getresults",{"huburl":''})#not send final results
 	if result:
 		for r in result:
-			append(r)
-		limiting()
+			if "TTH" in r:#not working with Directory ,yet
+				append(r)
+		if len(list)>0:
+			limiting()
 def get(d):
 	setcomplex()
 	info.set_text('')
@@ -93,12 +95,12 @@ def get(d):
 	return False
 def limiting():
 	n=sort.iter_n_children(None)
-	i1=sort.iter_nth_child(None,n-1)
-	m=int(limit.get_text())
-	for i in range(m,n):
+	m=n-1
+	n-=int(limit.get_text())
+	for i in range(0,n):
+		i1=sort.iter_nth_child(None,m-i)
 		i2=sort.convert_iter_to_child_iter(i1)
 		i3=filter.convert_iter_to_child_iter(i2)
-		i1=sort.iter_previous(i1)#not after,critical
 		list.set_value(i3,lastcolumn,False)
 
 def store(d):
