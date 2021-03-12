@@ -4,7 +4,7 @@ Build with:
 ```
 make
 ```
-Using eiskaltdcpp-daemon and gtk4 bound with PyGObject.
+Using eiskaltdcpp-daemon through json rpc and gtk4 bound with PyGObject.
 ###### Donations
 | Name      | Address                                    |
 |-----------|--------------------------------------------|
