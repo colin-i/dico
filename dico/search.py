@@ -6,14 +6,16 @@ from . import reqs
 from . import hubs
 from . import sets
 from . import dload
+from . import details
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
 	USERS=len(flist.COLUMNS)
 	FUSERS=USERS+1
+	DETAIL=FUSERS+1
 lastcolumn=len(flist.COLUMNS)+len(COLUMNS)
 
-list=eval("Gtk.ListStore("+flist.listcols+",int,int,GObject.TYPE_BOOLEAN)")
+list=eval("Gtk.ListStore("+flist.listcols+",int,int,GObject.TYPE_PYOBJECT,GObject.TYPE_BOOLEAN)")
 filter=list.filter_new()
 sort=Gtk.TreeModelSort.new_with_model(filter)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -41,7 +43,9 @@ def clk(b,ix):
 	hubs.clk_univ(sort,ix)
 	reset()
 def clkrow(tree,path,column,model):
-	dload.add(model,model.get_iter(path))
+	it=model.get_iter(path)
+	dload.add(model,it)
+	details.set(model.get_value(it,COLUMNS.DETAIL))
 
 def reset():
 	if len(list)>0:
@@ -66,13 +70,15 @@ def close():
 		GLib.source_remove(timer)
 
 def append(r):
+	fr=r["Free Slots"]
 	for d in list:
 		if d[COLUMNS.TTH]==r["TTH"]:
 			list.set_value(d.iter,COLUMNS.USERS,d[COLUMNS.USERS]+1)
-			if r["Free Slots"]!="0":
+			if fr!="0":
 				list.set_value(d.iter,COLUMNS.FUSERS,d[COLUMNS.FUSERS]+1)
+			details.update(r,fr,list,d.iter,COLUMNS.DETAIL)
 			return
-	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,0 if r["Free Slots"]=="0" else 1,True])#need to be visible at sort for limit
+	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,0 if fr=="0" else 1,[details.create(r,fr)],True])#need to be visible at sort for limit
 def set():
 	global flag
 	if flag:

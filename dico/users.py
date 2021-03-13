@@ -34,6 +34,9 @@ def clkrow(t,p,c,b):
 	m=t.get_model()
 	user=m.get_value(m.get_iter(p),0)
 	adr=b.get_tab_label_text(scroll)
+	ldload(adr,user)
+
+def ldload(adr,user):
 	reqs.requ("list.download",{"huburl" : adr, "nick" : user})
 
 def clear(nb,adr):

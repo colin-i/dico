@@ -9,6 +9,7 @@ from . import users
 from . import usersloc
 from . import flist
 from . import search
+from . import details
 from . import dload
 from . import com
 
@@ -32,6 +33,7 @@ def show(w):
 	pags.append_page(locale,Gtk.Label(label="Users"))
 	pags.append_page(flist.show(),Gtk.Label(label="FileList"))
 	pags.append_page(search.show(),Gtk.Label(label="Search"))
+	pags.append_page(details.show(),Gtk.Label(label="Details"))
 	pags.append_page(dload.show(),Gtk.Label(label="Downloads"))
 	pags.append_page(com.show(),Gtk.Label(label="Command"))
 	pags.connect("switch-page",sw,locale)
