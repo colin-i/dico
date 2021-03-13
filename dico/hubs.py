@@ -102,4 +102,8 @@ def ini():
 	mx=min(int(lim.get_text()),len(hbs))
 	for i in range(mx):
 		attrs=hbs[i].attrib
-		list.append([attrs['Address'],int(attrs['Users']),attrs['Country']])
+		if attrs['Secure']:
+			huburl=attrs['Secure']
+		else:
+			huburl=attrs['Address']
+		list.append([huburl,int(attrs['Users']),attrs['Country']])
