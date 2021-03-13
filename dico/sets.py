@@ -7,8 +7,8 @@ from . import log
 from . import stor2
 from . import nick
 from . import hubs
-from . import daem
 from . import search
+from . import daem
 from . import dload
 
 def ini(b,win):
@@ -27,8 +27,8 @@ def ini(b,win):
 	bx.append(log.confs())
 	bx.append(stor2.confs())
 	bx.append(hubs.confs())
-	bx.append(daem.confs())
 	bx.append(search.confs())
+	bx.append(daem.confs())
 	bx.append(dload.confs())
 	d.show()
 def reset(d,r,w):
@@ -38,9 +38,9 @@ def reset(d,r,w):
 	dload.reset()#when daemon running
 	wasreset=nick.ini(True)
 	hubs.reset()
+	search.reset()
 	if not wasreset:
 		daem.reset()
-	search.reset()
 	d.destroy()#close is calling here twice
 
 def entry(txt,buf):

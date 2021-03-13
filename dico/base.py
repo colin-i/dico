@@ -7,8 +7,8 @@ from . import stor2
 from . import nick
 from . import hubs
 from . import hubson
-from . import daem
 from . import search
+from . import daem
 from . import dload
 
 def get_root_conf():
@@ -28,8 +28,8 @@ def write(win):
 	nick.store(d)
 	hubs.store(d)
 	hubson.store(d)
-	daem.store(d)
 	search.store(d)
+	daem.store(d)
 	dload.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
@@ -46,8 +46,8 @@ def read(win):
 			stor2.restore(d)
 			nick.restore(d)
 			hubs.restore(d)
-			daem.restore(d)
 			search.restore(d)
+			daem.restore(d)
 			dload.restore(d)
 			return d
 	except Exception:

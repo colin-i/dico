@@ -4,7 +4,6 @@ from gi.repository import Gtk,GLib,GObject
 from . import flist
 from . import reqs
 from . import hubs
-from . import sets
 from . import dload
 from . import details
 
@@ -23,6 +22,7 @@ info=Gtk.Label()
 timer=0
 limit=Gtk.EntryBuffer(text="20")
 flag=False
+extensions=Gtk.EntryBuffer(text="")
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -50,7 +50,8 @@ def clkrow(tree,path,column,model):
 def reset():
 	if len(list)>0:
 		for x in list:
-			list.set_value(x.iter,lastcolumn,True)#to be in filter,then in sort
+			nm=list.get_value(x.iter,flist.COLUMNS.NAME)
+			list.set_value(x.iter,lastcolumn,extension_filter(nm))#to be in filter,then in sort
 		limiting()
 def start(t):
 	reqs.requ("search.send",{"searchstring":t})
@@ -78,7 +79,8 @@ def append(r):
 				list.set_value(d.iter,COLUMNS.FUSERS,d[COLUMNS.FUSERS]+1)
 			details.update(r,fr,list,d.iter,COLUMNS.DETAIL)
 			return
-	list.append([r["Filename"],int(r["Real Size"]),r["TTH"],1,0 if fr=="0" else 1,[details.create(r,fr)],True])#need to be visible at sort for limit
+	nm=r["Filename"]
+	list.append([nm,int(r["Real Size"]),r["TTH"],1,0 if fr=="0" else 1,[details.create(r,fr)],extension_filter(nm)])#need to be visible at sort for limit
 def set():
 	global flag
 	if flag:
@@ -92,26 +94,52 @@ def setcomplex():
 		for r in result:
 			if "TTH" in r:#not working with Directory ,yet
 				append(r)
-		if len(list)>0:
-			limiting()
+		limiting()
 def get(d):
 	setcomplex()
 	info.set_text('')
 	timer=0
 	return False
 def limiting():
-	n=sort.iter_n_children(None)
-	m=n-1
-	n-=int(limit.get_text())
-	for i in range(0,n):
-		i1=sort.iter_nth_child(None,m-i)
-		i2=sort.convert_iter_to_child_iter(i1)
-		i3=filter.convert_iter_to_child_iter(i2)
-		list.set_value(i3,lastcolumn,False)
+	if len(sort)>0:#extensions
+		n=sort.iter_n_children(None)
+		m=n-1
+		n-=int(limit.get_text())
+		for i in range(0,n):
+			i1=sort.iter_nth_child(None,m-i)
+			i2=sort.convert_iter_to_child_iter(i1)
+			i3=filter.convert_iter_to_child_iter(i2)
+			list.set_value(i3,lastcolumn,False)
+def extension_filter(nm):
+	ext=extensions.get_text()
+	if ext:
+		p=nm.rfind('.')
+		if p==-1:
+			return False
+		ex=nm[p+1:]
+		e=ext.split(";")
+		for x in e:
+			if x==ex:
+				return True
+		return False
+	return True
 
 def store(d):
 	d['search_limit']=int(limit.get_text())
+	d['extensions']=extensions.get_text()
 def restore(d):
 	limit.set_text(str(d['search_limit']),-1)
+	extensions.set_text(d['extensions'],-1)
 def confs():
-	return sets.entry("Search rows limit",limit)
+	f=Gtk.Frame(label="Search options")
+	g=Gtk.Grid()
+	lb=Gtk.Label(halign=Gtk.Align.START,label="Rows limit")
+	g.attach(lb,0,0,1,1)
+	en=Gtk.Entry(buffer=limit,hexpand=True)
+	g.attach(en,1,0,1,1)
+	lb=Gtk.Label(halign=Gtk.Align.START,label="Extensions (e1;e2...eN or unfiltered(blank))")
+	g.attach(lb,0,1,1,1)
+	en=Gtk.Entry(buffer=extensions,hexpand=True)
+	g.attach(en,1,1,1,1)
+	f.set_child(g)
+	return f
