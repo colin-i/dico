@@ -1,6 +1,8 @@
 import gi
 from gi.repository import Gtk,GObject
 
+from time import sleep
+
 from enum import IntEnum
 class COLUMNS(IntEnum):
 	NAME=0
@@ -65,13 +67,19 @@ def backing(b,d):
 	else:
 		fshow(name.get_text(),'')
 def fshow(flist,s):
-	a=reqs.reque("list.lsdir",{"directory" : s,"filelist" : flist})
-	folder.set_text(s)
-	list.clear()
-	for x in a:
-		e=a[x]
-		if "TTH" in e:
-			t=e['TTH']
+	#wait phisical read,listopened was not a solution
+	for i in range(0,5):
+		a=reqs.reque("list.lsdir",{"directory" : s,"filelist" : flist})
+		if a:
+			folder.set_text(s)
+			list.clear()
+			for x in a:
+				e=a[x]
+				if "TTH" in e:
+					t=e['TTH']
+				else:
+					t=''
+				list.append([x,int(e['Size']),t])
+			break
 		else:
-			t=''
-		list.append([x,int(e['Size']),t])
+			sleep(1)
