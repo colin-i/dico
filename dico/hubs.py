@@ -35,6 +35,7 @@ def col(tr,tx,ix,act):
 	renderer = Gtk.CellRendererText()
 	column = Gtk.TreeViewColumn()
 	column.set_title(tx)
+	column.set_resizable(True)
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", ix)
 	b=column.get_button()

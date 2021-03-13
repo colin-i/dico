@@ -1,12 +1,12 @@
 import gi
-from gi.repository import Gtk
+from gi.repository import Gtk,GObject
 
 from enum import IntEnum
 class COLUMNS(IntEnum):
 	NAME=0
 	SIZE=1
 	TTH=2
-listcols="str,int,str"
+listcols="str,GObject.TYPE_INT64,str"
 
 from . import reqs
 from . import hubs
