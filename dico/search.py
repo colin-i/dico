@@ -62,9 +62,7 @@ def relimiting():
 	a=len(filter)
 	if a>0:
 		limiting()
-	b=len(list)
-	c=len(sort)
-	infs.set_text('Visible: '+str(c)+'; Hidden: filter '+str(b-a)+', limit '+str(a-c))
+	resinf(a)
 def reshow():
 	for x in list:
 		nm=list.get_value(x.iter,flist.COLUMNS.NAME)
@@ -111,6 +109,8 @@ def setcomplex():
 			if "TTH" in r:#not working with Directory ,yet
 				append(r)
 		relimiting()
+	else:
+		resinf(0)
 def get(d):
 	setcomplex()
 	info.set_text('')
@@ -164,3 +164,8 @@ def confs(win):
 	g.attach(en,1,2,1,1)
 	f.set_child(g)
 	return f
+
+def resinf(a):
+	b=len(list)
+	c=len(sort)
+	infs.set_text('Visible: '+str(c)+'; Hidden: filter '+str(b-a)+', limit '+str(a-c))
