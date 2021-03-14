@@ -41,18 +41,26 @@ def show():
 	return page
 def clk(b,ix):
 	hubs.clk_univ(sort,ix)
-	reset()
+	if len(filter)>0:
+		resort()
 def clkrow(tree,path,column,model):
 	it=model.get_iter(path)
 	dload.add(model,it)
 	details.set(model.get_value(it,COLUMNS.DETAIL))
 
 def reset():
-	if len(list)>0:
-		for x in list:
-			nm=list.get_value(x.iter,flist.COLUMNS.NAME)
-			list.set_value(x.iter,lastcolumn,extension_filter(nm))#to be in filter,then in sort
+	reshow()
+	relimiting()
+def resort():
+	reshow()
+	limiting()
+def relimiting():
+	if len(filter)>0:
 		limiting()
+def reshow():
+	for x in list:
+		nm=list.get_value(x.iter,flist.COLUMNS.NAME)
+		list.set_value(x.iter,lastcolumn,extension_filter(nm))#to be in filter,then in sort
 def start(t):
 	reqs.requ("search.send",{"searchstring":t})
 def send(e,nb):
@@ -94,22 +102,21 @@ def setcomplex():
 		for r in result:
 			if "TTH" in r:#not working with Directory ,yet
 				append(r)
-		limiting()
+		relimiting()
 def get(d):
 	setcomplex()
 	info.set_text('')
 	timer=0
 	return False
 def limiting():
-	if len(sort)>0:#extensions
-		n=sort.iter_n_children(None)
-		m=n-1
-		n-=int(limit.get_text())
-		for i in range(0,n):
-			i1=sort.iter_nth_child(None,m-i)
-			i2=sort.convert_iter_to_child_iter(i1)
-			i3=filter.convert_iter_to_child_iter(i2)
-			list.set_value(i3,lastcolumn,False)
+	n=sort.iter_n_children(None)
+	m=n-1
+	n-=int(limit.get_text())
+	for i in range(0,n):
+		i1=sort.iter_nth_child(None,m-i)
+		i2=sort.convert_iter_to_child_iter(i1)
+		i3=filter.convert_iter_to_child_iter(i2)
+		list.set_value(i3,lastcolumn,False)
 def extension_filter(nm):
 	ext=extensions.get_text()
 	if ext:
