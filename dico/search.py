@@ -24,6 +24,7 @@ timer=0
 limit=Gtk.EntryBuffer(text="20")
 flag=False
 extensions=Gtk.EntryBuffer()#text=""
+restime=Gtk.EntryBuffer(text="10")
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -74,7 +75,7 @@ def send(e,nb):
 		flag=True
 		nb.set_current_page(nr)
 	close()
-	timer=GLib.timeout_add_seconds(10,get,None)
+	timer=GLib.timeout_add_seconds(int(restime.get_text()),get,None)
 def close():
 	if timer:
 		GLib.source_remove(timer)
@@ -135,9 +136,11 @@ def extension_filter(nm):
 def store(d):
 	d['search_limit']=int(limit.get_text())
 	extension.store(d)
+	d['search_time']=int(restime.get_text())
 def restore(d):
 	limit.set_text(str(d['search_limit']),-1)
 	extension.restore(d)
+	restime.set_text(str(d['search_time']),-1)
 def confs(win):
 	f=Gtk.Frame(label="Search options")
 	g=Gtk.Grid()
@@ -149,5 +152,9 @@ def confs(win):
 	g.attach(lb,0,1,1,1)
 	en=Gtk.Entry(buffer=extensions,hexpand=True)
 	g.attach(extension.confs(en,win),1,1,1,1)
+	lb=Gtk.Label(halign=Gtk.Align.START,label="Show results after N seconds")
+	g.attach(lb,0,2,1,1)
+	en=Gtk.Entry(buffer=restime,hexpand=True)
+	g.attach(en,1,2,1,1)
 	f.set_child(g)
 	return f

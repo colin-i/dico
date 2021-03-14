@@ -11,11 +11,11 @@ def store(d):
 	a=[]
 	for x in list:
 		a.append(list.get_value(x.iter,0))
-	d['extensions']=a
+	d['search_extensions']=a
 def restore(d):
-	for x in d['extensions']:
+	for x in d['search_extensions']:
 		list.append([x])
-	search.extensions.set_text(d['extensions'][0],-1)
+	search.extensions.set_text(d['search_extensions'][0],-1)
 def confs(en,win):
 	bx=Gtk.Box()
 	b=Gtk.Button.new_with_label("Change")
