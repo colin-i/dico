@@ -25,6 +25,7 @@ limit=Gtk.EntryBuffer(text="20")
 flag=False
 extensions=Gtk.EntryBuffer()#text=""
 restime=Gtk.EntryBuffer(text="10")
+infs=Gtk.Label()
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -40,6 +41,7 @@ def show():
 	scroll.set_child(tree)
 	page.append(info)
 	page.append(scroll)
+	page.append(infs)
 	return page
 def clk(b,ix):
 	hubs.clk_univ(sort,ix)
@@ -57,8 +59,12 @@ def resort():
 	reshow()
 	limiting()
 def relimiting():
-	if len(filter)>0:
+	a=len(filter)
+	if a>0:
 		limiting()
+	b=len(list)
+	c=len(sort)
+	infs.set_text('Visible: '+str(c)+'; Hidden: filter '+str(b-a)+', limit '+str(a-c))
 def reshow():
 	for x in list:
 		nm=list.get_value(x.iter,flist.COLUMNS.NAME)
