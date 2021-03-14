@@ -55,8 +55,10 @@ def add(m,it):
 	reqs.requ("magnet.add",{"directory" : "","magnet" : m})
 
 def set():
-	if fresh(None):
-		timer=GLib.timeout_add_seconds(10,fresh,None)
+	global timer
+	if timer==0:
+		if fresh(None):
+			timer=GLib.timeout_add_seconds(10,fresh,None)
 def fresh(d):
 	rows=reqs.req("queue.list")
 	for x in list:
