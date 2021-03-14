@@ -70,6 +70,7 @@ def fresh(d):
 			list.append([r["Filename"],r["Path"],r["Downloaded"],int(r["Size Sort"]),r["Users"],r["Status"]])
 		return True
 	if len(list)==0:
+		global timer
 		timer=0
 		return False
 	return True
