@@ -42,6 +42,10 @@ def ldload(adr,user):
 def clear(nb,adr):
 	list.clear()
 	nb.set_tab_label_text(scroll,adr)
+def ifclear(nb,a):
+	if(nb.get_tab_label_text(scroll)==a):
+		clear(nb,intro)
+
 def set(nb,adr,lst):
 	clear(nb,adr)
 	for x in lst:

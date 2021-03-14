@@ -44,7 +44,7 @@ def addcon(model,rowlst):
 def remcon(nb,a):
 	reqs.requ("hub.del",{"huburl" : a})
 	hclose(a)
-	users.clear(nb,users.intro)
+	users.ifclear(nb,a)
 
 def recon():
 	lst=hubson.list
