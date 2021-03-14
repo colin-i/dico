@@ -21,7 +21,7 @@ sort=Gtk.TreeModelSort.new_with_model(list)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 timer=0
 
-folder=Gtk.EntryBuffer(text='')
+folder=Gtk.EntryBuffer()#text=''
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -98,9 +98,10 @@ def target(model,iter):
 def rem(b,t):
 	s=t.get_selection()
 	d=s.get_selected()#iter free is in the bindings
-	tg=target(d[0],d[1])
-	reqs.requ("queue.remove",{"target":tg})
-	list.remove(d[0].convert_iter_to_child_iter(d[1]))
+	if d[1]:#on tab focus is selecting but on force click is ugly
+		tg=target(d[0],d[1])
+		reqs.requ("queue.remove",{"target":tg})
+		list.remove(d[0].convert_iter_to_child_iter(d[1]))
 
 def confs():
 	return sets.entry("Share folder",folder)

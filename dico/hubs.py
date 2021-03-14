@@ -98,12 +98,18 @@ def ini():
 		else:
 			tree = ET.parse(t)
 	root = tree.getroot()
-	hbs=root.find("Hubs").findall("Hub")
+	try:
+		hbs=root.find("Hubs").findall("Hub")
+	except Exception:
+		return
 	mx=min(int(lim.get_text()),len(hbs))
 	for i in range(mx):
 		attrs=hbs[i].attrib
-		if attrs['Secure']:
+		if ('Secure' in attrs) and (attrs['Secure']):
 			huburl=attrs['Secure']
-		else:
+		elif 'Address' in attrs:
 			huburl=attrs['Address']
-		list.append([huburl,int(attrs['Users']),attrs['Country']])
+		else:
+			continue
+		if ('Users' in attrs) and ('Country' in attrs):
+			list.append([huburl,int(attrs['Users']),attrs['Country']])

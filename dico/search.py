@@ -6,6 +6,7 @@ from . import reqs
 from . import hubs
 from . import dload
 from . import details
+from . import extension
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
@@ -22,7 +23,7 @@ info=Gtk.Label()
 timer=0
 limit=Gtk.EntryBuffer(text="20")
 flag=False
-extensions=Gtk.EntryBuffer(text="")
+extensions=Gtk.EntryBuffer()#text=""
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -133,11 +134,11 @@ def extension_filter(nm):
 
 def store(d):
 	d['search_limit']=int(limit.get_text())
-	d['extensions']=extensions.get_text()
+	extension.store(d)
 def restore(d):
 	limit.set_text(str(d['search_limit']),-1)
-	extensions.set_text(d['extensions'],-1)
-def confs():
+	extension.restore(d)
+def confs(win):
 	f=Gtk.Frame(label="Search options")
 	g=Gtk.Grid()
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Rows limit")
@@ -147,6 +148,6 @@ def confs():
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Extensions (e1;e2...eN or unfiltered(blank))")
 	g.attach(lb,0,1,1,1)
 	en=Gtk.Entry(buffer=extensions,hexpand=True)
-	g.attach(en,1,1,1,1)
+	g.attach(extension.confs(en,win),1,1,1,1)
 	f.set_child(g)
 	return f

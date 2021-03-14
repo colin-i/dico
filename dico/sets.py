@@ -11,23 +11,26 @@ from . import search
 from . import daem
 from . import dload
 
-def ini(b,win):
-	d=Gtk.Dialog(title="Settings",transient_for=win)
+def dial(t,win,f,data):
+	d=Gtk.Dialog(title=t,transient_for=win)
 	d.set_modal(True)
-	d.add_button("_OK",Gtk.ResponseType.NONE)
-	d.connect("response",reset,win)
+	d.connect("response",f,data)
 	if win.is_maximized():
 		d.maximize()
 	else:
 		dim=win.get_default_size()
 		d.set_default_size(dim.width,dim.height)
+	return d
+def ini(b,win):
+	d=dial("Settings",win,reset,win)
+	d.add_button("_OK",Gtk.ResponseType.NONE)
 	bx=d.get_content_area()
 	bx.set_orientation(Gtk.Orientation.VERTICAL)
 	bx.append(limit.confs())
 	bx.append(log.confs())
 	bx.append(stor2.confs())
 	bx.append(hubs.confs())
-	bx.append(search.confs())
+	bx.append(search.confs(d))
 	bx.append(daem.confs())
 	bx.append(dload.confs())
 	d.show()

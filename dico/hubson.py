@@ -28,8 +28,9 @@ def add(a):
 def rem(b,gr):
 	s=gr[0].get_selection()
 	d=s.get_selected()#iter free is in the bindings
-	hubscon.remcon(gr[1],d[0].get_value(d[1],hubs.COLUMNS.ADDRESS))
-	list.remove(d[0].convert_iter_to_child_iter(d[1]))
+	if d[1]:
+		hubscon.remcon(gr[1],d[0].get_value(d[1],hubs.COLUMNS.ADDRESS))
+		list.remove(d[0].convert_iter_to_child_iter(d[1]))
 
 def rowclk(tree,path,column,nb):
 	model=tree.get_model()

@@ -4,8 +4,8 @@ from gi.repository import Gtk
 
 import subprocess
 
-file=Gtk.EntryBuffer(text='')
-end=Gtk.EntryBuffer(text='')
+file=Gtk.EntryBuffer()#text=''
+end=Gtk.EntryBuffer()#text=''
 f=None
 
 def confs():

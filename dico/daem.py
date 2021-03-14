@@ -2,7 +2,7 @@
 import gi
 from gi.repository import Gtk
 
-data=Gtk.EntryBuffer(text='')
+data=Gtk.EntryBuffer()#text=''
 
 from . import sets
 from . import hubscon
