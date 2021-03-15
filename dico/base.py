@@ -1,6 +1,8 @@
 import os.path
 import json
 
+from gi.repository import Gdk
+
 from . import limit
 from . import log
 from . import stor2
@@ -22,6 +24,7 @@ def write(win):
 	d['width']=dim.width
 	d['height']=dim.height
 	d['max']=win.is_maximized()
+	d['min']=win.get_surface().get_state()&Gdk.ToplevelState.MINIMIZED
 	limit.store(d)
 	log.store(d)
 	stor2.store(d)
@@ -41,6 +44,8 @@ def read(win):
 			win.set_default_size(d['width'],d['height'])
 			if(d['max']):
 				win.maximize()
+			if(d['min']):
+				win.minimize()
 			limit.restore(d)
 			log.restore(d)
 			stor2.restore(d)

@@ -13,7 +13,6 @@ def update(r,free,lst,it,col):
 	ar.append(create(r,free))
 	lst.set_value(it,col,ar)
 
-import gi
 from gi.repository import Gtk
 
 from . import users

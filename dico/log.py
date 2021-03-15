@@ -1,5 +1,4 @@
 
-import gi
 from gi.repository import Gtk
 
 import subprocess

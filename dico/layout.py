@@ -1,5 +1,4 @@
 
-import gi
 from gi.repository import Gtk
 
 from . import sets

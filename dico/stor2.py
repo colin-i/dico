@@ -1,5 +1,4 @@
 
-import gi
 from gi.repository import Gtk
 
 import xml.etree.ElementTree as ET
