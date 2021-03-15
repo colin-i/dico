@@ -8,6 +8,7 @@ from . import reqs
 
 list=hubs.listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)
+page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
 def clk(b,ix):
 	hubs.clk_univ(sort,ix)
@@ -16,12 +17,11 @@ def show(nb):
 	wn.set_vexpand(True)
 	t=hubs.treedef(sort,clk,rowclk,nb)
 	wn.set_child(t)
-	bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-	bx.append(wn)
+	page.append(wn)
 	b=Gtk.Button.new_with_label("-")
 	b.connect('clicked', rem, [t,nb])
-	bx.append(b)
-	return bx
+	page.append(b)
+	return page
 
 def add(a):
 	list.append(a)
@@ -51,3 +51,14 @@ def restore(d):
 	l=d['hubs']
 	for r in l:
 		hubscon.addcon(list,r)
+
+def set():
+	res=reqs.req("hub.listfulldesc")
+	if res:
+		for z in list:
+			x=list.get_value(z.iter,hubs.COLUMNS.ADDRESS)
+			for r in res:
+				if r==x:
+					list.set_value(z.iter,hubs.COLUMNS.USERS,int(res[r]["users"]))
+					del res[r]
+					break

@@ -29,19 +29,20 @@ def show(w):
 	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
 	pags.append_page(hubson.show(pags),Gtk.Label(label="Hubs"))
 	pags.append_page(users.show(pags),Gtk.Label(label=users.intro))
-	locale=usersloc.show(pags)
-	pags.append_page(locale,Gtk.Label(label="Users"))
+	pags.append_page(usersloc.show(pags),Gtk.Label(label="Users"))
 	pags.append_page(flist.show(),Gtk.Label(label="FileList"))
 	pags.append_page(search.show(),Gtk.Label(label="Search"))
 	pags.append_page(details.show(),Gtk.Label(label="Details"))
 	pags.append_page(dload.show(),Gtk.Label(label="Downloads"))
 	pags.append_page(com.show(),Gtk.Label(label="Command"))
-	pags.connect("switch-page",sw,locale)
+	pags.connect("switch-page",sw,None)
 	bx.append(pags)
 	w.set_child(bx)
 
-def sw(notebook,page,page_num,data):
-	if page==data:
+def sw(notebook,page,page_num,d):
+	if page==hubson.page:
+		hubson.set()
+	elif page==usersloc.page:
 		usersloc.set()
 	elif page==search.page:
 		search.set()

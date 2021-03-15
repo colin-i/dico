@@ -6,12 +6,12 @@ from . import users
 from . import flist
 
 list=users.listdef()
+page=Gtk.ScrolledWindow()
 
 def show(nb):
-	wn=Gtk.ScrolledWindow()
-	wn.set_vexpand(True)
+	page.set_vexpand(True)
 	sort=Gtk.TreeModelSort.new_with_model(list)
-	return users.show_univ(nb,wn,sort,clkrow)
+	return users.show_univ(nb,page,sort,clkrow)
 
 def clkrow(t,p,c,b):
 	m=t.get_model()
