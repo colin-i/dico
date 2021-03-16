@@ -25,6 +25,7 @@ flag=False
 extensions=Gtk.EntryBuffer()#text=""
 restime=Gtk.EntryBuffer(text="10")
 infs=Gtk.Label()
+ext_fn="Filename"
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -92,7 +93,7 @@ def append(r):
 				list.set_value(d.iter,COLUMNS.FUSERS,d[COLUMNS.FUSERS]+1)
 			details.update(r,fr,list,d.iter,COLUMNS.DETAIL)
 			return
-	nm=r["Filename"]
+	nm=r[ext_fn]
 	list.append([nm,int(r["Real Size"]),r["TTH"],1,0 if fr=="0" else 1,[details.create(r,fr)],extension_filter(nm)])#need to be visible at sort for limit
 def set():
 	global flag
