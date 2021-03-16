@@ -12,6 +12,7 @@ from . import hubson
 from . import search
 from . import daem
 from . import dload
+from . import com
 
 def get_root_conf():
 	return get_root_file('config.json')
@@ -34,6 +35,7 @@ def write(win):
 	search.store(d)
 	daem.store(d)
 	dload.store(d)
+	com.store(d)
 	with open(get_root_conf(), "w") as write_file:
 		json.dump(d, write_file)
 
@@ -54,6 +56,7 @@ def read(win):
 			search.restore(d)
 			daem.restore(d)
 			dload.restore(d)
+			com.restore(d)
 			return d
 	except Exception:
 		return None

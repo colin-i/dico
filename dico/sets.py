@@ -9,6 +9,7 @@ from . import hubs
 from . import search
 from . import daem
 from . import dload
+from . import com
 
 def dial(t,win,f,data):
 	d=Gtk.Dialog(title=t,transient_for=win)
@@ -32,6 +33,7 @@ def ini(b,win):
 	bx.append(search.confs(d))
 	bx.append(daem.confs())
 	bx.append(dload.confs())
+	bx.append(com.confs())
 	d.show()
 def reset(d,r,w):
 	limit.reset(w)
