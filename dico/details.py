@@ -36,7 +36,7 @@ def show():
 	hubs.col(tree,'Nick',COLUMNS.NICK,clk)
 	hubs.col(tree,'Hub URL',COLUMNS.HUB,clk)
 	hubs.col(tree,'Free Slots',COLUMNS.FSLOTS,clk)
-	hubs.col(tree,'Filename',COLUMNS.FNAME,clk)
+	hubs.col(tree,'Name',COLUMNS.FNAME,clk)
 	tree.connect("row-activated",clkrow,sort)
 	tree.set_activate_on_single_click(True)
 	scroll.set_child(tree)
