@@ -6,6 +6,7 @@ from . import hubs
 from . import dload
 from . import details
 from . import extension
+from . import sets
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
@@ -152,15 +153,15 @@ def confs(win):
 	g=Gtk.Grid()
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Rows limit")
 	g.attach(lb,0,0,1,1)
-	en=Gtk.Entry(buffer=limit,hexpand=True)
+	en=sets.entries(limit)
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Extensions (e1;e2...eN or unfiltered(blank))")
 	g.attach(lb,0,1,1,1)
-	en=Gtk.Entry(buffer=extensions,hexpand=True)
+	en=sets.entries(extensions)
 	g.attach(extension.confs(en,win),1,1,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Show results after N seconds")
 	g.attach(lb,0,2,1,1)
-	en=Gtk.Entry(buffer=restime,hexpand=True)
+	en=sets.entries(restime)
 	g.attach(en,1,2,1,1)
 	f.set_child(g)
 	return f

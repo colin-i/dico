@@ -1,4 +1,4 @@
-from gi.repository import Gtk,Gdk
+from gi.repository import Gtk,Gdk,GLib
 
 import shlex
 
@@ -43,7 +43,11 @@ def addtext(r):
 	b=text.get_buffer()
 	it=b.get_end_iter()
 	b.insert(it,str(r)+'\r\n',-1)
-	text.scroll_to_iter(it,0,False,0,0)
+	GLib.idle_add(delay,text)
+def delay(t):
+	b=t.get_buffer()
+	it=b.get_end_iter()
+	t.scroll_to_iter(it,0,False,0,0)
 def mem(s):
 	if len(mems)>4:
 		del mems[0]

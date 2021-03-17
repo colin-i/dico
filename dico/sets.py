@@ -11,6 +11,10 @@ from . import daem
 from . import dload
 from . import com
 
+class entries(Gtk.Entry):
+	def __init__(self,bf):
+		Gtk.Entry.__init__(self,buffer=bf,hexpand=True)
+		#when write quick, hexpand only at first
 def dial(t,win,f,data):
 	d=Gtk.Dialog(title=t,transient_for=win)
 	d.set_modal(True)
@@ -24,7 +28,8 @@ def dial(t,win,f,data):
 def ini(b,win):
 	d=dial("Settings",win,reset,win)
 	d.add_button("_OK",Gtk.ResponseType.NONE)
-	bx=d.get_content_area()
+	box=d.get_content_area()
+	bx=Gtk.Box()
 	bx.set_orientation(Gtk.Orientation.VERTICAL)
 	bx.append(limit.confs())
 	bx.append(log.confs())
@@ -34,6 +39,7 @@ def ini(b,win):
 	bx.append(daem.confs())
 	bx.append(dload.confs())
 	bx.append(com.confs())
+	box.append(Gtk.ScrolledWindow(child=bx,vexpand=True))
 	d.show()
 def reset(d,r,w):
 	limit.reset(w)

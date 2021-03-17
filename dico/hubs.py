@@ -9,6 +9,7 @@ listdef=lambda:Gtk.ListStore(str,int,str)
 
 from . import base
 from . import hubscon
+from . import sets
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
@@ -46,15 +47,15 @@ def confs():
 	g=Gtk.Grid()
 	lb=Gtk.Label(halign=Gtk.Align.START,label="File address")
 	g.attach(lb,0,0,1,1)
-	en=Gtk.Entry(buffer=addr,hexpand=True)
+	en=sets.entries(addr)
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="File fallback location")
 	g.attach(lb,0,1,1,1)
-	en=Gtk.Entry(buffer=file,hexpand=True)
+	en=sets.entries(file)
 	g.attach(en,1,1,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Maximum number of entries")
 	g.attach(lb,0,2,1,1)
-	en=Gtk.Entry(buffer=lim,hexpand=True)
+	en=sets.entries(lim)
 	g.attach(en,1,2,1,1)
 	f.set_child(g)
 	return f

@@ -2,6 +2,7 @@ from gi.repository import GLib,Gtk
 
 from . import reqs
 from . import log
+from . import sets
 
 start=0
 time=Gtk.EntryBuffer(text="0")
@@ -42,15 +43,13 @@ def confs():
 	lb.set_halign(Gtk.Align.START)
 	lb.set_text("Interval time to verify in minutes (0=disable)")
 	g.attach(lb,0,0,1,1)
-	en=Gtk.Entry.new_with_buffer(time)
-	en.set_hexpand(True)
+	en=sets.entries(time)
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label()
 	lb.set_halign(Gtk.Align.START)
 	lb.set_text("Value")
 	g.attach(lb,0,1,1,1)
-	en=Gtk.Entry.new_with_buffer(limit)
-	en.set_hexpand(True)
+	en=sets.entries(limit)
 	g.attach(en,1,1,1,1)
 	f.set_child(g)
 	return f

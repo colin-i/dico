@@ -6,6 +6,7 @@ import os.path
 
 from . import limit
 from . import nick
+from . import sets
 
 file=Gtk.EntryBuffer(text='${HOME}/.config/eiskaltdc++/DCPlusPlus.xml')
 set='Settings'
@@ -24,11 +25,11 @@ def confs():
 	g=Gtk.Grid()
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Location")
 	g.attach(lb,0,0,1,1)
-	en=Gtk.Entry(buffer=file,hexpand=True)
+	en=sets.entries(file)
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Nick name")
 	g.attach(lb,0,1,1,1)
-	en=Gtk.Entry(buffer=nick.confs(),hexpand=True)
+	en=sets.entries(nick.confs())
 	g.attach(en,1,1,1,1)
 	f.set_child(g)
 	return f

@@ -1,6 +1,8 @@
 
 from gi.repository import Gtk
 
+from . import sets
+
 import subprocess
 
 file=Gtk.EntryBuffer()#text=''
@@ -12,11 +14,11 @@ def confs():
 	g=Gtk.Grid()
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Location")
 	g.attach(lb,0,0,1,1)
-	en=Gtk.Entry(buffer=file,hexpand=True)
+	en=sets.entries(file)
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="External command when closing")
 	g.attach(lb,0,1,1,1)
-	en=Gtk.Entry(buffer=end,hexpand=True)
+	en=sets.entries(end)
 	g.attach(en,1,1,1,1)
 	f.set_child(g)
 	return f
