@@ -44,10 +44,11 @@ def addtext(r):
 	it=b.get_end_iter()
 	b.insert(it,str(r)+'\r\n',-1)
 	GLib.idle_add(delay,text)
-def delay(t):
+def delay(t):#this will be after row wrap
 	b=t.get_buffer()
 	it=b.get_end_iter()
 	t.scroll_to_iter(it,0,False,0,0)
+	return False
 def mem(s):
 	if len(mems)>4:
 		del mems[0]
