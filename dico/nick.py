@@ -1,12 +1,13 @@
 from gi.repository import Gtk
 
+import random
 import xml.etree.ElementTree as ET
 
 from . import stor2
 from . import main
 from . import daem
 
-name=Gtk.EntryBuffer(text='dico')
+name=Gtk.EntryBuffer(text='dico_'+str(random.randint(0,9999)))
 
 def confs():
 	return name
