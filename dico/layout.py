@@ -19,7 +19,7 @@ def show(w):
 	b.connect('clicked', sets.ini, w)
 	box=Gtk.Box()
 	box.append(b)
-	pags=Gtk.Notebook()
+	pags=Gtk.Notebook()#scrollable=True is Bus error here,use Tab to select and left right
 	e=Gtk.Entry(hexpand=True)
 	e.set_placeholder_text('Search...')
 	e.connect('activate',search.send,pags)
