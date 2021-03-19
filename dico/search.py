@@ -21,7 +21,7 @@ sort=Gtk.TreeModelSort.new_with_model(filter)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 info=Gtk.Label()
 timer=0
-limit=Gtk.EntryBuffer(text="20")
+limit=Gtk.EntryBuffer(text="50")
 flag=False
 extensions=Gtk.EntryBuffer()#text=""
 restime=Gtk.EntryBuffer(text="10")
