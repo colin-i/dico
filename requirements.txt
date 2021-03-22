@@ -1,2 +1,2 @@
-PyGObject>=3.39.*
-requests>=2.21.0
+PyGObject>=3.40
+requests>=2.21
