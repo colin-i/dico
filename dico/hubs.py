@@ -10,6 +10,7 @@ listdef=lambda:Gtk.ListStore(str,int,str)
 from . import base
 from . import hubscon
 from . import sets
+from . import overrides
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
@@ -112,4 +113,4 @@ def ini():
 		else:
 			continue
 		if ('Users' in attrs) and ('Country' in attrs):
-			list.append([huburl,int(attrs['Users']),attrs['Country']])
+			overrides.append(list,[huburl,int(attrs['Users']),attrs['Country']])

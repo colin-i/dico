@@ -3,6 +3,7 @@ from gi.repository import Gtk
 from . import reqs
 from . import users
 from . import flist
+from . import overrides
 
 list=users.listdef()
 page=Gtk.ScrolledWindow()
@@ -23,4 +24,4 @@ def set():
 	list.clear()
 	usrs=r.split(s)
 	for x in usrs:
-		list.append([x])
+		overrides.append(list,[x])

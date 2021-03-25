@@ -4,6 +4,7 @@ from . import hubs
 from . import hubscon
 from . import users
 from . import reqs
+from . import overrides
 
 list=hubs.listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)
@@ -23,7 +24,7 @@ def show(nb):
 	return page
 
 def add(a):
-	list.append(a)
+	overrides.append(list,a)
 def rem(b,gr):
 	s=gr[0].get_selection()
 	d=s.get_selected()#iter free is in the bindings

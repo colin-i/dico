@@ -2,6 +2,7 @@ from gi.repository import Gtk
 
 from . import search
 from . import sets
+from . import overrides
 
 list=Gtk.ListStore(str)
 
@@ -13,7 +14,7 @@ def store(d):
 	d['search_extensions']=a
 def restore(d):
 	for x in d['search_extensions']:
-		list.append([x])
+		ad([x])
 	search.extensions.set_text(d['search_extensions'][0],-1)
 def confs(en,win):
 	bx=Gtk.Box()
@@ -23,12 +24,14 @@ def confs(en,win):
 	bx.append(b)
 	return bx
 
+def ad(x):
+	overrides.append(list,x)
 def add():
 	c=search.extensions.get_text()
 	for x in list:
 		if c==list.get_value(x.iter,0):
 			return
-	list.append([c])
+	ad([c])
 
 def sel(b,win):
 	add()

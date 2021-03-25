@@ -1,6 +1,7 @@
 from . import users
 from . import hubs
 from . import search
+from . import overrides
 
 class detail():
 	def __init__(self,a,b,c,d):
@@ -55,7 +56,7 @@ def clkrow(tree,path,column,model):
 def set(ar):
 	list.clear()
 	for x in ar:
-		list.append([x.nick,x.hub,x.fslots,x.fname])
+		overrides.append(list,[x.nick,x.hub,x.fslots,x.fname])
 
 def srch(b,tree):
 	s=tree.get_selection()

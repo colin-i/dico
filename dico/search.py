@@ -7,6 +7,7 @@ from . import dload
 from . import details
 from . import extension
 from . import sets
+from . import overrides
 
 from enum import IntEnum
 class COLUMNS(flist.COLUMNS,IntEnum):
@@ -95,7 +96,7 @@ def append(r):
 			details.update(r,fr,list,d.iter,COLUMNS.DETAIL)
 			return
 	nm=r[ext_fn]
-	list.append([nm,int(r["Real Size"]),r["TTH"],1,0 if fr=="0" else 1,[details.create(r,fr)],extension_filter(nm)])#need to be visible at sort for limit
+	overrides.append(list,[nm,int(r["Real Size"]),r["TTH"],1,0 if fr=="0" else 1,[details.create(r,fr)],extension_filter(nm)])#need to be visible at sort for limit
 def set():
 	global flag
 	if flag:

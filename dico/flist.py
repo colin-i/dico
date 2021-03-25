@@ -11,6 +11,7 @@ listcols="str,GObject.TYPE_INT64,str"
 
 from . import reqs
 from . import hubs
+from . import overrides
 
 name=Gtk.Label()
 folder=Gtk.Label()
@@ -78,7 +79,7 @@ def fshow(flist,s):
 					t=e['TTH']
 				else:
 					t=''
-				list.append([x,int(e['Size']),t])
+				overrides.append(list,[x,int(e['Size']),t])
 			break
 		else:
 			sleep(1)

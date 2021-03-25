@@ -2,6 +2,7 @@ from gi.repository import Gtk
 
 from . import hubs
 from . import reqs
+from . import overrides
 
 listdef=lambda:Gtk.ListStore(str)
 
@@ -48,4 +49,4 @@ def ifclear(nb,a):
 def set(nb,adr,lst):
 	clear(nb,adr)
 	for x in lst:
-		list.append([x])
+		overrides.append(list,[x])

@@ -5,6 +5,7 @@ from . import flist
 from . import hubs
 from . import search
 from . import sets
+from . import overrides
 
 from enum import IntEnum
 class COLUMNS(IntEnum):
@@ -66,7 +67,7 @@ def fresh(d):
 	if rows:
 		for t in rows:
 			r=rows[t]
-			list.append([r["Filename"],r["Path"],r["Downloaded"],int(r["Size Sort"]),r["Users"],r["Status"]])
+			overrides.append(list,[r["Filename"],r["Path"],r["Downloaded"],int(r["Size Sort"]),r["Users"],r["Status"]])
 		return True
 	if len(list)==0:
 		global timer
