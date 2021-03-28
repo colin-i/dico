@@ -1,4 +1,3 @@
-import os.path
 import json
 
 from gi.repository import Gdk
@@ -13,11 +12,10 @@ from . import search
 from . import daem
 from . import dload
 from . import com
+from . import main
 
 def get_root_conf():
-	return get_root_file('config.json')
-def get_root_file(f):
-	return os.path.join(os.path.dirname(os.path.realpath(__file__)),f)
+	return main.get_root_file('config.json')
 
 def write(win):
 	d={}

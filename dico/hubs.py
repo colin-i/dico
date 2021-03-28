@@ -11,6 +11,7 @@ from . import base
 from . import hubscon
 from . import sets
 from . import overrides
+from . import main
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer(text='hublist.xml')
@@ -95,7 +96,7 @@ def ini():
 		t=os.path.expandvars(file.get_text())
 		d=os.path.dirname(t)
 		if d=="":
-			tree = ET.parse(base.get_root_file(t))
+			tree = ET.parse(main.get_root_file(t))
 		else:
 			tree = ET.parse(t)
 	root = tree.getroot()

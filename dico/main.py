@@ -3,6 +3,7 @@ gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk,GLib
 import subprocess
 import shlex
+import os.path
 
 from . import base
 from . import layout 
@@ -16,6 +17,9 @@ from . import daem
 from . import search
 from . import dload
 from . import com
+
+def get_root_file(f):
+	return os.path.join(os.path.dirname(os.path.realpath(__file__)),f)
 
 def dopen():
 	seq=shlex.split(daem.data.get_text())
