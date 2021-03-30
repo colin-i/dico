@@ -1,9 +1,5 @@
 # Direct Connect ++ client
-Build with:
-
-```
-pip3 install --user .
-```
+Python3 project.\
 Using eiskaltdcpp-daemon through json rpc and gtk 4.1 bound with PyGObject.
 ###### Donations
 | Name      | Address                                    |
