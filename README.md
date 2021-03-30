@@ -1,4 +1,4 @@
-# Direct Connect client
+# Direct Connect ++ client
 Build with:
 
 ```
