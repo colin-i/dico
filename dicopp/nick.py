@@ -7,7 +7,12 @@ from . import stor2
 from . import main
 from . import daem
 
-name=Gtk.EntryBuffer(text='dico_'+str(random.randint(0,9999)))
+def rand4(a):
+	s=str(a)
+	while len(s)<4:
+		s='0'+s
+	return s
+name=Gtk.EntryBuffer(text='dico_'+rand4(random.randint(0,9999)))
 
 def confs():
 	return name

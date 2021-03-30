@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 from setuptools import setup
 setup(name=pkname,
 	install_requires=["PyGObject>=3.40","requests>=2.21"],
-	version='1.0.0',
+	version='1.0.1',
 	description='Direct Connect ++ client',
 	long_description=README,
 	long_description_content_type="text/markdown",
