@@ -2,7 +2,7 @@
 Build with:
 
 ```
-make
+pip3 install --user .
 ```
 Using eiskaltdcpp-daemon through json rpc and gtk 4.1 bound with PyGObject.
 ###### Donations
