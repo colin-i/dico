@@ -21,7 +21,7 @@ README = (HERE / "README.md").read_text()
 
 from setuptools import setup
 setup(name=pkname,
-	install_requires=["PyGObject>=3.40","requests>=2.21"],#gobj is here for bdist_wheel
+	install_requires=["PyGObject>=3.40","requests>=2.21"],#gobj is here for bdist_wheel and sdist(visual,building wheels is nonverbose)
 	version='1.0.3',
 	description='Direct Connect ++ client',
 	long_description=README,
