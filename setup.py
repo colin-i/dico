@@ -22,7 +22,7 @@ README = (HERE / "README.md").read_text()
 from setuptools import setup
 setup(name=pkname,
 	install_requires=["PyGObject>=3.40","requests>=2.21"],#gobj is here for bdist_wheel
-	version='1.0.2',
+	version='1.0.3',
 	description='Direct Connect ++ client',
 	long_description=README,
 	long_description_content_type="text/markdown",
