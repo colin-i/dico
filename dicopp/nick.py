@@ -4,7 +4,6 @@ import random
 import xml.etree.ElementTree as ET
 
 from . import stor2
-from . import main
 from . import daem
 
 def rand4(a):
@@ -25,12 +24,11 @@ def ini(restart):
 	t = ET.parse(f)
 	root = t.getroot()
 	se = root.find(stor2.set)
-	r=see(se,'Nick','string',name)
+	b=see(se,'Nick','string',name)
 	#Slots not working r|=see(se,'Slots','int',slots)
-	b=r==1
 	if b:
 		if restart:
-			main.dclose()
+			daem.dclose()
 		t.write(f)
 		if restart:
 			daem.restart()
@@ -43,8 +41,8 @@ def see(se,n,t,b):
 		s=ET.SubElement(se,n)
 		s.set('type',t)
 		s.text=txt
-		return 1
+		return True
 	elif txt!=s.text:
 		s.text=txt
-		return 1
-	return 0
+		return True
+	return False

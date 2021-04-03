@@ -1,8 +1,6 @@
 import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk,GLib
-import subprocess
-import shlex
 import os.path
 
 from . import base
@@ -21,18 +19,9 @@ from . import com
 def get_root_file(f):
 	return os.path.join(os.path.dirname(os.path.realpath(__file__)),f)
 
-def dopen():
-	seq=shlex.split(daem.data.get_text())
-	args=['eiskaltdcpp-daemon']
-	for s in seq:
-		args.append(s)
-	nick.daeminst=subprocess.Popen(args)#otherwise, cannot make it works
-def dclose():
-	nick.daeminst.terminate()
-	nick.daeminst.wait()
 def quit(widget, mainloop):
 	base.write(widget)
-	dclose()#in base.write is log, can require daemon open
+	daem.close(False)#in base.write is log, can require daemon open
 	limit.close()
 	hubscon.close()
 	search.close()
@@ -53,7 +42,7 @@ def main():
 	nick.ini(False)
 	hubs.ini()
 	win.connect('close-request', quit, mainloop)
-	dopen()
+	daem.dopen()
 	base.read2(d)#after daemon start
 	win.show()
 	mainloop.run()
