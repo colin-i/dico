@@ -1,4 +1,7 @@
 import json
+import appdirs
+import os.path
+import pathlib
 
 from gi.repository import Gdk
 
@@ -12,10 +15,11 @@ from . import search
 from . import daem
 from . import dload
 from . import com
-from . import main
 
 def get_root_conf():
-	return main.get_root_file('config.json')
+	p=pathlib.Path(appdirs.user_config_dir('dicopp'))
+	p.mkdir(exist_ok=True)
+	return os.path.join(p,'config.json')
 
 def write(win):
 	d={}
