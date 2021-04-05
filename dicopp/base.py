@@ -1,6 +1,3 @@
-import json
-
-from gi.repository import Gdk
 
 from . import limit
 from . import log
@@ -12,6 +9,17 @@ from . import search
 from . import daem
 from . import dload
 from . import com
+
+import json
+from gi.repository import Gdk
+
+import appdirs
+import os.path
+import pathlib
+def get_client():
+	p=pathlib.Path(appdirs.user_config_dir('dicopp'))
+	p.mkdir(exist_ok=True)
+	return os.path.join(p,'config.json')
 
 def write(win):
 	d={}
@@ -30,12 +38,12 @@ def write(win):
 	daem.store(d)
 	dload.store(d)
 	com.store(d)
-	with open(stor2.get_client(), "w") as write_file:
+	with open(get_client(), "w") as write_file:
 		json.dump(d, write_file)
 
 def read(win):
 	try:
-		with open(stor2.get_client()) as f:
+		with open(get_client()) as f:
 			d=json.load(f)
 			win.set_default_size(d['width'],d['height'])
 			if(d['max']):

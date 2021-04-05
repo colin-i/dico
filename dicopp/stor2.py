@@ -4,26 +4,19 @@ from gi.repository import Gtk
 import xml.etree.ElementTree as ET
 import appdirs
 import os.path
-import pathlib
 
 from . import limit
 from . import nick
 from . import sets
 
-file=Gtk.EntryBuffer(text="os.path.join(appdirs.user_config_dir('eiskaltdc++'),'DCPlusPlus.xml')")
+file=Gtk.EntryBuffer()
 set='Settings'
 
-def get_client():
-	p=pathlib.Path(appdirs.user_config_dir('dicopp'))
-	p.mkdir(exist_ok=True)
-	return os.path.join(p,'config.json')
 def get_file():
 	a=file.get_text()
-	try:
-		b=eval(a)
-	except SyntaxError:
-		b=os.path.expandvars(a)
-	return b
+	if a:
+		return os.path.expandvars(a)
+	return os.path.join(appdirs.user_config_dir('eiskaltdc++'),'DCPlusPlus.xml')
 
 def ini():
 	f = get_file()

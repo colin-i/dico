@@ -1,5 +1,4 @@
 # Direct Connect ++ client
-Python3 project.\
 Using eiskaltdcpp-daemon through json rpc and gtk 4.1 bound with PyGObject.
 ###### Donations
 | Name      | Address                                    |
