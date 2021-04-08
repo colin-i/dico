@@ -11,7 +11,7 @@ from setuptools import setup
 setup(name=pkname,
 	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
 		"psutil>=5.5.1"],
-	version='1.0.8',
+	version='1.0.9',
 	description='Direct Connect ++ client',
 	long_description=README,
 	long_description_content_type="text/markdown",
