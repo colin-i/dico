@@ -3,26 +3,14 @@
 
 pkname='dicopp'
 
-import subprocess
-import sys
-test=subprocess.run([sys.executable,'-m','pip','install','PyGObject>=3.40'])
-if test.returncode:
-	exit(test.returncode)
-import gi
-gi.require_version("Gtk", "4.0")
-from gi.repository import Gtk,GLib,GObject,Gdk
-test=subprocess.Popen(['eiskaltdcpp-daemon'])
-test.terminate()
-test.wait()
-
 import pathlib
 HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 from setuptools import setup
 setup(name=pkname,
-	install_requires=["PyGObject>=3.40","requests>=2.21",\
-		"appdirs>=1.4.3","psutil>=5.5.1"],#gobj is here for bdist_wheel and sdist(visual,building wheels is nonverbose)
+	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
+		"psutil>=5.5.1"],
 	version='1.0.8',
 	description='Direct Connect ++ client',
 	long_description=README,
