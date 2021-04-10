@@ -16,10 +16,11 @@ from gi.repository import Gdk
 import appdirs
 import os.path
 import pathlib
+def get_client_dir():
+	return pathlib.Path(appdirs.user_config_dir('dicopp'))
+get_client_dir().mkdir(exist_ok=True)
 def get_client():
-	p=pathlib.Path(appdirs.user_config_dir('dicopp'))
-	p.mkdir(exist_ok=True)
-	return os.path.join(p,'config.json')
+	return os.path.join(get_client_dir(),'config.json')
 
 def write(win):
 	d={}
