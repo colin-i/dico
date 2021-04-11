@@ -8,7 +8,7 @@ from . import nick
 from . import hubs
 from . import search
 from . import daem
-from . import dload
+from . import share
 from . import com
 
 class entries(Gtk.Entry):
@@ -37,7 +37,7 @@ def ini(b,win):
 	bx.append(hubs.confs())
 	bx.append(search.confs(d))
 	bx.append(daem.confs())
-	bx.append(dload.confs())
+	bx.append(share.confs())
 	bx.append(com.confs())
 	box.append(Gtk.ScrolledWindow(child=bx,vexpand=True))
 	d.show()
@@ -45,7 +45,6 @@ def reset(d,r,w):
 	limit.reset(w)
 	log.reset()
 	stor2.ini()
-	dload.reset()#when daemon running
 	wasreset=nick.ini(True)
 	hubs.reset()
 	search.reset()

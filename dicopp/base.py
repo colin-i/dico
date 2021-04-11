@@ -7,7 +7,7 @@ from . import hubs
 from . import hubson
 from . import search
 from . import daem
-from . import dload
+from . import share
 from . import com
 
 import json
@@ -37,7 +37,7 @@ def write(win):
 	hubson.store(d)
 	search.store(d)
 	daem.store(d)
-	dload.store(d)
+	share.store(d)
 	com.store(d)
 	with open(get_client(), "w") as write_file:
 		json.dump(d, write_file)
@@ -58,7 +58,7 @@ def read(win):
 			hubs.restore(d)
 			search.restore(d)
 			daem.restore(d)
-			dload.restore(d)
+			share.restore(d)
 			com.restore(d)
 			return d
 	except Exception:

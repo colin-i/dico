@@ -4,7 +4,6 @@ from . import reqs
 from . import flist
 from . import hubs
 from . import search
-from . import sets
 from . import overrides
 
 from enum import IntEnum
@@ -20,8 +19,6 @@ list=Gtk.ListStore(str,str,str,int,str,str)
 sort=Gtk.TreeModelSort.new_with_model(list)
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 timer=0
-
-folder=Gtk.EntryBuffer()#text=''
 
 def show():
 	scroll=Gtk.ScrolledWindow()
@@ -102,17 +99,3 @@ def rem(b,t):
 		tg=target(d[0],d[1])
 		reqs.requ("queue.remove",{"target":tg})
 		list.remove(d[0].convert_iter_to_child_iter(d[1]))
-
-def confs():
-	return sets.entry("Share folder",folder)
-def store(d):
-	d['share_folder']=folder.get_text()
-def restore(d):
-	folder.set_text(d['share_folder'],-1)
-def reset():
-	virt="share"
-	d=folder.get_text()
-	if d:
-		reqs.reque("share.add",{"directory" : d,"virtname" : virt})
-	else:
-		reqs.reque("share.del",{"directory" : virt})

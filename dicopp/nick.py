@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 
 from . import stor2
 from . import daem
+from . import share
 
 def rand4(a):
 	s=str(a)
@@ -25,14 +26,15 @@ def ini(restart):
 	root = t.getroot()
 	se = root.find(stor2.set)
 	b=see(se,'Nick','string',name)
+	c=share.ini(root) or b
 	#Slots not working r|=see(se,'Slots','int',slots)
-	if b:
+	if c:
 		if restart:
 			daem.dclose()
 		t.write(f)
 		if restart:
 			daem.restart()
-	return b
+	return c
 
 def see(se,n,t,b):
 	txt=b.get_text()
