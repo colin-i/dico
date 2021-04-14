@@ -1,5 +1,5 @@
 # Direct Connect ++ client
-Using eiskaltdcpp-daemon through json rpc and gtk 4.1 bound with PyGObject.
+Using eiskaltdcpp-daemon through json rpc and gtk bound with PyGObject.
 ###### Donations
 | Name      | Address                                    |
 |-----------|--------------------------------------------|
