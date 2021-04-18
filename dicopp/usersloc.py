@@ -11,7 +11,8 @@ page=Gtk.ScrolledWindow()
 def show(nb):
 	page.set_vexpand(True)
 	sort=Gtk.TreeModelSort.new_with_model(list)
-	return users.show_univ(nb,page,sort,clkrow)
+	users.show_univ(nb,page,sort,clkrow)
+	return page
 
 def clkrow(t,p,c,b):
 	m=t.get_model()
@@ -22,6 +23,7 @@ def set():
 	s=";"
 	r=reqs.reque("list.local",{"separator" : s})
 	list.clear()
-	usrs=r.split(s)
-	for x in usrs:
-		overrides.append(list,[x])
+	if r:
+		usrs=r.split(s)
+		for x in usrs:
+			overrides.append(list,[x])
