@@ -9,6 +9,7 @@ def ini(hub,user,win):
 		d=sets.dial(user,win,done,None)
 		d.add_button("_OK",Gtk.ResponseType.NONE)
 		bx=Gtk.Grid()
+		bx.set_column_spacing(5)
 		y=0
 		for k in r:
 			bx.attach(Gtk.Label(label=k,halign=Gtk.Align.START),0,y,1,1)

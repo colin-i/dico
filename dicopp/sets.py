@@ -50,7 +50,7 @@ def reset(d,r,w):
 	search.reset()
 	if not wasreset:
 		daem.reset()
-	d.destroy()#close is calling here twice
+	d.destroy()#at X can be omitted
 
 def entry(txt,buf):
 	bx=Gtk.Box()
