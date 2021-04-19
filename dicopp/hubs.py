@@ -10,7 +10,7 @@ class TreeView(Gtk.TreeView):
 	def __init__(self,model):
 		Gtk.TreeView.__init__(self)
 		self.set_model(model)
-		self.set_headers_clickable(True)
+		#self.set_headers_clickable(True)is default
 	def append_column(self,col,fn,ix):
 		col.connect('clicked',fn,ix)
 		col.set_clickable(True)
