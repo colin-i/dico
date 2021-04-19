@@ -23,7 +23,7 @@ timer=0
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
-	tree=Gtk.TreeView.new_with_model(sort)
+	tree=hubs.TreeView(sort)
 	hubs.col(tree,'Name',COLUMNS.NAME,clk)
 	hubs.col(tree,'Path',COLUMNS.PATH,clk)
 	hubs.col(tree,'Downloaded',COLUMNS.DOWNLOADED,clk)

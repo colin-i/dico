@@ -27,7 +27,7 @@ def cols(tree,act):
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
-	tree=Gtk.TreeView.new_with_model(sort)
+	tree=hubs.TreeView(sort)
 	cols(tree,clk)
 	tree.connect("row-activated",clkrow,sort)
 	tree.set_activate_on_single_click(True)

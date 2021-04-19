@@ -6,6 +6,15 @@ import urllib.request
 import os.path
 
 listdef=lambda:Gtk.ListStore(str,int,str)
+class TreeView(Gtk.TreeView):
+	def __init__(self,model):
+		Gtk.TreeView.__init__(self)
+		self.set_model(model)
+		self.set_headers_clickable(True)
+	def append_column(self,col,fn,ix):
+		col.connect('clicked',fn,ix)
+		col.set_clickable(True)
+		Gtk.TreeView.append_column(self,col)
 
 from . import base
 from . import hubscon
@@ -26,7 +35,7 @@ class COLUMNS(IntEnum):
 	USERS=1
 	COUNTRY=2
 def treedef(lst,act,clkrow,data):
-	tree=Gtk.TreeView.new_with_model(lst)
+	tree=TreeView(lst)
 	col(tree,'Address',COLUMNS.ADDRESS,act)
 	col(tree,'Users',COLUMNS.USERS,act)
 	col(tree,'Country',COLUMNS.COUNTRY,act)
@@ -40,9 +49,7 @@ def col(tr,tx,ix,act):
 	column.set_resizable(True)
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", ix)
-	b=column.get_button()
-	b.connect('clicked', act, ix)
-	tr.append_column(column)
+	tr.append_column(column,act,ix)
 
 def confs():
 	f=Gtk.Frame(label="Hub List")

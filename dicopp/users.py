@@ -22,15 +22,13 @@ def show(nb,win):
 	return page
 def show_univ(nb,sc,srt,cl_rw):
 	sc.set_vexpand(True)
-	t=Gtk.TreeView.new_with_model(srt)
+	t=hubs.TreeView(srt)
 	renderer = Gtk.CellRendererText()
 	column = Gtk.TreeViewColumn()
 	column.set_title("Name")
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", 0)
-	b=column.get_button()
-	b.connect('clicked', clk, srt)
-	t.append_column(column)
+	t.append_column(column, clk, srt)
 	t.connect("row-activated",cl_rw,nb)
 	t.set_activate_on_single_click(True)
 	sc.set_child(t)

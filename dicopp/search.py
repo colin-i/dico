@@ -32,7 +32,7 @@ ext_fn="Filename"
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
-	tree=Gtk.TreeView.new_with_model(sort)
+	tree=hubs.TreeView(sort)
 	flist.cols(tree,clk)
 	hubs.col(tree,'Users',COLUMNS.USERS,clk)
 	hubs.col(tree,'Users with Free Slots',COLUMNS.FUSERS,clk)

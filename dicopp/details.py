@@ -33,7 +33,7 @@ sort=Gtk.TreeModelSort.new_with_model(list)
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
-	tree=Gtk.TreeView.new_with_model(sort)
+	tree=hubs.TreeView(sort)
 	hubs.col(tree,'Nick',COLUMNS.NICK,clk)
 	hubs.col(tree,'Hub URL',COLUMNS.HUB,clk)
 	hubs.col(tree,'Free Slots',COLUMNS.FSLOTS,clk)
