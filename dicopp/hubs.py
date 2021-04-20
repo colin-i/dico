@@ -11,9 +11,10 @@ from . import base
 from . import hubscon
 from . import sets
 from . import overrides
-from . import hubsfail
+from . import hublist
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
+file=Gtk.EntryBuffer()
 lim=Gtk.EntryBuffer(text='200')
 
 list=listdef()
@@ -62,7 +63,7 @@ def confs():
 	g.attach(en,1,0,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="File fallback location")
 	g.attach(lb,0,1,1,1)
-	g.attach(hubsfail.confs_loc(),1,1,1,1)
+	g.attach(sets.entries(file),1,1,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Maximum number of entries")
 	g.attach(lb,0,2,1,1)
 	en=sets.entries(lim)
@@ -71,11 +72,11 @@ def confs():
 	return f
 def store(d):
 	d['hub_file']=addr.get_text()
-	hubsfail.store(d)
+	d['hub_file_fallback']=file.get_text()
 	d['hub_limit']=lim.get_text()
 def restore(d):
 	addr.set_text(d['hub_file'],-1)
-	hubsfail.restore(d)
+	file.set_text(d['hub_file_fallback'],-1)
 	lim.set_text(d['hub_limit'],-1)
 
 def reset():
@@ -101,8 +102,11 @@ def ini():
 	try:
 		tree = ET.ElementTree(file=urllib.request.urlopen(addr.get_text()))
 	except Exception:
-		tree = ET.parse(hubsfail.get_file())
-	root = tree.getroot()
+		if file.get_text():
+			tree = ET.parse(file.get_text())
+			root = tree.getroot()
+		else:
+			root = ET.fromstring(hublist.a)
 	try:
 		hbs=root.find("Hubs").findall("Hub")
 	except Exception:

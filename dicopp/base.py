@@ -13,13 +13,11 @@ from . import com
 import json
 from gi.repository import Gdk
 
-pkgname='dicopp'
-
 import appdirs
 import os.path
 import pathlib
 def get_client_dir():
-	return pathlib.Path(appdirs.user_config_dir(pkgname))
+	return pathlib.Path(appdirs.user_config_dir('dicopp'))
 get_client_dir().mkdir(exist_ok=True)
 def get_client():
 	return os.path.join(get_client_dir(),'config.json')

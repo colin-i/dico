@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 from setuptools import setup
 setup(name=pkname,
 	packages=[pkname],
-	version='1.0.19',
+	version='1.0.20',
 	#opt
 	python_requires='>=3',
 	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
