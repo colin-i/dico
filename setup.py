@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 from setuptools import setup
 setup(name=pkname,
 	packages=[pkname],
-	version='1.0.18',
+	version='1.0.19',
 	#opt
 	python_requires='>=3',
 	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
@@ -22,8 +22,6 @@ setup(name=pkname,
 	author='bot',
 	author_email='costin.botescu@gmail.com',
 	license='MIT',
-	package_data={pkname: ['hublist.xml']},
-	zip_safe=False,
 	entry_points = {
 		'console_scripts': [pkname+'='+pkname+'.main:main']
 	}

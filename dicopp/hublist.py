@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+a='''<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Hublist Name="Team Elite Hublist" Address="https://www.te-home.net/?do=hublist">
 	<Hubs>
 		<Columns>
@@ -408,4 +408,4 @@
 		<Hub Name="[sTiFF-Meister]" Address="adcs://www.it-admin.se:2780" Secure="adcs://www.it-admin.se:2780" Description="Rock, Punk, Reggae and Music Videos !" Country="Sweden" Encoding="UTF-8" Users="3" Operators="0" Bots="2" Clones="0" Infected="0" Shared="1124213686621" Minshare="0" Minslots="0" Maxhubs="0" Maxusers="500" Status="Online" Reliability="95.65" Rating="0" Software="ADCH++" Website="" Email="" ASN="Liden Data Internetwork AB" Network="" Failover="" Logo="" Icon="" />
 		<Hub Name="©[â¢INTERNACIONALE-HUBâ¢]" Address="adc://internationale.slak-pc.net:5000" Secure="adcs://internationale.slak-pc.net:5001" Description="[•Slovenija,Srbija,Bosna,Hrvatska,Makedonija,Crna Gora, Hrvatska,Eu,Ex-yu, Balkan•]" Country="Slovenia" Encoding="UTF-8" Users="8" Operators="0" Bots="3" Clones="0" Infected="0" Shared="7797823795003" Minshare="0" Minslots="2" Maxhubs="1280" Maxusers="200" Status="Online" Reliability="48.65" Rating="0" Software="LuaDCH" Website="http://slak-pc.net" Email="" ASN="LIWEST Kabelmedien GmbH" Network="" Failover="" Logo="" Icon="" />
 	</Hubs>
-</Hublist>
+</Hublist>'''
