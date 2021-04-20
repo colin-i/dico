@@ -101,6 +101,7 @@ def show():
 def ini():
 	try:
 		tree = ET.ElementTree(file=urllib.request.urlopen(addr.get_text()))
+		root = tree.getroot()
 	except Exception:
 		if file.get_text():
 			tree = ET.parse(file.get_text())
