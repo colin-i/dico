@@ -4,17 +4,9 @@ from gi.repository import Gtk
 import xml.etree.ElementTree as ET
 import urllib.request
 import os.path
+import math
 
-listdef=lambda:Gtk.ListStore(str,int,str)
-class TreeView(Gtk.TreeView):
-	def __init__(self,model):
-		Gtk.TreeView.__init__(self)
-		self.set_model(model)
-		#self.set_headers_clickable(True)is default
-	def append_column(self,col,fn,ix):
-		col.connect('clicked',fn,ix)
-		col.set_clickable(True)
-		Gtk.TreeView.append_column(self,col)
+listdef=lambda:Gtk.ListStore(str,int,str,str)
 
 from . import base
 from . import hubscon
@@ -34,11 +26,13 @@ class COLUMNS(IntEnum):
 	ADDRESS=0
 	USERS=1
 	COUNTRY=2
+	SHARED=3
 def treedef(lst,act,clkrow,data):
 	tree=TreeView(lst)
 	col(tree,'Address',COLUMNS.ADDRESS,act)
 	col(tree,'Users',COLUMNS.USERS,act)
 	col(tree,'Country',COLUMNS.COUNTRY,act)
+	col(tree,'Shared',COLUMNS.SHARED,act)
 	tree.connect("row-activated",clkrow,data)
 	tree.set_activate_on_single_click(True)
 	return tree
@@ -50,6 +44,16 @@ def col(tr,tx,ix,act):
 	column.pack_start(renderer,True)
 	column.add_attribute(renderer, "text", ix)
 	tr.append_column(column,act,ix)
+
+class TreeView(Gtk.TreeView):
+	def __init__(self,model):
+		Gtk.TreeView.__init__(self)
+		self.set_model(model)
+		#self.set_headers_clickable(True)is default
+	def append_column(self,col,fn,ix):
+		col.connect('clicked',fn,ix)
+		col.set_clickable(True)
+		Gtk.TreeView.append_column(self,col)
 
 def confs():
 	f=Gtk.Frame(label="Hub List")
@@ -120,5 +124,14 @@ def ini():
 			huburl=attrs['Address']
 		else:
 			continue
-		if ('Users' in attrs) and ('Country' in attrs):
-			overrides.append(list,[huburl,int(attrs['Users']),attrs['Country']])
+		if ('Users' in attrs) and ('Country' in attrs) and ('Shared' in attrs):
+			overrides.append(list,[huburl,int(attrs['Users']),attrs['Country'],convert_size(int(attrs['Shared']))])
+
+def convert_size(size_bytes):
+	if size_bytes == 0:
+		return "0 B"
+	size_name = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
+	i = math.floor(math.log(size_bytes, 1024))
+	p = pow(1024, i)
+	s = math.floor(size_bytes / p * 100)/100 # trunc for positiv/negativ
+	return "%s %s" % (s, size_name[i])

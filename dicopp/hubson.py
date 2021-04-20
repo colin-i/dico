@@ -60,5 +60,6 @@ def set():
 			for r in res:
 				if r==x:
 					list.set_value(z.iter,hubs.COLUMNS.USERS,int(res[r]["users"]))
+					list.set_value(z.iter,hubs.COLUMNS.SHARED,res[r]["totalshare preformatted"])
 					del res[r]
 					break
