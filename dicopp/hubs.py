@@ -11,7 +11,6 @@ from . import base
 from . import hubscon
 from . import sets
 from . import overrides
-from . import hublist
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer()
@@ -107,6 +106,8 @@ def ini():
 			tree = ET.parse(file.get_text())
 			root = tree.getroot()
 		else:
+			#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
+			from . import hublist
 			root = ET.fromstring(hublist.a)
 	try:
 		hbs=root.find("Hubs").findall("Hub")
