@@ -102,6 +102,7 @@ def ini():
 		tree = ET.ElementTree(file=urllib.request.urlopen(addr.get_text()))
 		root = tree.getroot()
 	except Exception:
+		print("hubs list error")
 		if file.get_text():
 			tree = ET.parse(file.get_text())
 			root = tree.getroot()
