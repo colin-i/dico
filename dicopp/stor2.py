@@ -8,6 +8,8 @@ import os.path
 from . import limit
 from . import nick
 from . import sets
+from . import con
+from . import share
 
 file=Gtk.EntryBuffer()
 set='Settings'
@@ -29,19 +31,22 @@ def ini():
 def confs():
 	f=Gtk.Frame(label="External data file settings")
 	g=Gtk.Grid()
-	lb=Gtk.Label(halign=Gtk.Align.START,label="Location (blank for default)")
-	g.attach(lb,0,0,1,1)
+	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Location (blank for default)"),0,0,1,1)
 	g.attach(confs_loc(),1,0,1,1)
-	lb=Gtk.Label(halign=Gtk.Align.START,label="Nick name")
-	g.attach(lb,0,1,1,1)
-	en=sets.entries(nick.confs())
-	g.attach(en,1,1,1,1)
+	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Nick name"),0,1,1,1)
+	g.attach(sets.entries(nick.name),1,1,1,1)
+	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Passive (blank=False)"),0,2,1,1)
+	g.attach(sets.entries(con.passive),1,2,1,1)
+	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Share folder"),0,3,1,1)
+	g.attach(sets.entries(share.folder),1,3,1,1)
 	f.set_child(g)
 	return f
 def store(d):
 	d['ext_file']=file.get_text()
+	con.store(d)
 def restore(d):
 	file.set_text(d['ext_file'],-1)
+	con.restore(d)
 
 def confs_loc():
 	en=sets.entries(file)

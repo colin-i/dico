@@ -2,12 +2,8 @@
 from gi.repository import Gtk
 import xml.etree.ElementTree as ET
 
-from . import sets
-
 folder=Gtk.EntryBuffer()#text=''
 
-def confs():
-	return sets.entry("Share folder",folder)
 def store(d):
 	d['share_folder']=folder.get_text()
 def restore(d):
