@@ -43,10 +43,14 @@ def confs():
 	return f
 def store(d):
 	d['ext_file']=file.get_text()
+	nick.store(d)
 	con.store(d)
+	share.store(d)
 def restore(d):
 	file.set_text(d['ext_file'],-1)
+	nick.restore(d)
 	con.restore(d)
+	share.restore(d)
 
 def confs_loc():
 	en=sets.entries(file)
