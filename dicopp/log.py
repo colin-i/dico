@@ -45,8 +45,8 @@ def finish():
 	if f:
 		txt=end.get_text()
 		if txt:
-			z=subprocess.run(txt,capture_output=True)
-			f.write(str(z.stdout))
+			z=subprocess.run(txt,capture_output=True,text=True)
+			f.write(z.stdout)
 		f.close()
 		f=None
 	return file.get_text()
