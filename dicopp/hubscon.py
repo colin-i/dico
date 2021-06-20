@@ -29,7 +29,7 @@ def add(tree,path,column,model):
 	it=model.get_iter(path)#iter free is in the bindings
 	d=[]
 	for i in hubs.COLUMNS:
-		d.append(model.get_value(it,i))
+		d.append(model.get_value(it,i) if i!=hubs.COLUMNS.USERS else 0)
 	addcon(model,d)
 def addcon(model,rowlst):
 	adr=rowlst[hubs.COLUMNS.ADDRESS]
