@@ -10,11 +10,21 @@ from . import sets
 from . import overrides
 
 from enum import IntEnum
-class COLUMNS(flist.COLUMNS,IntEnum):
+def extend_enum(inherited_enum):
+    def wrapper(added_enum):
+        joined = {}
+        for item in inherited_enum:
+            joined[item.name] = item.value
+        for item in added_enum:
+            joined[item.name] = item.value
+        return IntEnum(added_enum.__name__, joined)
+    return wrapper
+@extend_enum(flist.COLUMNS)
+class COLUMNS(IntEnum):
 	USERS=len(flist.COLUMNS)
 	FUSERS=USERS+1
 	DETAIL=FUSERS+1
-lastcolumn=len(flist.COLUMNS)+len(COLUMNS)
+lastcolumn=len(COLUMNS)
 
 list=eval("Gtk.ListStore("+flist.listcols+",int,int,GObject.TYPE_PYOBJECT,GObject.TYPE_BOOLEAN)")
 filter=list.filter_new()
@@ -67,7 +77,7 @@ def relimiting():
 	resinf(a)
 def reshow():
 	for x in list:
-		nm=list.get_value(x.iter,flist.COLUMNS.NAME)
+		nm=list.get_value(x.iter,COLUMNS.NAME)
 		list.set_value(x.iter,lastcolumn,extension_filter(nm))#to be in filter,then in sort
 def start(t):
 	reqs.requ("search.send",{"searchstring":t})
