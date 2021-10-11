@@ -14,6 +14,7 @@ from . import daem
 from . import search
 from . import dload
 from . import com
+from . import first
 
 def quit(widget, mainloop):
 	base.write(widget)
@@ -27,6 +28,7 @@ def quit(widget, mainloop):
 	return True
 
 def main():
+	first.ini()
 	mainloop = GLib.MainLoop()
 	win = Gtk.Window()
 	win.set_title('Direct Connect')
