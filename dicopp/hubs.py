@@ -99,7 +99,9 @@ def show():
 
 def ini():
 	try:
-		tree = ET.ElementTree(file=urllib.request.urlopen(addr.get_text()))
+		urlresult=urllib.request.urlopen(addr.get_text())
+		#GLib.idle_add threading.Thread
+		tree = ET.ElementTree(file=urlresult)
 		root = tree.getroot()
 	except Exception:
 		print("hubs list error")
