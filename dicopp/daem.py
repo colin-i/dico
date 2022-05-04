@@ -64,6 +64,7 @@ def close(inter):
 			p=psutil.Process(runs().pid)
 			reqs.req("daemon.stop")
 			p.wait()
-#terminate is SIGTERM, SIGINT or daemon.stop is same
-#-11 (SIGSEGV) instobj.communicate() is same
+#-11 (SIGSEGV)
+#			instobj.communicate() is same
+#			terminate is SIGTERM, SIGINT or daemon.stop is same
 #apport is catching first two tries
