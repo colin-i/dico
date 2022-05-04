@@ -1,9 +1,10 @@
 
-from gi.repository import Gtk
+from gi.repository import Gtk,GLib
 
 import xml.etree.ElementTree as ET
 import urllib.request
 import math
+import threading
 
 listdef=lambda:Gtk.ListStore(str,int,str,str)
 
@@ -98,20 +99,34 @@ def show():
 	return wn
 
 def ini():
+	global async_th
+	async_th = threading.Thread(target=ini_async)
+	async_th.start()
+def ini_async():
 	try:
 		urlresult=urllib.request.urlopen(addr.get_text())
-		#GLib.idle_add threading.Thread
-		tree = ET.ElementTree(file=urlresult)
-		root = tree.getroot()
 	except Exception:
-		print("hubs list error")
-		if file.get_text():
-			tree = ET.parse(file.get_text())
+		print("urlopen exception")
+		urlresult=None
+	GLib.idle_add(ini_main,(urlresult,threading.current_thread()))
+def ini_main(mixt):
+	urlresult,th=mixt
+	if async_th==th:
+		try:
+			tree = ET.ElementTree(file=urlresult)
 			root = tree.getroot()
-		else:
-			#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
-			from . import hublist
-			root = ET.fromstring(hublist.a)
+		except Exception:
+			print("hubs list error")
+			if file.get_text():
+				tree = ET.parse(file.get_text())
+				root = tree.getroot()
+			else:
+				#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
+				from . import hublist
+				root = ET.fromstring(hublist.a)
+		ini_result(root)
+	return False
+def ini_result(root):
 	try:
 		hbs=root.find("Hubs").findall("Hub")
 	except Exception:

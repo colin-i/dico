@@ -64,3 +64,5 @@ def close(inter):
 			p=psutil.Process(runs().pid)
 			reqs.req("daemon.stop")
 			p.wait()
+#-11 (SIGSEGV) instobj.communicate() is same
+#apport is catching first two tries
