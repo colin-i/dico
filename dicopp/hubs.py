@@ -16,6 +16,9 @@ from . import overrides
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer()
 lim=Gtk.EntryBuffer(text='200')
+labelA="Searching..."
+labelB="HubList"
+label=Gtk.Label()
 
 list=listdef()
 sort=Gtk.TreeModelSort.new_with_model(list)
@@ -99,6 +102,7 @@ def show():
 	return wn
 
 def ini():
+	label.set_text(labelA)
 	global async_th
 	async_th = threading.Thread(target=ini_async)
 	async_th.start()
@@ -113,6 +117,7 @@ def ini_main(mixt):
 	urlresult,th=mixt
 	if async_th==th:
 		try:
+			label.set_text(labelB)
 			tree = ET.ElementTree(file=urlresult)
 			root = tree.getroot()
 		except Exception:

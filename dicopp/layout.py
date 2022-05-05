@@ -25,7 +25,7 @@ def show(w):
 	e.connect('activate',search.send,pags)
 	box.append(e)
 	bx.append(box)
-	pags.append_page(hubs.show(),Gtk.Label(label="HubList"))
+	pags.append_page(hubs.show(),hubs.label)
 	pags.append_page(hubson.show(pags),Gtk.Label(label="Hubs"))
 	pags.append_page(users.show(pags,w),Gtk.Label(label=users.intro))
 	pags.append_page(usersloc.show(pags),Gtk.Label(label="Users"))
