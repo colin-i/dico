@@ -1,5 +1,6 @@
 #setuptools.setup is looking at one argv parameter; to "build" and "install":
 #python3 setup.py install
+#                 develop --user
 
 pkname='dicopp'
 
