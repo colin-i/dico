@@ -118,6 +118,8 @@ def ini_main(mixt):
 	if async_th==th:
 		try:
 			label.set_text(labelB)
+			if urlresult==None:
+				raise Exception
 			tree = ET.ElementTree(file=urlresult)
 			root = tree.getroot()
 		except Exception:

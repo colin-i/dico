@@ -40,7 +40,11 @@ def main():
 	nick.ini(False)
 	hubs.ini()
 	win.connect('close-request', quit, mainloop)
-	daem.dopen()
+	try:
+		daem.dopen()
+	except Exception:
+		print("daemon open error")
+		return
 	base.read2(d)#after daemon start
 	win.show()
 	mainloop.run()
