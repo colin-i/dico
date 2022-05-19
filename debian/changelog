@@ -1,0 +1,36 @@
+dicopp (1-jammy5) jammy; urgency=medium
+
+  * fixes
+
+ -- pi <pi@pi-desktop>  Sat, 07 May 2022 08:57:58 +0300
+
+dicopp (1-jammy4) jammy; urgency=medium
+
+  * async hublist
+
+ -- pi <pi@pi-desktop>  Thu, 05 May 2022 06:43:36 +0300
+
+dicopp (1-jammy3) jammy; urgency=medium
+
+  * distribution
+
+ -- pi <pi@pi-desktop>  Sat, 16 Oct 2021 13:40:47 +0300
+
+dicopp (1-1ubuntu2) impish; urgency=medium
+
+  * and description
+
+ -- pi <pi@pi-desktop>  Mon, 11 Oct 2021 15:54:44 +0300
+
+dicopp (1-1ubuntu1) impish; urgency=medium
+
+  * homepage
+
+ -- pi <pi@pi-desktop>  Mon, 11 Oct 2021 15:35:24 +0300
+
+dicopp (1-1) impish; urgency=low
+
+  * Initial release. Closes: #nnnn
+    <nnnn is the bug number of your ITP>
+
+ -- Botescu Costin <costin.botescu@gmail.com>  Mon, 11 Oct 2021 15:01:53 +0300
