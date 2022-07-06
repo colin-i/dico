@@ -7,11 +7,12 @@ pkname='dicopp'
 import pathlib
 HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
+ver=(HERE / "v2").read_text()
 
 from setuptools import setup
 setup(name=pkname,
 	packages=[pkname],
-	version='1.0.31',
+	version=ver,
 	#opt
 	python_requires='>=3',
 	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
