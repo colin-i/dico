@@ -60,7 +60,7 @@ jobs:
        dpkg -x ${maindeb} AppDir
       }
       downdeb eiskaltdcpp-daemon universe
-       downdeb libeiskaltdcpp2.4 main
+       downdeb libeiskaltdcpp2.4 universe
        downdeb liblua5.2-0 main
        downdeb libpcrecpp0v5 main
       downdeb python3-appdirs main
