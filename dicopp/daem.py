@@ -53,17 +53,21 @@ def open():
 	global instobj
 	instobj=subprocess.Popen(args)#otherwise, cannot make it works
 def close(inter):
-	if absent:
-		instobj.terminate()
-		instobj.wait()
-	elif inter:
-		if instobj:
+	try:
+		t=10
+		if absent:
 			instobj.terminate()
-			instobj.wait()
-		else:
-			p=psutil.Process(runs().pid)
-			reqs.req("daemon.stop")
-			p.wait()
+			instobj.wait(timeout=t)
+		elif inter:
+			if instobj:
+				instobj.terminate()
+				instobj.wait(timeout=t)
+			else:
+				p=psutil.Process(runs().pid)
+				reqs.req("daemon.stop")
+				p.wait(timeout=t)
+	except subprocess.TimeoutExpired:
+		print("timeout at daemon close")
 #-11 (SIGSEGV)
 #			instobj.communicate() is same
 #			terminate is SIGTERM, SIGINT or daemon.stop is same
