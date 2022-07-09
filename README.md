@@ -11,6 +11,13 @@ Install:
 sudo apt-get install dicopp
 ```
 \
+On linux distributions, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).
+\
+On Fedora, <i>.rpm</i> file from [releases](https://github.com/colin-i/dico/releases).
+```sh
+yum install dicopp-*.*.rpm
+```
+\
 From pypi:
 ```sh
 pip3 install dicopp
