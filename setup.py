@@ -1,3 +1,4 @@
+
 #setuptools.setup is looking at one argv parameter; to "build" and "install":
 #python3 setup.py install
 #                 develop --user
@@ -6,7 +7,7 @@ pkname='dicopp'
 
 import pathlib
 HERE = pathlib.Path(__file__).parent
-README = (HERE / "README.md").read_text()
+README = (HERE / "info.md").read_text()
 ver=(HERE / "v2").read_text()
 
 from setuptools import setup

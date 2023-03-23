@@ -13,7 +13,7 @@ from . import hubscon
 from . import sets
 from . import overrides
 
-addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
+addr=Gtk.EntryBuffer(text='qweqweqweqweqwe') #https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer()
 lim=Gtk.EntryBuffer(text='200')
 labelA="Searching..."
@@ -129,8 +129,10 @@ def ini_main(mixt):
 				root = tree.getroot()
 			else:
 				#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
-				from . import hublist
-				root = ET.fromstring(hublist.a)
+				import gzip
+				import os.path
+				with gzip.open(os.path.join(os.path.dirname(__file__),'hublist.xml.gz'), mode='r') as zipfile:
+					root = ET.fromstring(zipfile.read())
 		ini_result(root)
 	return False
 def ini_result(root):

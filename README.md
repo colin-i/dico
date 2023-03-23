@@ -28,6 +28,8 @@ And having the dependencies.
 Using eiskaltdcpp-daemon through json rpc and gtk4 bound with PyGObject.\
 With setup.py or the other python setup script.
 
+## [Info](https://github.com/colin-i/dico/blob/master/info.md)
+
 ## Donations
 The *donations* section is here
 *https://gist.github.com/colin-i/e324e85e0438ed71219673fbcc661da6*
