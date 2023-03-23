@@ -1,3 +1,9 @@
+dicopp (1-jammy8) jammy; urgency=medium
+
+  * gziped hublist
+
+ -- bc <bc@bc-HP-Pavilion-x360-Convertible>  Thu, 23 Mar 2023 13:56:28 +0200
+
 dicopp (1-jammy7) jammy; urgency=medium
 
   * fix
