@@ -13,7 +13,7 @@ from . import hubscon
 from . import sets
 from . import overrides
 
-addr=Gtk.EntryBuffer(text='qweqweqweqweqwe') #https://www.te-home.net/?do=hublist&get=hublist.xml')
+addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
 file=Gtk.EntryBuffer()
 lim=Gtk.EntryBuffer(text='200')
 labelA="Searching..."
