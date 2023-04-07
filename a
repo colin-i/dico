@@ -7,3 +7,9 @@ shift
 fi
 
 ${z} -m dicopp.main $@
+
+#verlihub starred
+
+#NCurses Direct Connect
+#https://dev.yorhel.nl/ncdc
+#also at debian/ubuntu
