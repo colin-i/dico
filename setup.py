@@ -13,6 +13,7 @@ ver=(HERE / "v2").read_text()
 from setuptools import setup
 setup(name=pkname,
 	packages=[pkname],
+	#data_files = [('', [pkname+'/hublist.xml.gz'])], #still is not placing it in the same folder
 	version=ver,
 	#opt
 	python_requires='>=3',
