@@ -16,6 +16,7 @@ setup(name=pkname,
 	#data_files = [('', [pkname+'/hublist.xml.gz'])], #still is not placing it in the same folder
 	version=ver,
 	#opt
+	include_package_data=True,
 	python_requires='>=3',
 	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
 		"psutil>=5.5.1"],

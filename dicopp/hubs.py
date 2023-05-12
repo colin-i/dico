@@ -131,7 +131,7 @@ def ini_main(mixt):
 				#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
 				import gzip
 				import os.path
-				with gzip.open(os.path.join(os.path.dirname(__file__),'hublist.xml.gz.py'), mode='r') as zipfile:
+				with gzip.open(os.path.join(os.path.dirname(__file__),'hublist.xml.gz'), mode='r') as zipfile:
 					root = ET.fromstring(zipfile.read())
 		ini_result(root)
 	return False
