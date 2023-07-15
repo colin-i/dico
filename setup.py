@@ -17,7 +17,7 @@ setup(name=pkname,
 	version=ver,
 	#opt
 	include_package_data=True,
-	python_requires='>=3',
+	python_requires='>=3.9', #for importlib.resources.files
 	install_requires=["PyGObject>=3.40","requests>=2.21","appdirs>=1.4.3",\
 		"psutil>=5.5.1"],
 	description='Direct Connect ++ client',

@@ -11,12 +11,13 @@ from . import com
 import json
 from gi.repository import Gdk
 
+pkname='dicopp'
+
 import appdirs
 import os.path
 import pathlib
 def get_client_dir():
-	return pathlib.Path(appdirs.user_config_dir('dicopp'))
-get_client_dir().mkdir(exist_ok=True)
+	return pathlib.Path(appdirs.user_config_dir(pkname))
 def get_client():
 	return os.path.join(get_client_dir(),'config.json')
 
@@ -39,6 +40,7 @@ def write(win):
 		json.dump(d, write_file)
 
 def read(win):
+	get_client_dir().mkdir(exist_ok=True)
 	try:
 		with open(get_client()) as f:
 			d=json.load(f)
