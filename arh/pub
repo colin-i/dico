@@ -21,6 +21,5 @@ pre=$(curl https://api.github.com/repos/colin-i/$(cat debian/control | grep "^Ho
 ~/test/lp && \
 ~/test/lp x && \
 ~/test/keyring && \
-~/test/del x ${pre} && \
 ~/test/arh2 ${pre} && \
 ~/test/pypi
