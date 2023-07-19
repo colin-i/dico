@@ -1,3 +1,9 @@
+dicopp (1-jammy13) jammy; urgency=medium
+
+  * rem conf
+
+ -- bc <bc@bc-HP-Pavilion-x360-Convertible>  Wed, 19 Jul 2023 09:08:09 +0300
+
 dicopp (1-jammy12) jammy; urgency=medium
 
   * security guarantees
