@@ -5,13 +5,14 @@ from . import users
 from . import flist
 from . import overrides
 
-list=users.listdef()
+list=users.listdef() #TreeModelSort
+#list.append(['test1'])#test will work without set list.clear()
+#list.append(['test2'])
 page=Gtk.ScrolledWindow()
 
 def show(nb):
 	page.set_vexpand(True)
-	sort=Gtk.TreeModelSort.new_with_model(list)
-	users.show_univ(nb,page,sort,clkrow)
+	users.show_univ(nb,page,list,clkrow)
 	return page
 
 def clkrow(t,p,c,b):

@@ -7,14 +7,13 @@ from . import userinfo
 
 listdef=lambda:Gtk.ListStore(str)
 
-list=listdef()
+list=listdef() #TreeModelSort
 page=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 intro="UserList"
 
 def show(nb,win):
 	scroll=Gtk.ScrolledWindow()
-	sort=Gtk.TreeModelSort.new_with_model(list)
-	t=show_univ(nb,scroll,sort,clkrow)
+	t=show_univ(nb,scroll,list,clkrow)
 	b=Gtk.Button.new_with_label(chr(0x24D8))
 	b.connect('clicked', info, [t,nb,win])
 	page.append(scroll)

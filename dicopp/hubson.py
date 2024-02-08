@@ -53,7 +53,7 @@ def restore(d):
 		hubscon.addcon(list,r)
 
 def set():
-	res=reqs.req("hub.listfulldesc")
+	res=reqs.req("hub.listfulldesc") #nowadays, if deleting a hub(hub.del to eiskalt daemon), switch to users tab, switch back, here is "Remote end closed connection without response" from eiskalt daemon
 	if res:
 		for z in list:
 			x=list.get_value(z.iter,hubs.COLUMNS.ADDRESS)

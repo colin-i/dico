@@ -20,8 +20,7 @@ labelA="Searching..."
 labelB="HubList"
 label=Gtk.Label()
 
-list=listdef()
-sort=Gtk.TreeModelSort.new_with_model(list)
+list=listdef() #TreeModelSort
 
 from enum import IntEnum
 class COLUMNS(IntEnum):
@@ -93,11 +92,11 @@ def clk_univ(lst,ix):
 	else:
 		lst.set_sort_column_id(ix,Gtk.SortType.DESCENDING)
 def clk(b,ix):
-	clk_univ(sort,ix)
+	clk_univ(list,ix)
 def show():
 	wn=Gtk.ScrolledWindow()
 	wn.set_vexpand(True)
-	tree=treedef(sort,clk,hubscon.add,sort)
+	tree=treedef(list,clk,hubscon.add,list)
 	wn.set_child(tree)
 	return wn
 

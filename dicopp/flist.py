@@ -16,8 +16,9 @@ from . import overrides
 name=Gtk.Label()
 folder=Gtk.Label()
 bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-list=eval("Gtk.ListStore("+listcols+")")
-sort=Gtk.TreeModelSort.new_with_model(list)
+list=eval("Gtk.ListStore("+listcols+")")  #TreeModelSort
+#list.append(['test1',2,'3'])
+#list.append(['test2',2,'3'])
 sep="\\"
 
 def cols(tree,act):
@@ -27,9 +28,9 @@ def cols(tree,act):
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
-	tree=hubs.TreeView(sort)
+	tree=hubs.TreeView(list)
 	cols(tree,clk)
-	tree.connect("row-activated",clkrow,sort)
+	tree.connect("row-activated",clkrow,list)
 	tree.set_activate_on_single_click(True)
 	scroll.set_child(tree)
 	bx.append(name)
@@ -40,7 +41,7 @@ def show():
 	bx.append(scroll)
 	return bx
 def clk(b,ix):
-	hubs.clk_univ(sort,ix)
+	hubs.clk_univ(list,ix)
 def clkrow(tree,path,column,model):
 	it=model.get_iter(path)
 	fpath=folder.get_text()+model.get_value(it,COLUMNS.NAME)

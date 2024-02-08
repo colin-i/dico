@@ -27,18 +27,19 @@ class COLUMNS(IntEnum):
 	FSLOTS=2
 	FNAME=3
 
-list=Gtk.ListStore(str,str,str,str)
-sort=Gtk.TreeModelSort.new_with_model(list)
+list=Gtk.ListStore(str,str,str,str) #TreeModelSort
+#list.append(['test1','2','3','4'])
+#list.append(['test2','2','3','4'])
 
 def show():
 	scroll=Gtk.ScrolledWindow()
 	scroll.set_vexpand(True)
-	tree=hubs.TreeView(sort)
+	tree=hubs.TreeView(list)
 	hubs.col(tree,'Nick',COLUMNS.NICK,clk)
 	hubs.col(tree,'Hub URL',COLUMNS.HUB,clk)
 	hubs.col(tree,'Free Slots',COLUMNS.FSLOTS,clk)
 	hubs.col(tree,'Name',COLUMNS.FNAME,clk)
-	tree.connect("row-activated",clkrow,sort)
+	tree.connect("row-activated",clkrow,list)
 	tree.set_activate_on_single_click(True)
 	scroll.set_child(tree)
 	bx=Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -48,7 +49,7 @@ def show():
 	bx.append(b)
 	return bx
 def clk(b,ix):
-	hubs.clk_univ(sort,ix)
+	hubs.clk_univ(list,ix)
 def clkrow(tree,path,column,model):
 	it=model.get_iter(path)
 	users.ldload(model.get_value(it,COLUMNS.HUB),model.get_value(it,COLUMNS.NICK))
