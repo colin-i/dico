@@ -14,6 +14,8 @@ from . import sets
 from . import overrides
 
 addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
+addr2=Gtk.EntryBuffer(text='http://dchublist.biz/?do=hublist&get=hublist.xml')
+timeout=Gtk.EntryBuffer()
 file=Gtk.EntryBuffer()
 lim=Gtk.EntryBuffer(text='200')
 labelA="Searching..."
@@ -61,23 +63,31 @@ def confs():
 	g=Gtk.Grid()
 	lb=Gtk.Label(halign=Gtk.Align.START,label="File address")
 	g.attach(lb,0,0,1,1)
-	en=sets.entries(addr)
-	g.attach(en,1,0,1,1)
-	lb=Gtk.Label(halign=Gtk.Align.START,label="File fallback location")
-	g.attach(lb,0,1,1,1)
-	g.attach(sets.entries(file),1,1,1,1)
-	lb=Gtk.Label(halign=Gtk.Align.START,label="Maximum number of entries")
+	g.attach(sets.entries(addr),1,0,1,1)
+	lb=Gtk.Label(halign=Gtk.Align.START,label="File address 2")
+	g.attach(lb,0,0,1,1)
+	g.attach(sets.entries(addr2),1,0,1,1)
+	lb=Gtk.Label(halign=Gtk.Align.START,label="Timeout in seconds (blank for default)")
 	g.attach(lb,0,2,1,1)
-	en=sets.entries(lim)
-	g.attach(en,1,2,1,1)
+	g.attach(sets.entries(timeout),1,2,1,1)
+	lb=Gtk.Label(halign=Gtk.Align.START,label="File fallback location")
+	g.attach(lb,0,3,1,1)
+	g.attach(sets.entries(file),1,3,1,1)
+	lb=Gtk.Label(halign=Gtk.Align.START,label="Maximum number of entries")
+	g.attach(lb,0,4,1,1)
+	g.attach(sets.entries(lim),1,4,1,1)
 	f.set_child(g)
 	return f
 def store(d):
 	d['hub_file']=addr.get_text()
+	d['hub_file2']=addr2.get_text()
+	d['hub_timeout']=timeout.get_text()
 	d['hub_file_fallback']=file.get_text()
 	d['hub_limit']=lim.get_text()
 def restore(d):
 	addr.set_text(d['hub_file'],-1)
+	addr2.set_text(d['hub_file2'],-1)
+	timeout.set_text(d['hub_timeout'],-1)
 	file.set_text(d['hub_file_fallback'],-1)
 	lim.set_text(d['hub_limit'],-1)
 
@@ -102,41 +112,54 @@ def show():
 
 def ini():
 	label.set_text(labelA)
-	global async_th
+	#global async_th
 	async_th = threading.Thread(target=ini_async)
 	async_th.start()
 def ini_async():
 	try:
-		urlresult=urllib.request.urlopen(addr.get_text())
+		import socket
+		a=timeout.get_text()
+		if a:
+			a=float(a)
+			socket.setdefaulttimeout(a) #this is working both for https and http
+		else:
+			if socket.getdefaulttimeout()!=None:  #in case we already set it
+				socket.setdefaulttimeout(None) #this will wait like default, ~2 minutes?
+		urlresult=urllib.request.urlopen(addr.get_text()) #,timeout -> this is not working for https and for http is non-blocking at all
 	except Exception:
 		print("urlopen exception")
-		urlresult=None
-	GLib.idle_add(ini_main,(urlresult,threading.current_thread()))
-def ini_main(mixt):
-	urlresult,th=mixt
-	if async_th==th:
 		try:
-			label.set_text(labelB)
-			if urlresult==None:
-				raise Exception
-			tree = ET.ElementTree(file=urlresult)
-			root = tree.getroot()
+			urlresult=urllib.request.urlopen(addr2.get_text())
 		except Exception:
-			print("hubs list error")
-			if file.get_text():
-				tree = ET.parse(file.get_text())
-				root = tree.getroot()
-			else:
-				#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
-				import gzip
+			print("urlopen 2 exception")
+			urlresult=None
+	#GLib.idle_add(ini_main,(urlresult,threading.current_thread())) why was needed to compare async_th and th?
+	GLib.idle_add(ini_main,urlresult)
+def ini_main(urlresult):
+	#urlresult,th=mixt
+	#if async_th==th:
+	try:
+		label.set_text(labelB)
+		if urlresult==None:
+			raise Exception
+		tree = ET.ElementTree(file=urlresult)
+		root = tree.getroot()
+	except Exception:
+		print("hubs list error")
+		if file.get_text():
+			tree = ET.parse(file.get_text())
+			root = tree.getroot()
+		else:
+			#if the module has never been imported before (== not present in sys.modules), then it is loaded and added to sys.modules.
+			import gzip
 
-				#https://setuptools.pypa.io/en/latest/userguide/datafiles.html
-				#import os.path
-				from importlib.resources import files
-				#with gzip.open(os.path.join(os.path.dirname(__file__),'hublist.xml.gz'), mode='r') as zipfile:
-				with gzip.open(files(base.pkname).joinpath('hublist.xml.gz'), mode='r') as zipfile:
-					root = ET.fromstring(zipfile.read())
-		ini_result(root)
+			#https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+			#import os.path
+			from importlib.resources import files
+			#with gzip.open(os.path.join(os.path.dirname(__file__),'hublist.xml.gz'), mode='r') as zipfile:
+			with gzip.open(files(base.pkname).joinpath('hublist.xml.gz'), mode='r') as zipfile:
+				root = ET.fromstring(zipfile.read())
+	ini_result(root)
 	return False
 def ini_result(root):
 	try:

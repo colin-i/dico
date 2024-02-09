@@ -27,4 +27,5 @@ def set():
 	if r:
 		usrs=r.split(s)
 		for x in usrs:
-			overrides.append(list,[x])
+			if x: #can be "oneuser...;"
+				overrides.append(list,[x])
