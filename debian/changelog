@@ -1,3 +1,9 @@
+dicopp (1-jammy16) jammy; urgency=medium
+
+  * manipulable hub lists
+
+ -- bc <bc@bc-Type1ProductConfigId>  Sat, 10 Feb 2024 10:04:34 +0200
+
 dicopp (1-jammy15) jammy; urgency=medium
 
   * hub list timeout, second hublist address, downloaded users excluding bad '', new hublist.xml.gz
