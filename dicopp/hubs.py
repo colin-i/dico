@@ -13,8 +13,9 @@ from . import hubscon
 from . import sets
 from . import overrides
 
-addr=Gtk.EntryBuffer(text='https://www.te-home.net/?do=hublist&get=hublist.xml')
-addr2=Gtk.EntryBuffer(text='http://dchublist.biz/?do=hublist&get=hublist.xml')
+predefined_list='https://gist.github.com/colin-i/ad1282a45dce276407567e59afb15025/raw'
+addr=Gtk.EntryBuffer(text=predefined_list)
+addr2=Gtk.EntryBuffer(text='')
 timeout=Gtk.EntryBuffer()
 file=Gtk.EntryBuffer()
 lim=Gtk.EntryBuffer(text='200')
@@ -65,8 +66,8 @@ def confs():
 	g.attach(lb,0,0,1,1)
 	g.attach(sets.entries(addr),1,0,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="File address 2")
-	g.attach(lb,0,0,1,1)
-	g.attach(sets.entries(addr2),1,0,1,1)
+	g.attach(lb,0,1,1,1)
+	g.attach(sets.entries(addr2),1,1,1,1)
 	lb=Gtk.Label(halign=Gtk.Align.START,label="Timeout in seconds (blank for default)")
 	g.attach(lb,0,2,1,1)
 	g.attach(sets.entries(timeout),1,2,1,1)
@@ -115,24 +116,41 @@ def ini():
 	#global async_th
 	async_th = threading.Thread(target=ini_async)
 	async_th.start()
-def ini_async():
+def ini_urls(a,b):
 	try:
-		import socket
-		a=timeout.get_text()
-		if a:
-			a=float(a)
-			socket.setdefaulttimeout(a) #this is working both for https and http
-		else:
-			if socket.getdefaulttimeout()!=None:  #in case we already set it
-				socket.setdefaulttimeout(None) #this will wait like default, ~2 minutes?
-		urlresult=urllib.request.urlopen(addr.get_text()) #,timeout -> this is not working for https and for http is non-blocking at all
+		urlresult=urllib.request.urlopen(a) #,timeout -> this is not working for https and for http is non-blocking at all
 	except Exception:
 		print("urlopen exception")
 		try:
-			urlresult=urllib.request.urlopen(addr2.get_text())
+			if b:
+				urlresult=urllib.request.urlopen(b)
+			else:
+				return None
 		except Exception:
 			print("urlopen 2 exception")
-			urlresult=None
+			return None
+	return urlresult
+def ini_predefined():
+	try:
+		urlresult=urllib.request.urlopen(predefined_list)
+	except Exception:
+		print("gist open error")
+		return None
+	urls=urlresult.read().split()
+	return ini_urls(urls[0].decode(),urls[1].decode())
+def ini_async():
+	import socket
+	a=timeout.get_text()
+	if a:
+		a=float(a)
+		socket.setdefaulttimeout(a) #this is working both for https and http
+	else:
+		if socket.getdefaulttimeout()!=None:  #in case we already set it
+			socket.setdefaulttimeout(None) #this will wait like default, ~2 minutes?
+	if addr.get_text()==predefined_list:
+		urlresult=ini_predefined()
+	else:
+		urlresult=ini_urls(addr.get_text(),addr2.get_text())
 	#GLib.idle_add(ini_main,(urlresult,threading.current_thread())) why was needed to compare async_th and th?
 	GLib.idle_add(ini_main,urlresult)
 def ini_main(urlresult):
