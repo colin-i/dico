@@ -15,7 +15,7 @@ On linux distributions, <i>.AppImage</i> file from [releases](https://github.com
 \
 On Fedora, <i>.rpm</i> file from [releases](https://github.com/colin-i/dico/releases).
 ```sh
-yum install dicopp-*.*.rpm
+dnf install dicopp-*.*.rpm
 ```
 \
 From pypi:
