@@ -11,22 +11,26 @@ Install:
 sudo apt-get install dicopp
 ```
 \
-On linux distributions, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).
-\
-On Fedora, <i>.rpm</i> file from [releases](https://github.com/colin-i/dico/releases).
+On Fedora, run the following as __root__:
 ```sh
-dnf install dicopp-*.*.rpm
+dnf copr enable colin/project
+dnf install python-dicopp
 ```
+And having eiskaltdcpp.\
+\
 \
 From [PyPI](https://pypi.org/project/dicopp):
 ```sh
 pip3 install dicopp
 ```
-And having the dependencies.
+And having eiskaltdcpp-daemon.\
+\
+\
+On othern linux distributions, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).
 
 ## From source
-Using eiskaltdcpp-daemon through json rpc and gtk4 bound with PyGObject.\
-With setup.py or the other python setup script.
+Using gtk4 bound with PyGObject and eiskaltdcpp through json rpc.\
+More info at setup.pre.py.
 
 ## [Info](https://github.com/colin-i/dico/blob/master/info.md)
 
