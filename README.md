@@ -18,7 +18,7 @@ On Fedora, <i>.rpm</i> file from [releases](https://github.com/colin-i/dico/rele
 dnf install dicopp-*.*.rpm
 ```
 \
-From pypi:
+From [PyPI](https://pypi.org/project/dicopp):
 ```sh
 pip3 install dicopp
 ```
