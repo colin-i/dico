@@ -10,20 +10,22 @@ Install:
 ```sh
 sudo apt-get install dicopp
 ```
+Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
+\
 \
 On Fedora, run the following as __root__:
 ```sh
 dnf copr enable colin/project
-dnf install python-dicopp
+dnf install python3-dicopp
 ```
-And having eiskaltdcpp.\
+And having eiskaltdcpp/gtk4.\
 \
 \
 From [PyPI](https://pypi.org/project/dicopp):
 ```sh
 pip3 install dicopp
 ```
-And having eiskaltdcpp-daemon.\
+And having eiskaltdcpp/gtk4.\
 \
 \
 On othern linux distributions, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).
