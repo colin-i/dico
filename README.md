@@ -13,6 +13,24 @@ sudo apt-get install dicopp
 Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
 \
 \
+On openSUSE, run the following as __root__:\
+For openSUSE Tumbleweed:
+```sh
+zypper addrepo https://download.opensuse.org/repositories/home:costin/openSUSE_Tumbleweed/home:costin.repo
+```
+For openSUSE Leap:
+```sh
+zypper addrepo https://download.opensuse.org/repositories/home:costin/openSUSE_Leap_15.6/home:costin.repo
+```
+And:
+```sh
+zypper refresh
+zypper install python313-dicopp
+```
+Replace *python313* with *python312* or *python311* if needed.\
+Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
+\
+\
 On Fedora, run the following as __root__:
 ```sh
 dnf copr enable colin/project
