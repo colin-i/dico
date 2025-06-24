@@ -1,8 +1,9 @@
 
 from gi.repository import Gtk
 
+name='eiskaltdc++'
+
 import xml.etree.ElementTree as ET
-import appdirs
 import os.path
 
 from . import limit
@@ -15,7 +16,7 @@ file=Gtk.EntryBuffer()
 set='Settings'
 
 def get_file_default():
-	return os.path.join(appdirs.user_config_dir('eiskaltdc++'),'DCPlusPlus.xml')
+	return os.path.join(name,'DCPlusPlus.xml')
 def get_file():
 	a=file.get_text()
 	if a:

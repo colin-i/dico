@@ -3,16 +3,29 @@ from gi.repository import Gtk
 import subprocess
 import shlex
 import psutil
+import sys
+import appdirs
 
 data=Gtk.EntryBuffer()#text=''
 
 from . import sets
 from . import hubscon
 from . import reqs
+from . import stor2
 
 name='eiskaltdcpp-daemon'
 instobj=None
 
+def ini():
+	if sys.platform=='win32':
+		global name
+		name='eiskaltdcpp-daemon.exe'
+		#stor2.name=appdirs.user_config_dir('EiskaltDC++',None,roaming=True)
+		a=appdirs.user_config_dir('EiskaltDC++',roaming=True)
+		import os
+		stor2.name=os.path.dirname(a)
+	else:
+		stor2.name=appdirs.user_config_dir(stor2.name)
 def confs():
 	global keep
 	keep=data.get_text()
@@ -51,7 +64,7 @@ def open():
 	for s in seq:
 		args.append(s)
 	global instobj
-	instobj=subprocess.Popen(args)#otherwise, cannot make it works
+	instobj=subprocess.Popen(args)
 def close(inter):
 	try:
 		t=10

@@ -43,7 +43,7 @@ From [PyPI](https://pypi.org/project/dicopp):
 ```sh
 pip3 install dicopp
 ```
-And having eiskaltdcpp/gtk4.\
+And having eiskaltdcpp/gtk4. Also working on Windows MinGW64 MSys2 with eiskaltdcpp from official installer and the daemon to be in PATH.\
 \
 \
 On othern linux distributions, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).

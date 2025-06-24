@@ -31,6 +31,7 @@ def quit(widget, mainloop):
 	return True
 
 def main():
+	daem.ini()
 	if len(sys.argv)>1:
 		if sys.argv[1]=="--remove-config":
 			cleanup()
