@@ -4,7 +4,7 @@ from . import stor2
 import os.path
 
 #was see some DCPlusPlus.xml creations but at older versions, now can't bring that back
-#where? Nick(without this cannot connect nowhere),IncomingConnections(activ/pasiv this is also vital),Share(to share something, can be vital) TotalUploads(this is in confs)
+#where? Nick(without this cannot connect nowhere),IncomingConnections(activ/pasiv this is also vital),Share(to share something, can be vital) TotalUpload(this is in confs)
 
 a='''<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <DCPlusPlus>
