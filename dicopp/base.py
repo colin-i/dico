@@ -40,7 +40,7 @@ def write(win):
 		json.dump(d, write_file)
 
 def read(win):
-	get_client_dir().mkdir(exist_ok=True)
+	os.makedirs(get_client_dir(),exist_ok=True)
 	try:
 		with open(get_client()) as f:
 			d=json.load(f)

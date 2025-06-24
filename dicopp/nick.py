@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from . import stor2
 from . import daem
 from . import share
-from . import con
+from . import connect
 
 def rand4(a):
 	s=str(a)
@@ -26,7 +26,7 @@ def ini(restart):
 	se = root.find(stor2.set)
 	b=see(se,'Nick','string',name.get_text())
 	b=share.ini(root) or b
-	b=con.ini(se) or b
+	b=connect.ini(se) or b
 	#Slots not working r|=see(se,'Slots','int',slots)
 	if b:
 		if restart:

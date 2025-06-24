@@ -8,7 +8,7 @@ import os.path
 from . import limit
 from . import nick
 from . import sets
-from . import con
+from . import connect
 from . import share
 
 file=Gtk.EntryBuffer()
@@ -36,7 +36,7 @@ def confs():
 	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Nick name"),0,1,1,1)
 	g.attach(sets.entries(nick.name),1,1,1,1)
 	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Passive (blank=False)"),0,2,1,1)
-	g.attach(sets.entries(con.passive),1,2,1,1)
+	g.attach(sets.entries(connect.passive),1,2,1,1)
 	g.attach(Gtk.Label(halign=Gtk.Align.START,label="Share folder"),0,3,1,1)
 	g.attach(sets.entries(share.folder),1,3,1,1)
 	f.set_child(g)
@@ -44,12 +44,12 @@ def confs():
 def store(d):
 	d['ext_file']=file.get_text()
 	nick.store(d)
-	con.store(d)
+	connect.store(d)
 	share.store(d)
 def restore(d):
 	file.set_text(d['ext_file'],-1)
 	nick.restore(d)
-	con.restore(d)
+	connect.restore(d)
 	share.restore(d)
 
 def confs_loc():

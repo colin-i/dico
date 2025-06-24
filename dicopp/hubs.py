@@ -149,6 +149,11 @@ def ini_async():
 			socket.setdefaulttimeout(None) #this will wait like default, ~2 minutes?
 	if addr.get_text()==predefined_list:
 		urlresult=ini_predefined()
+		if urlresult==None:
+			try:
+				urlresult=urllib.request.urlopen(addr2.get_text())
+			except Exception:
+				print("after predefined, urlopen 2 exception")
 	else:
 		urlresult=ini_urls(addr.get_text(),addr2.get_text())
 	#GLib.idle_add(ini_main,(urlresult,threading.current_thread())) why was needed to compare async_th and th?
