@@ -32,6 +32,8 @@ def quit(widget, mainloop):
 
 def main():
 	daem.ini()
+	win = Gtk.Window()
+	d=base.read(win)  #needed at cleanup(stor2)/first(stor2/nick)/...
 	if len(sys.argv)>1:
 		if sys.argv[1]=="--remove-config":
 			cleanup()
@@ -41,9 +43,7 @@ def main():
 	n=first.ini()
 	if n:
 		mainloop = GLib.MainLoop()
-		win = Gtk.Window()
 		win.set_title('Direct Connect')
-		d=base.read(win)
 		layout.show(win)
 		limit.open(win)
 		log.ini()
