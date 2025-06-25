@@ -1,7 +1,7 @@
 
 from gi.repository import Gtk
 
-name='eiskaltdc++'
+#name='eiskaltdc++' set at daem.ini
 
 import xml.etree.ElementTree as ET
 import os.path

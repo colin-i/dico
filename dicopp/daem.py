@@ -25,7 +25,7 @@ def ini():
 		import os
 		stor2.name=os.path.dirname(a)
 	else:
-		stor2.name=appdirs.user_config_dir(stor2.name)
+		stor2.name=appdirs.user_config_dir('eiskaltdc++')
 def confs():
 	global keep
 	keep=data.get_text()
