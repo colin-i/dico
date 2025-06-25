@@ -33,18 +33,20 @@ def ini():
 		time.sleep(5)
 		if os.path.isfile(f):
 			return -1
-		print("cannot open "+f)
-		daem.dclose_owned()
+		if daem.absent: #else will be same error
+			daem.dclose_owned()
 
-		import xml.etree.ElementTree as ET
-		from . import nick
-		s=a+nick.name.get_text()+b
-		e=ET.fromstring(s)
-		t = ET.ElementTree(element=e)
-		try:
-			t.write(f)
-		except Exception:
-			from . import base
-			print("cannot write to "+f+" , if is the portable daemon then set \"ext_file\" in "+base.get_client()+" to point to the right location")
-			return 0
+			import xml.etree.ElementTree as ET
+			from . import nick
+			s=a+nick.name.get_text()+b
+			e=ET.fromstring(s)
+			t = ET.ElementTree(element=e)
+			try:
+				t.write(f)
+				return 1
+			except Exception:
+				pass
+		from . import base
+		print("cannot write to "+f+" , if is the portable daemon then set \"ext_file\" in "+base.get_client()+" to point to the right location")
+		return 0
 	return 1
