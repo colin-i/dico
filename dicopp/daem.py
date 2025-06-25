@@ -58,6 +58,8 @@ def dopen():
 		open()
 def dclose():
 	close(True)
+def dclose_owned():
+	close(False)
 def open():
 	seq=shlex.split(data.get_text())
 	args=[name]

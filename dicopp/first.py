@@ -26,7 +26,7 @@ def ini():
 		try:
 			daem.dopen()
 		except Exception:
-			print("first daemon open error")
+			print("daemon open error at start")
 			return 0
 		import time
 		print("no daemon confs. sleep 5")
@@ -34,12 +34,17 @@ def ini():
 		if os.path.isfile(f):
 			return -1
 		print("cannot open "+f)
-		daem.dclose() #this is sync
+		daem.dclose_owned()
 
 		import xml.etree.ElementTree as ET
 		from . import nick
 		s=a+nick.name.get_text()+b
 		e=ET.fromstring(s)
 		t = ET.ElementTree(element=e)
-		t.write(f)
+		try:
+			t.write(f)
+		except Exception:
+			from . import base
+			print("cannot write to "+f+" , if is the portable daemon then set \"ext_file\" in "+base.get_client()+" to point to the right location")
+			return 0
 	return 1

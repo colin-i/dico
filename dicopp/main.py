@@ -21,7 +21,7 @@ from . import first
 
 def quit(widget, mainloop):
 	base.write(widget)
-	daem.close(False)#in base.write is log, can require daemon open
+	daem.dclose_owned() #in base.write is log, can require daemon open
 	limit.close()
 	hubscon.close()
 	search.close()

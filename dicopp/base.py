@@ -58,6 +58,7 @@ def read(win):
 			com.restore(d)
 			return d
 	except Exception:
+		print("error at json read "+get_client())
 		return None
 def read2(d):
 	if d:
