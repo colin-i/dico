@@ -1,0 +1,74 @@
+
+on:
+ workflow_dispatch:
+env:
+ #for upload
+ GITHUB_TOKEN: ${{ secrets.PAT }}
+
+jobs:
+ archbuild:
+  runs-on: ubuntu-latest
+  container: archlinux:latest
+
+  steps:
+  - name: Checkout
+    uses: actions/checkout@master
+  - name: build
+    run: |
+     name=`cat debian/changelog | head -1 | grep -o ^[^\ ]*`
+     here=`pwd`
+
+     useradd bot
+     cd /home
+     mkdir bot
+     chown bot:bot bot
+     cd bot
+     pacman -Sy --noconfirm --needed sudo git base-devel wget\
+      python-build python-installer python-wheel python-setuptools\
+      gtk4 python-appdirs python-psutil python-gobject python-requests
+
+     echo "ALL ALL=(ALL) NOPASSWD: /usr/bin/*" > /etc/sudoers.d/a  #needed at makepkg -i and yay makepkg calls
+
+     su bot -c 'git clone --depth 1 https://aur.archlinux.org/yay-bin.git'
+     cd yay-bin
+     su bot -c 'makepkg -i --noconfirm'
+
+     su bot -c 'yay -Sy --noconfirm --needed eiskaltdcpp-daemon' || { #will fail
+      cd ../.cache/yay/eiskaltdcpp
+      patch --input="${here}/arh/eispatch"
+      su bot -c "makepkg -ei --noconfirm"
+      mv src/build/eiskaltdcpp-daemon/eiskaltdcpp-daemon ${here}/eiskaltdcpp-daemon
+      gzip ${here}/eiskaltdcpp-daemon
+     }
+
+     fullname=python-${name}
+
+     su bot -c 'git clone -n --depth=1 --filter=tree:0 https://github.com/colin-i/pkgbuilds'
+     cd pkgbuilds
+     su bot -c "git sparse-checkout set --no-cone /${fullname}"
+     su bot -c 'git checkout'
+
+     cd ${fullname}
+     su bot -c makepkg
+
+     nm=`ls | grep ".*\.zst$" | grep -v debug`
+     nm2=`echo ${nm} | sed s/-any/-all/`
+     mv ${nm} ${here}/${nm2}
+     echo "file=${nm2}" >> $GITHUB_ENV
+
+     wget https://github.com/colin-i/test/releases/download/1.5/${name} -O 1.txt
+     echo "up_url=`cat 1.txt`" >> $GITHUB_ENV
+  - name: Upload Release Asset
+    uses: actions/upload-release-asset@v1
+    with:
+     upload_url: ${{ env.up_url }}
+     asset_path: ./${{ env.file }}
+     asset_name: ${{ env.file }}
+     asset_content_type: application/zstd
+  - name: Upload Release Asset eis kalt
+    uses: actions/upload-release-asset@v1
+    with:
+     upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
+     asset_path: ./eiskaltdcpp-daemon.gz
+     asset_name: eiskaltdcpp-daemon.gz
+     asset_content_type: application/gzip

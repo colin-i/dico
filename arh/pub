@@ -12,9 +12,12 @@ pre=$(curl https://api.github.com/repos/colin-i/$(cat debian/control | grep "^Ho
 ~/test/pub appimage rpm rel && \
 ~/test/ai/upapp && \
 ~/test/pyp/pypi && \
+~/arh/eisdel && \
+~/test/pkg/onb && \
+~/test/pub upapp pkg && \
+py=x ~/test/pkg/aur && \
 py=x ~/test/rpm/copr && \
 py=x ~/test/rpm/suse && \
-~/test/pub upapp && \
 ~/test/pub2 && \
 ~/test/publp2 && \
 ~/test/lp && \

@@ -39,6 +39,13 @@ dnf install python3-dicopp
 And having eiskaltdcpp/gtk4.\
 \
 \
+On Arch Linux, <i>.zst</i> file from [releases](https://github.com/colin-i/dico/releases). Or:
+```sh
+yay -Sy python-dicopp
+```
+Will also install gtk4 if is not already installed.\
+\
+\
 From [PyPI](https://pypi.org/project/dicopp):
 ```sh
 pip3 install dicopp
