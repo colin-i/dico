@@ -37,8 +37,12 @@ jobs:
       cd ../.cache/yay/eiskaltdcpp
       patch --input="${here}/arh/eispatch"
       su bot -c "makepkg -ei --noconfirm"
-      mv src/build/eiskaltdcpp-daemon/eiskaltdcpp-daemon ${here}/eiskaltdcpp-daemon
-      gzip ${here}/eiskaltdcpp-daemon
+
+      eisver=`cat ./PKGBUILD | grep ^pkgver= | grep -Po "(?<==)[1-9]*.[1-9]*"`
+      mkdir eiskaltdcpp-daemon
+      mv src/build/eiskaltdcpp-daemon/eiskaltdcpp-daemon eiskaltdcpp-daemon
+      mv src/build/dcpp/libeiskaltdcpp.so.${eisver} eiskaltdcpp-daemon
+      tar -c --zstd -f ${here}/eiskaltdcpp-daemon.tar.zst eiskaltdcpp-daemon
      }
 
      fullname=python-${name}
@@ -69,6 +73,6 @@ jobs:
     uses: actions/upload-release-asset@v1
     with:
      upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
-     asset_path: ./eiskaltdcpp-daemon.gz
-     asset_name: eiskaltdcpp-daemon.gz
-     asset_content_type: application/gzip
+     asset_path: ./eiskaltdcpp-daemon.tar.zst
+     asset_name: eiskaltdcpp-daemon.tar.zst
+     asset_content_type: application/zstd
