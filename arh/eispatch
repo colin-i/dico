@@ -1,0 +1,45 @@
+--- PKGBUILD	2025-06-26 13:41:20.831006495 +0000
++++ p	2025-06-26 13:41:53.424606265 +0000
+@@ -4,11 +4,7 @@
+ 
+ pkgbase="eiskaltdcpp"
+ pkgname=("${pkgbase}-core"
+-         "${pkgbase}-qt"
+-         "${pkgbase}-gtk"
+          "${pkgbase}-daemon"
+-         "${pkgbase}-cli"
+-         "${pkgbase}-data"
+          )
+ pkgver=2.4.2
+ pkgrel=3
+@@ -49,29 +45,7 @@
+ 
+ build() {
+   cd build
+-  cmake ../eiskaltdcpp-"${pkgver}" \
+-    -DCMAKE_BUILD_TYPE=None \
+-    -DCMAKE_INSTALL_PREFIX=/usr \
+-    -DUSE_QT5=ON \
+-    -DUSE_QT_QML=OFF \
+-    -DUSE_QT_SQLITE=ON \
+-    -DUSE_GTK3=ON \
+-    -DLUA_SCRIPT=ON \
+-    -DUSE_MINIUPNP=ON \
+-    -DUSE_ASPELL=ON \
+-    -DUSE_LIBNOTIFY=ON \
+-    -DWITH_LUASCRIPTS=ON \
+-    -DWITH_SOUNDS=ON \
+-    -DWITH_DEV_FILES=ON \
+-    -DUSE_JS=ON \
+-    -DXMLRPC_DAEMON=OFF \
+-    -DPERL_REGEX=ON \
+-    -DENABLE_STACKTRACE=ON \
+-    -DJSONRPC_DAEMON=ON \
+-    -DUSE_CLI_XMLRPC=OFF \
+-    -DUSE_CLI_JSONRPC=ON \
+-    -DLOCAL_JSONCPP=OFF \
+-    -DLOCAL_BOOST=OFF
++  cmake ../eiskaltdcpp-2.4.2 -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr -DUSE_QT5=OFF -DUSE_GTK3=OFF -DNO_UI_DAEMON=ON -DLUA_SCRIPT=OFF -DUSE_MINIUPNP=OFF -DUSE_ASPELL=OFF -DUSE_IDNA=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+ 
+   make
+ }
