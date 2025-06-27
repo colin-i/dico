@@ -58,7 +58,7 @@ def read(win):
 			com.restore(d)
 			return d
 	except Exception:
-		print("error at json read "+get_client())
+		#print("error at json read "+get_client()) #this is somehow blocking ENTRY_DEBUG marker but not on screen, only at strace code
 		return None
 def read2(d):
 	if d:

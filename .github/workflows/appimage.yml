@@ -4,12 +4,16 @@ on:
   inputs:
    ppa:
     description: "ppa sufix"
+   testf:
+    description: "test file"
+   testfd:
+    description: "test file destination"
 
 jobs:
  build:
   runs-on: ubuntu-22.04
   steps:
-   - uses: actions/checkout@v3
+   - uses: actions/checkout@master
    - name: Run a multi-line script
      run: |
       name=`cat debian/changelog | head -1 | grep -o ^[^\ ]*`
@@ -52,7 +56,7 @@ jobs:
        inter=Packages
        fullinter=${inter}${repo}
        if [ ! -e "${fullinter}" ]; then
-        wget http://${src}/ubuntu/dists/jammy/${repo}/binary-amd64/${inter}.xz -O ${fullinter}.xz
+        wget http://${src}/ubuntu/dists/jammy${3}/${repo}/binary-amd64/${inter}.xz -O ${fullinter}.xz
         xz -d ${fullinter}.xz
        fi
        debfilename=`grep "^Filename.*/${pkg}_" ${fullinter}`
@@ -62,14 +66,47 @@ jobs:
        wget ${wget_url} -O ${maindeb}
        dpkg -x ${maindeb} AppDir
       }
-      downdeb eiskaltdcpp-daemon universe
-       downdeb libeiskaltdcpp2.4 universe
-       downdeb liblua5.2-0 universe
-       downdeb libpcrecpp0v5 main
+
+      #only for noble
+      downdeb libpython3.10-minimal main
+      downdeb libpython3.10-stdlib main
+      downdeb python3.10-minimal main
+      #import psutil(jammy version) at noble is error
+      downdeb python3-gi main
+      downdeb python3-requests main
+      downdeb python3-six main
+      downdeb python3-chardet main
+      downdeb python3-certifi main
+      downdeb python3-urllib3 main -updates
+      downdeb python3-idna main -updates
+      #
+      downdeb gir1.2-freedesktop main   #cairo typelib
+      downdeb gir1.2-gdkpixbuf-2.0 main #gdk typelib
+      downdeb libpcrecpp0v5 main        #lib eis at -d
+      downdeb libpcre3 main             #libpcre at -d
+
+      downdeb gir1.2-graphene-1.0 main
+      downdeb libminiupnpc17 main
       downdeb python3-appdirs main
       downdeb python3-psutil main
-      #
+      #python3-requests is already
+
+      downdeb eiskaltdcpp-daemon universe
+      downdeb libeiskaltdcpp2.4 universe
+      downdeb liblua5.2-0 universe
+
+      downdeb gir1.2-gtk-4.0 main -updates
+      downdeb gir1.2-harfbuzz-0.0 main -updates
+      downdeb gir1.2-pango-1.0 main -updates
+      downdeb libidn12 main -updates
+      downdeb libpangoxft-1.0-0 main -updates
+
       apd=AppDir
+      if [ -n "${{ github.event.inputs.testf }}" ]; then
+       echo ${{ github.event.inputs.testf }} ${{ github.event.inputs.testfd }}
+       mv ${{ github.event.inputs.testf }} ${apd}/${{ github.event.inputs.testfd }}
+      fi
+
       cd ${apd}
       file2=AppRun
       if [ ! -e "${file2}" ]; then
@@ -101,15 +138,18 @@ jobs:
        echo launcher
        cd usr/bin
        mv ${name} ${sname}
-       #PYTHONHOME is also set by AppRun wrong
+       #PYTHONHOME(for main modules) is set by AppRun wrong. easy to test with echo ${PYTHONHOME}
+       #unset PYTHONHOME #only if not adding python
+       #after first 2 LD is for noble
        cat > ${name} <<EOF
       #!/bin/sh
       cd "\$(dirname "\$0")"
       cd ../
-      unset PYTHONHOME
-      LD_LIBRARY_PATH="\$(pwd)/lib:\$(pwd)/lib/x86_64-linux-gnu" \
-       PYTHONPATH="\$(pwd)/lib/python3/dist-packages" \
-       python3 bin/${sname}
+      LD_LIBRARY_PATH="\$(pwd)/lib:\$(pwd)/lib/x86_64-linux-gnu:\$(pwd)/../lib/x86_64-linux-gnu"\
+       PYTHONHOME="\$(pwd)"\
+       PYTHONPATH="\$(pwd)/lib/python3/dist-packages"\
+       GI_TYPELIB_PATH="\$(pwd)/lib/x86_64-linux-gnu/girepository-1.0"\
+       ./bin/python3.10 bin/${sname} "\$@"
       EOF
        chmod 755 ${name}
        cd ../../
@@ -159,7 +199,7 @@ jobs:
       #glibc=`readelf -V ${apd}/usr/bin/${name} | grep -Po "(?<= GLIBC_)[^ ]*" | sort -Vr | head -1 | sed "s/\./-/g"`
       #echo -n ${glibc} > version #"glibc" will not be ok for upload-artifact
    - name: artifact
-     uses: actions/upload-artifact@v3
+     uses: actions/upload-artifact@master
      with:
       name: appimage
       path: |

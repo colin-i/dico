@@ -1,0 +1,16 @@
+on:
+ workflow_dispatch:
+  inputs:
+   packs:
+    description: "test packs"
+   ron:
+    default: ubuntu-22.04
+jobs:
+ aptest1a:
+  runs-on: ${{ github.event.inputs.ron }}
+  steps:
+   - uses: colin-i/test/.github/actions/tester@test
+     with:
+      name: dicopp
+      prepack: libgtk-4-1
+      packs: ${{ github.event.inputs.packs }}

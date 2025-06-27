@@ -1,0 +1,10 @@
+on:
+ workflow_dispatch:
+jobs:
+ aptest2:
+  runs-on: ubuntu-22.04
+  steps:
+   - uses: colin-i/test/.github/actions/tester2@test
+     with:
+      name: dicopp
+      packs: eiskaltdcpp-daemon gir1.2-graphene-1.0 gir1.2-gtk-4.0 gir1.2-harfbuzz-0.0 gir1.2-pango-1.0 libeiskaltdcpp2.4 libidn12 liblua5.2-0 libminiupnpc17 libpangoxft-1.0-0 python3-appdirs python3-psutil
