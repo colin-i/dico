@@ -1,3 +1,4 @@
 
 cd ~/a/Desktop/eiskaltdcpp && \
-gh release delete-asset 1 eiskaltdcpp-daemon.gz
+gh release delete-asset 1 eiskaltdcpp-daemon.tar.zst && \
+gh release delete-asset 1 version

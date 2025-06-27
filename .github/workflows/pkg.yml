@@ -1,6 +1,9 @@
 
 on:
  workflow_dispatch:
+  inputs:
+   deps:
+    description: "request dependencies"
 env:
  #for upload
  GITHUB_TOKEN: ${{ secrets.PAT }}
@@ -24,26 +27,37 @@ jobs:
      chown bot:bot bot
      cd bot
      pacman -Sy --noconfirm --needed sudo git base-devel wget\
-      python-build python-installer python-wheel python-setuptools\
-      gtk4 python-appdirs python-psutil python-gobject python-requests
+      python-build python-installer python-wheel python-setuptools
 
-     echo "ALL ALL=(ALL) NOPASSWD: /usr/bin/*" > /etc/sudoers.d/a  #needed at makepkg -i and yay makepkg calls
+     command=makepkg
+     if [ -z "${{ github.event.inputs.deps }}" ]; then
+      pacman -Sy --noconfirm --needed gtk4 python-appdirs python-psutil python-gobject python-requests
 
-     su bot -c 'git clone --depth 1 https://aur.archlinux.org/yay-bin.git'
-     cd yay-bin
-     su bot -c 'makepkg -i --noconfirm'
+      echo "ALL ALL=(ALL) NOPASSWD: /usr/bin/*" > /etc/sudoers.d/a  #needed at makepkg -i and yay makepkg calls
 
-     su bot -c 'yay -Sy --noconfirm --needed eiskaltdcpp-daemon' || { #will fail
-      cd ../.cache/yay/eiskaltdcpp
-      patch --input="${here}/arh/eispatch"
-      su bot -c "makepkg -ei --noconfirm"
+      su bot -c 'git clone --depth 1 https://aur.archlinux.org/yay-bin.git'
+      cd yay-bin
+      su bot -c 'makepkg -i --noconfirm'
 
-      eisver=`cat ./PKGBUILD | grep ^pkgver= | grep -Po "(?<==)[1-9]*.[1-9]*"`
-      mkdir eiskaltdcpp-daemon
-      mv src/build/eiskaltdcpp-daemon/eiskaltdcpp-daemon eiskaltdcpp-daemon
-      mv src/build/dcpp/libeiskaltdcpp.so.${eisver} eiskaltdcpp-daemon
-      tar -c --zstd -f ${here}/eiskaltdcpp-daemon.tar.zst eiskaltdcpp-daemon
-     }
+      su bot -c 'yay -Sy --noconfirm --needed eiskaltdcpp-daemon' || { #will fail
+       cd ../.cache/yay/eiskaltdcpp
+       patch --input="${here}/arh/eispatch"
+       su bot -c "makepkg -ei --noconfirm"
+
+       eisver=`cat ./PKGBUILD | grep ^pkgver= | grep -Po '(?<==).*'`
+       eisrel=`cat ./PKGBUILD | grep ^pkgrel= | grep -Po '(?<==).*'`
+       echo ${eisver}-${eisrel} > ${here}/eisversion
+       eismajorver=`echo ${eisver} | grep -o ^[0-9]*.[0-9]*`
+       mkdir eiskaltdcpp-daemon
+       mv src/build/eiskaltdcpp-daemon/eiskaltdcpp-daemon eiskaltdcpp-daemon
+       mv src/build/dcpp/libeiskaltdcpp.so.${eismajorver} eiskaltdcpp-daemon
+       tar -c -f ${here}/eiskaltdcpp-daemon.tar eiskaltdcpp-daemon
+       #--zstd
+       zstd ${here}/eiskaltdcpp-daemon.tar
+      }
+     else
+      command="${command} --nodeps"
+     fi
 
      fullname=python-${name}
 
@@ -53,7 +67,7 @@ jobs:
      su bot -c 'git checkout'
 
      cd ${fullname}
-     su bot -c makepkg
+     su bot -c "${command}"
 
      nm=`ls | grep ".*\.zst$" | grep -v debug`
      nm2=`echo ${nm} | sed s/-any/-all/`
@@ -76,3 +90,10 @@ jobs:
      asset_path: ./eiskaltdcpp-daemon.tar.zst
      asset_name: eiskaltdcpp-daemon.tar.zst
      asset_content_type: application/zstd
+  - name: Upload Release Asset eis kalt version
+    uses: actions/upload-release-asset@v1
+    with:
+     upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
+     asset_path: ./eisversion
+     asset_name: version
+     asset_content_type: text/plain
