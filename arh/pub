@@ -1,7 +1,7 @@
 
 pre=$(curl https://api.github.com/repos/colin-i/$(cat debian/control | grep "^Homepage" | grep -o [^/]*$)/releases/latest -s | jq .tag_name -r) && echo ${pre} && \
 ~/test/pyp/pyver && \
-~/test/debinit "${1}" && \
+py=x afterversion=~/test/pyp/pypre ~/test/debinit "${1}" && \
 ~/test/pub deb && \
 ~/test/keyring2 && \
 ~/test/deb && \

@@ -1,3 +1,9 @@
+dicopp (1-v17) jammy; urgency=medium
+
+  * sync last changes
+
+ -- bc <bc@bc-desktop>  Fri, 27 Jun 2025 10:38:58 +0300
+
 dicopp (1-jammy16) jammy; urgency=medium
 
   * manipulable hub lists
