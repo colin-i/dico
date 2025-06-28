@@ -1,3 +1,9 @@
+dicopp (1-v18) jammy; urgency=medium
+
+  * fix to make appimage print entry marker
+
+ -- bc <bc@bc-desktop>  Sat, 28 Jun 2025 06:43:02 +0300
+
 dicopp (1-v17) jammy; urgency=medium
 
   * sync last changes
