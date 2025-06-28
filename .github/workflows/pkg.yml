@@ -2,7 +2,7 @@
 on:
  workflow_dispatch:
   inputs:
-   deps:
+   no_deps:
     description: "request dependencies"
 env:
  #for upload
@@ -30,7 +30,7 @@ jobs:
       python-build python-installer python-wheel python-setuptools
 
      command=makepkg
-     if [ -z "${{ github.event.inputs.deps }}" ]; then
+     if [ -z "${{ github.event.inputs.no_deps }}" ]; then
       pacman -Sy --noconfirm --needed gtk4 python-appdirs python-psutil python-gobject python-requests
 
       echo "ALL ALL=(ALL) NOPASSWD: /usr/bin/*" > /etc/sudoers.d/a  #needed at makepkg -i and yay makepkg calls
@@ -84,6 +84,7 @@ jobs:
      asset_name: ${{ env.file }}
      asset_content_type: application/zstd
   - name: Upload Release Asset eis kalt
+    if: ${{ github.event.inputs.no_deps = '' }}
     uses: actions/upload-release-asset@v1
     with:
      upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
@@ -91,6 +92,7 @@ jobs:
      asset_name: eiskaltdcpp-daemon.tar.zst
      asset_content_type: application/zstd
   - name: Upload Release Asset eis kalt version
+    if: ${{ github.event.inputs.no_deps = '' }}
     uses: actions/upload-release-asset@v1
     with:
      upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
