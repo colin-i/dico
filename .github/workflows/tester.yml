@@ -9,7 +9,7 @@ jobs:
  aptest1a:
   runs-on: ${{ github.event.inputs.ron }}
   steps:
-   - uses: colin-i/test/.github/actions/tester@test
+   - uses: colin-i/test/.github/actions/tester@main
      with:
       name: dicopp
       prepack: libgtk-4-1
