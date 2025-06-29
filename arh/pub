@@ -3,10 +3,10 @@ pre=$(curl https://api.github.com/repos/colin-i/$(cat debian/control | grep "^Ho
 ~/test/pyp/pyver && \
 py=x afterversion=~/test/pyp/pypre ~/test/debinit "${1}" && \
 ~/test/pub deb && \
-~/test/keyring2 && \
 ~/test/deb && \
 ~/test/publp && \
 ~/test/ai/ai && \
+~/test/keyring && \
 ~/test/del && \
 ~/test/rel && \
 ~/test/pub appimage rpm rel && \
