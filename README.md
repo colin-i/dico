@@ -53,7 +53,7 @@ pip3 install dicopp
 And having eiskaltdcpp/gtk4. Also working on Windows MinGW64 MSys2 with eiskaltdcpp from official installer and the daemon to be in PATH.\
 \
 \
-On othern linux distributions with gtk4, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).
+On linux distributions with gtk4, <i>.AppImage</i> file from [releases](https://github.com/colin-i/dico/releases).
 
 ## From source
 Using gtk4 bound with PyGObject and eiskaltdcpp through json rpc.\
