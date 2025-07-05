@@ -19,5 +19,5 @@ jobs:
       branch: ${{ github.event.inputs.branch }}
       prepack: ${{ github.event.inputs.prepack }}
       debug: ${{ github.event.inputs.debug }}
-      pattern: bin/dico
+      pattern: 1
       gtk: 4

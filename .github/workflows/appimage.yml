@@ -107,12 +107,12 @@ jobs:
        #	unset PYTHONHOME #only if not adding python
        #after first 2 LD is because of python embed
        #old AppRun was setting PATH=...usr/bin:PATH
-       #bundled eis kalt is a fallback if is not in system, anyway will use appdirs user .config and share at eis kalt
+       #will use appdirs user .config and share at eis kalt, what is in env PATH for here?
        cat > ${file} <<EOF
       #!/bin/sh
       rootdir="\$(readlink -f "\$(dirname "\$0")")"
       root_dir="\${rootdir}"/usr
-      PATH="\${PATH}":"\${root_dir}"/bin\
+      PATH="\${root_dir}"/bin\
        LD_LIBRARY_PATH="\${root_dir}"/lib:"\${root_dir}"/lib/x86_64-linux-gnu:"\${rootdir}"/lib/x86_64-linux-gnu\
        PYTHONHOME="\${root_dir}"\
        PYTHONPATH="\${root_dir}"/lib/python3/dist-packages\
