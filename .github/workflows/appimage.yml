@@ -19,25 +19,16 @@ jobs:
       name=`cat debian/changelog | head -1 | grep -o ^[^\ ]*`
       name2=DiCoPP
       #
-      mkdir -p AppDir
-      file=runtime
-      arch_ai=-x86_64
-      archfile=${file}${arch_ai}
-      kitpart () {
-       #https://github.com/AppImage/pkg2appimage
-       #in searching for fuse3, was latest
-       #urlpart=`wget -q https://github.com/AppImage/AppImageKit/releases/continuous -O - | grep "${archfile}" | head -n 1 | cut -d '"' -f 2`
-       #this is at o urlpart=AppImage/AppImageKit/releases/latest/download/${archfile}
-       #this is from a browser, not tested at this comment
-       urlpart=AppImage/AppImageKit/releases/download/continuous/${archfile}
-      }
-      if [ ! -e "${file}" ]; then
-       kitpart
-       #"pkg2appimage-.*-x86_64.AppImage"
-       wget -c https://github.com/${urlpart}
-       mv ${archfile} ${file}
-       chmod a+x ${file}
+      apd=AppDir
+      mkdir -p ${apd}
+
+      run=runtime
+      if [ ! -e "${run}" ]; then
+       archfile=runtime-x86_64
+       wget -c https://github.com/AppImage/type2-runtime/releases/download/continuous/${archfile}
+       mv ${archfile} ${run}
       fi
+
       if [ ! -e "${name}.deb" ]; then
        version=`cat debian/changelog | head -1 | grep -Poe "[^\(]*(?=\))"`
        if [ ! -e "lp2.py" ]; then
@@ -48,6 +39,7 @@ jobs:
        wget ${OUTPUT}/+files/${name}_${version}_all.deb -O ${name}.deb
        dpkg -x ${name}.deb AppDir
       fi
+
       #dependencies
       downdeb () {
        pkg=${1}
@@ -101,24 +93,35 @@ jobs:
       downdeb libidn12 main -updates
       downdeb libpangoxft-1.0-0 main -updates
 
-      apd=AppDir
       if [ -n "${{ github.event.inputs.testf }}" ]; then
        echo ${{ github.event.inputs.testf }} ${{ github.event.inputs.testfd }}
        mv ${{ github.event.inputs.testf }} ${apd}/${{ github.event.inputs.testfd }}
       fi
 
       cd ${apd}
-      file2=AppRun
-      if [ ! -e "${file2}" ]; then
-       if [ -z "${urlpart}" ]; then
-        kitpart
-       fi
-       archfile2=${file2}${arch_ai}
-       urlpart=${urlpart:0:`echo ${urlpart} | grep -ob '[^/]*$' | cut -d ':' -f 1`}${archfile2}
-       wget -c https://github.com/${urlpart}
-       chmod a+x ${archfile2}
-       mv ${archfile2} ${file2}
+      #launcher
+      file=AppRun
+      if [ ! -e "${file}" ]; then
+       echo launcher
+       #when was site AppRun: PYTHONHOME(for main modules) is set by AppRun wrong. easy to test with echo ${PYTHONHOME}
+       #	unset PYTHONHOME #only if not adding python
+       #after first 2 LD is because of python embed
+       #old AppRun was setting PATH=...usr/bin:PATH
+       #bundled eis kalt is a fallback if is not in system, anyway will use appdirs user .config and share at eis kalt
+       cat > ${file} <<EOF
+      #!/bin/sh
+      rootdir="\$(readlink -f "\$(dirname "\$0")")"
+      root_dir="\${rootdir}"/usr
+      PATH="\${PATH}":"\${root_dir}"/bin\
+       LD_LIBRARY_PATH="\${root_dir}"/lib:"\${root_dir}"/lib/x86_64-linux-gnu:"\${rootdir}"/lib/x86_64-linux-gnu\
+       PYTHONHOME="\${root_dir}"\
+       PYTHONPATH="\${root_dir}"/lib/python3/dist-packages\
+       GI_TYPELIB_PATH="\${root_dir}"/lib/x86_64-linux-gnu/girepository-1.0\
+       exec "\${root_dir}"/bin/python3.10 "\${root_dir}"/bin/${name} "\$@"
+      EOF
+       chmod 755 ${file}
       fi
+
       pngfile=${name}.png
       if [ ! -e "${pngfile}" ]; then
        wget https://github.com/colin-i/test/releases/download/1.5/${name}.png -O ${pngfile}
@@ -132,28 +135,7 @@ jobs:
       EOF
        ln -s ${pngfile} .DirIcon
       fi
-      #launcher
-      sname=dico
-      if [ ! -e "usr/bin/${sname}" ]; then
-       echo launcher
-       cd usr/bin
-       mv ${name} ${sname}
-       #PYTHONHOME(for main modules) is set by AppRun wrong. easy to test with echo ${PYTHONHOME}
-       #unset PYTHONHOME #only if not adding python
-       #after first 2 LD is for noble
-       cat > ${name} <<EOF
-      #!/bin/sh
-      cd "\$(dirname "\$0")"
-      cd ../
-      LD_LIBRARY_PATH="\$(pwd)/lib:\$(pwd)/lib/x86_64-linux-gnu:\$(pwd)/../lib/x86_64-linux-gnu"\
-       PYTHONHOME="\$(pwd)"\
-       PYTHONPATH="\$(pwd)/lib/python3/dist-packages"\
-       GI_TYPELIB_PATH="\$(pwd)/lib/x86_64-linux-gnu/girepository-1.0"\
-       ./bin/python3.10 bin/${sname} "\$@"
-      EOF
-       chmod 755 ${name}
-       cd ../../
-      fi
+
       #metadata file
       mi=usr/share/metainfo
       mif=${mi}/com.colin.${name}.appdata.xml
@@ -187,12 +169,11 @@ jobs:
       </component>
       EOF
       fi
-      #
+
       cd ..
-      #
       if [ ! -e "${name}.AppImage" ]; then
        mksquashfs AppDir ${name}.squashfs -root-owned -noappend
-       cat runtime >> ${name}.AppImage
+       cat ${run} > ${name}.AppImage
        cat ${name}.squashfs >> ${name}.AppImage
        chmod a+x ${name}.AppImage
       fi
