@@ -14,20 +14,19 @@ Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
 \
 \
 On openSUSE, run the following as __root__:\
-For openSUSE Tumbleweed(x86_64/i586 aarch64):
+For openSUSE Tumbleweed(x86_64/i586 aarch64)(313 314):
 ```sh
 zypper addrepo https://download.opensuse.org/repositories/home:costin/openSUSE_Tumbleweed/home:costin.repo
 ```
-For openSUSE Leap(x86_64 aarch64):
+For openSUSE Leap(x86_64 aarch64)(313):
 ```sh
 zypper addrepo https://download.opensuse.org/repositories/home:costin/openSUSE_Leap_16.0/home:costin.repo
 ```
-And:
+And(regarding the above-mentioned versions, replace *313* with *314* if needed):
 ```sh
 zypper refresh
 zypper install python313-dicopp
 ```
-Replace *python313* with *python312* or *python311* if needed.\
 Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
 \
 \
