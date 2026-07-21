@@ -27,7 +27,7 @@ And(regarding the above-mentioned versions, replace *313* with *314* if needed):
 zypper refresh
 zypper install python313-dicopp
 ```
-Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
+Will also install eiskaltdcpp-daemon/typelib(Gtk)=4.0 if are not already installed.\
 \
 \
 On Fedora 42/43/44(x86_64 aarch64), run the following as __root__:
