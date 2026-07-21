@@ -10,7 +10,7 @@ Install:
 ```sh
 sudo apt-get install dicopp
 ```
-Will also install eiskaltdcpp-daemon/libgtk-4-1 if are not already installed.\
+Will also install eiskaltdcpp-daemon/gir1.2-gtk-4.0 if are not already installed.\
 \
 \
 On openSUSE, run the following as __root__:\
