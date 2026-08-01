@@ -39,7 +39,8 @@ jobs:
       cd yay-bin
       su bot -c 'makepkg -i --noconfirm'
 
-      su bot -c 'yay -Sy --noconfirm --needed eiskaltdcpp-daemon' || { #will fail
+      su bot -c 'yay -Sy --noconfirm --needed eiskaltdcpp-daemon-git' || {
+      #su bot -c 'yay -Sy --noconfirm --needed eiskaltdcpp-daemon' || { #will fail
        cd ../.cache/yay/eiskaltdcpp
        patch --input="${here}/arh/eispatch"
        su bot -c "makepkg -ei --noconfirm"
