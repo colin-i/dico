@@ -86,7 +86,7 @@ jobs:
      asset_content_type: application/zstd
   - name: Upload Release Asset eis kalt
     #hashFiles() is a GitHub Actions expression function, evaluated by the Actions runner/orchestrator itself
-    if: ${{ github.event.inputs.no_deps == '' && hashFiles('eiskaltdcpp-daemon.tar.zst') != '' }}
+    if: ${{ hashFiles('eiskaltdcpp-daemon.tar.zst') != '' }}
     uses: actions/upload-release-asset@v1
     with:
      upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
@@ -94,7 +94,7 @@ jobs:
      asset_name: eiskaltdcpp-daemon.tar.zst
      asset_content_type: application/zstd
   - name: Upload Release Asset eis kalt version
-    if: ${{ github.event.inputs.no_deps == '' && hashFiles('eisversion') != '' }}
+    if: ${{ hashFiles('eisversion') != '' }}
     uses: actions/upload-release-asset@v1
     with:
      upload_url: https://uploads.github.com/repos/colin-i/eiskaltdcpp/releases/228049606/assets{?name,label}
