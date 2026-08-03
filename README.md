@@ -48,7 +48,8 @@ git clone --filter=blob:none --sparse https://github.com/colin-i/pkgbuilds.git
 cd pkgbuilds
 git sparse-checkout set python-dicopp
 cd python-dicopp
-makepkg -si PACMAN='yay'
+yay -S eiskaltdcpp-daemon-git
+makepkg -si
 ```
 Will also install gtk4 if is not already installed.\
 \
