@@ -39,8 +39,16 @@ And having eiskaltdcpp/gtk4.\
 \
 \
 On Arch Linux, <i>.zst</i> file from [releases](https://github.com/colin-i/dico/releases). Or:
-```sh
+<!-- ```sh
 yay -Sy python-dicopp
+```
+Or: -->
+```sh
+git clone --filter=blob:none --sparse https://github.com/colin-i/pkgbuilds.git
+cd pkgbuilds
+git sparse-checkout set python-dicopp
+cd python-dicopp
+makepkg -si PACMAN='yay'
 ```
 Will also install gtk4 if is not already installed.\
 \
