@@ -1,10 +1,11 @@
 
 from gi.repository import Gtk
-import subprocess
-import shlex
-import psutil
-import sys
 import appdirs
+import os
+import psutil
+import shlex
+import subprocess
+import sys
 
 data=Gtk.EntryBuffer()#text=''
 
@@ -22,7 +23,6 @@ def ini():
 		name='eiskaltdcpp-daemon.exe'
 		#stor2.name=appdirs.user_config_dir('EiskaltDC++',None,roaming=True)
 		a=appdirs.user_config_dir('EiskaltDC++',roaming=True)
-		import os
 		stor2.name=os.path.dirname(a)
 	else:
 		stor2.name=appdirs.user_config_dir('eiskaltdc++')
@@ -55,7 +55,15 @@ def dopen():
 	global absent
 	absent=runs()==None
 	if absent:
-		open()
+		try:
+			open()
+		except Exception:
+			if os.path.exists("/etc/os-release"):
+				import builtins
+				with builtins.open("/etc/os-release") as f:
+					if "ID=fedora" in f.read().splitlines():
+						print('sudo dnf install eiskaltdcpp')
+			raise
 def dclose():
 	close(True)
 def dclose_owned():
